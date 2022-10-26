@@ -51,16 +51,22 @@ public class UICanvas : MonoBehaviour
     {
         gameObject.SetActive(true);
         //anim
+        AnimationOpen();
     }
 
     public virtual void Close()
     {
         UIManager.Ins.RemoveBackUI(this);
         //anim
+        AnimationClose();
         gameObject.SetActive(false);
         if (IsDestroyOnClose)
         {
             Destroy(gameObject);
         }
     }
+
+    public virtual void AnimationOpen() { }
+
+    public virtual void AnimationClose() { }
 }
