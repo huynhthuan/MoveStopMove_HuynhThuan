@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class InGame : UICanvas
 {
@@ -14,15 +13,11 @@ public class InGame : UICanvas
     public override void AnimationOpen()
     {
         base.AnimationOpen();
-        aliveBox.DOMoveY(1900f, 1f);
-        settingButton.DOMoveY(1900f, 1f);
     }
 
     public override void AnimationClose()
     {
         base.AnimationClose();
-        aliveBox.DOMoveY(2000f, 1f);
-        settingButton.DOMoveY(2000f, 1f);
     }
 
     public void ButtonSetting()

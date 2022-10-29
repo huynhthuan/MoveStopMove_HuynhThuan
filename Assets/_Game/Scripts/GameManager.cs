@@ -45,7 +45,7 @@ public class GameManager : Singleton<GameManager>
         // // Init level
         // levelManager.OnInit();
 
-        UIManager.Ins.OpenUI<Lobby>();
+        // UIManager.Ins.OpenUI<Lobby>();
     }
 
     // Update is called once per frame

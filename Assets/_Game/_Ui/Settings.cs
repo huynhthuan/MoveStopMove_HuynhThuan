@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class Settings : UICanvas
 {
@@ -20,20 +19,11 @@ public class Settings : UICanvas
     public override void AnimationOpen()
     {
         base.AnimationOpen();
-        homeButton.DOMoveX(304f, 1f);
-        continueButton.DOMoveX(780f, 1f);
-        listSetting.DOMoveX(540f, 1f);
-        backButton.DOMoveX(540f, 1f);
     }
 
     public override void AnimationClose()
     {
         base.AnimationClose();
-
-        homeButton.DOMoveX(-600f, 1f);
-        continueButton.DOMoveX(2400f, 1f);
-        listSetting.DOMoveX(2400f, 1f);
-        backButton.DOMoveX(-3000f, 1f);
     }
 
     public void HomeButton()

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24df076f7a4fe94a8c1be37f3607a83, type: 3}
+  m_Name: Shop Item Shield Rack
+  m_EditorClassIdentifier: 
+  listItem:
+  - {fileID: 11400000, guid: 1c509204516110f4facced91d955f99f, type: 2}
+  - {fileID: 11400000, guid: 72601e0572c69084791104977ebf5586, type: 2}
+  - {fileID: 11400000, guid: bf6219dbf7fb67846b676b0ac7ede544, type: 2}
