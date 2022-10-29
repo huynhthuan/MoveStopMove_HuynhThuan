@@ -31,6 +31,34 @@ public class Lobby : UICanvas
     public override void Open()
     {
         base.Open();
+    }
+
+    public override void Close()
+    {
+        base.Close();
+    }
+
+    public void PlayButton()
+    {
+        UIManager.Ins.OpenUI<InGame>();
+        Close();
+    }
+
+    public override void AnimationClose()
+    {
+        base.AnimationClose();
+
+        statusBar.DOMoveY(2025f, 1f);
+        userInfor.DOMoveY(2080f, 1f);
+        buttonPlay.DOMoveX(1400f, 1f);
+        buttonBoss.DOMoveX(1400f, 1f);
+        buttonEquipment.DOMoveY(-200f, 1f);
+        buttonSkin.DOMoveY(-200f, 1f);
+    }
+
+    public override void AnimationOpen()
+    {
+        base.AnimationOpen();
 
         statusBar.DOMoveY(1876f, 1f);
         userInfor.DOMoveY(1900f, 1f);
@@ -38,29 +66,5 @@ public class Lobby : UICanvas
         buttonBoss.DOMoveX(1040f, 1f);
         buttonEquipment.DOMoveY(89f, 1f);
         buttonSkin.DOMoveY(89f, 1f);
-    }
-
-    public override void Close()
-    {
-        statusBar.DOMoveY(2025f, 1f);
-        userInfor.DOMoveY(2080f, 1f);
-        buttonPlay.DOMoveX(1400f, 1f);
-        buttonBoss.DOMoveX(1400f, 1f);
-        buttonEquipment.DOMoveY(-200f, 1f);
-        buttonSkin.DOMoveY(-200f, 1f);
-
-        UIManager.Ins.RemoveBackUI(this);
-        //anim
-        gameObject.SetActive(false);
-        if (IsDestroyOnClose)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void PlayButton()
-    {
-        UIManager.Ins.OpenUI<InGame>();
-        Close();
     }
 }
