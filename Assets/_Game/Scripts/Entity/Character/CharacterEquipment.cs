@@ -5,37 +5,23 @@ using UnityEngine;
 public class CharacterEquipment : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] equipItems;
+    private GameObject weaponSlot;
 
-    public void EquipItem(EquipmentSlotType slot, ItemEquipment itemObject, int materialIndex)
+    private Transform weaponSlotTransform;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        int equipSlot = (int)slot;
-        GameObject equipItemSlot = equipItems[equipSlot];
+        weaponSlotTransform = weaponSlot.transform;
+    }
 
-        Transform equipItemTransform = equipItemSlot.GetComponent<Transform>();
-        Quaternion equipItemRotation = equipItemTransform.rotation;
-        SkinnedMeshRenderer skinnedMeshRenderer = equipItemSlot.GetComponent<SkinnedMeshRenderer>();
-        MeshFilter meshFilter = equipItemSlot.GetComponent<MeshFilter>();
-        MeshRenderer meshRenderer = equipItemSlot.GetComponent<MeshRenderer>();
-        Material material = itemObject.listCustomMaterial[materialIndex].material;
+    public void HiddenWeapon()
+    {
+        weaponSlot.SetActive(false);
+    }
 
-        equipItemTransform.position = itemObject.positionEquip;
-        equipItemRotation = Quaternion.Euler(itemObject.rotateEquip);
-
-        if (skinnedMeshRenderer != null)
-        {
-            skinnedMeshRenderer.sharedMesh = itemObject.mesh;
-            skinnedMeshRenderer.material = material;
-        }
-
-        if (meshFilter != null)
-        {
-            meshFilter.mesh = itemObject.mesh;
-        }
-
-        if (meshRenderer != null)
-        {
-            meshRenderer.material = material;
-        }
+    public void ShowWeapon()
+    {
+        weaponSlot.SetActive(true);
     }
 }

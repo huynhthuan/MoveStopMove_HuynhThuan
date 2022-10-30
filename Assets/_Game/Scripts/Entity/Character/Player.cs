@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Character
+public class Player : Character, IAction<Transform>
 {
     [SerializeField]
     public float speed;
@@ -10,9 +10,58 @@ public class Player : Character
     [SerializeField]
     private DynamicJoystick joystick;
 
-    public override void InitItemEquipment()
+    public void AddTagert(Transform target)
     {
-        base.InitItemEquipment();
+        targets.Add(target);
+    }
+
+    public void Attack()
+    {
+        characterEquipment.HiddenWeapon();
+        ChangeAnim(ConstString.ANIM_ATTACK);
+        characterEquipment.ShowWeapon();
+    }
+
+    public Transform FindNearestEnemy()
+    {
+        Debug.Log("targets " + targets);
+        Transform nearestEnemy = targets[0];
+        float minDistance = GetDistanceFromTarget(nearestEnemy.transform.position);
+
+        foreach (Transform target in targets)
+        {
+            if (Vector3.Distance(transform.position, target.position) < minDistance)
+            {
+                nearestEnemy = target;
+                break;
+            }
+        }
+
+        return nearestEnemy;
+    }
+
+    public void RemoveTarget(Transform target)
+    {
+        targets.Remove(target);
+    }
+
+    public void SelectTarget(Transform target)
+    {
+        if (currentTarget != null)
+        {
+            UnSelectTarget(currentTarget);
+        }
+        currentTarget = target;
+        GameObject enemyObj = target.gameObject;
+        TargetIndicator enemyIndicator = enemyObj.GetComponentInChildren<TargetIndicator>();
+        enemyIndicator.EnableIndicator();
+    }
+
+    public void UnSelectTarget(Transform target)
+    {
+        GameObject enemyObj = target.gameObject;
+        TargetIndicator enemyIndicator = enemyObj.GetComponentInChildren<TargetIndicator>();
+        enemyIndicator.DisableIndicator();
     }
 
     // Update is called once per frame
@@ -30,13 +79,23 @@ public class Player : Character
         }
 
         rb.velocity = direction * speed * Time.fixedDeltaTime;
-        if (Vector3.Distance(Vector3.zero, rb.velocity) > 0f)
+
+        if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
         {
-            ChangeAnim(ConstString.ANIM_RUN);
+            if (targets.Count > 0)
+            {
+                RotationToTarget();
+                Attack();
+            }
+            else
+            {
+                ChangeAnim(ConstString.ANIM_IDLE);
+            }
         }
         else
         {
-            ChangeAnim(ConstString.ANIM_IDLE);
+            Debug.Log("Run");
+            ChangeAnim(ConstString.ANIM_RUN);
         }
     }
 }

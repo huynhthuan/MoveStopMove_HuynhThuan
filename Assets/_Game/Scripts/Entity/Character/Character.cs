@@ -10,20 +10,30 @@ public class Character : MonoBehaviour
     [SerializeField]
     private Animator anim;
 
-    private string currentAnimName;
+    [SerializeField]
+    private AttackRange attackRange;
+
+    [SerializeField]
+    internal Transform currentTarget;
+
+    [SerializeField]
+    internal List<Transform> targets = new List<Transform>();
+
     internal CharacterEquipment characterEquipment;
+
+    private string currentAnimName;
+    private int scaleRatio = 1;
 
     private void Start()
     {
         characterEquipment = anim.GetComponent<CharacterEquipment>();
+        OnInit();
     }
 
     private void OnInit()
     {
-        InitItemEquipment();
+        attackRange.OnInit(this);
     }
-
-    public virtual void InitItemEquipment() { }
 
     public void ChangeAnim(string animName)
     {
@@ -33,5 +43,17 @@ public class Character : MonoBehaviour
             currentAnimName = animName;
             anim.SetTrigger(currentAnimName);
         }
+    }
+
+    public float GetDistanceFromTarget(Vector3 targetPosition)
+    {
+        return Vector3.Distance(transform.position, targetPosition);
+    }
+
+    public void RotationToTarget()
+    {
+        Vector3 direction = (currentTarget.position - transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        rb.transform.rotation = rotation;
     }
 }
