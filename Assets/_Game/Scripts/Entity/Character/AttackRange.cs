@@ -6,14 +6,11 @@ public class AttackRange : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
     private Character character;
-    private IAction<Transform> action;
 
     public void OnInit(Character character)
     {
         this.character = character;
-        action = character.GetComponent<IAction<Transform>>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Debug.Log(spriteRenderer);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,9 +18,8 @@ public class AttackRange : MonoBehaviour
         string otherTag = other.tag;
         if (otherTag == ConstString.TAG_BOT)
         {
-            spriteRenderer.color = Color.red;
             Transform enemy = other.transform;
-            action.AddTagert(enemy);
+            character.AddTagert(enemy);
         }
     }
 
@@ -32,20 +28,26 @@ public class AttackRange : MonoBehaviour
         string otherTag = other.tag;
         if (otherTag == ConstString.TAG_BOT)
         {
-            spriteRenderer.color = Color.white;
             Transform enemy = other.transform;
-            action.UnSelectTarget(enemy);
-            action.RemoveTarget(enemy);
+            character.UnSelectTarget(enemy);
+            character.RemoveTarget(enemy);
         }
     }
 
     private void FixedUpdate()
     {
-        if (character.targets.Count > 0 && action != null)
+        if (character != null)
         {
-            Debug.Log("action " + action);
-            Transform nearestEnemy = action.FindNearestEnemy();
-            action.SelectTarget(nearestEnemy);
+            if (character.targets.Count > 0 && spriteRenderer != null)
+            {
+                spriteRenderer.color = Color.red;
+                Transform nearestEnemy = character.FindNearestEnemy();
+                character.SelectTarget(nearestEnemy);
+            }
+            else
+            {
+                spriteRenderer.color = Color.white;
+            }
         }
     }
 }
