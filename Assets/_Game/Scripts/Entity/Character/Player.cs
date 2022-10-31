@@ -30,8 +30,13 @@ public class Player : Character
         {
             if (targets.Count > 0)
             {
-                RotationToTarget();
-                Attack();
+                Debug.Log("isCanAtk " + isCanAtk);
+                if (isCanAtk)
+                {
+                    isCanAtk = false;
+                    RotationToTarget();
+                    Attack();
+                }
             }
             else
             {
@@ -40,7 +45,12 @@ public class Player : Character
         }
         else
         {
-            Debug.Log("Run");
+            if (waitAfterAtkCoroutine != null)
+            {
+                StopCoroutine(waitAfterAtkCoroutine);
+            }
+            isCanAtk = true;
+            characterEquipment.ShowWeapon();
             ChangeAnim(ConstString.ANIM_RUN);
         }
     }

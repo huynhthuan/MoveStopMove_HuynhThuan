@@ -4,20 +4,49 @@ using UnityEngine;
 
 public enum WeaponType
 {
-    SWORD,
+    KNIFE,
     HAMMER,
-    AXE,
-    WAND
+    BOOMERANG,
 }
 
 public class Weapon : MonoBehaviour
 {
+    internal bool isHasFire;
+    private Transform target;
+
     [SerializeField]
     private WeaponType weaponType;
+    private Character character;
 
-    // Start is called before the first frame update
-    void Start() { }
+    public void OnInit(Character character)
+    {
+        this.character = character;
+    }
 
-    // Update is called once per frame
-    void Update() { }
+    public void SetTarget(Transform enemyPosition)
+    {
+        target = enemyPosition;
+    }
+
+    public void FireWeapon()
+    {
+        isHasFire = true;
+    }
+
+    public virtual void Move(Transform target)
+    {
+        transform.position = Vector3.MoveTowards(
+            character.transform.position,
+            target.position,
+            Time.fixedDeltaTime
+        );
+    }
+
+    private void FixedUpdate()
+    {
+        if (isHasFire)
+        {
+            Move(target);
+        }
+    }
 }

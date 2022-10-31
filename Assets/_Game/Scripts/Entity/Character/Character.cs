@@ -23,6 +23,8 @@ public class Character : MonoBehaviour
 
     private string currentAnimName;
     private int scaleRatio = 1;
+    internal bool isCanAtk = true;
+    internal Coroutine waitAfterAtkCoroutine;
 
     private void Start()
     {
@@ -64,9 +66,21 @@ public class Character : MonoBehaviour
 
     public void Attack()
     {
-        characterEquipment.HiddenWeapon();
         ChangeAnim(ConstString.ANIM_ATTACK);
+        characterEquipment.HiddenWeapon();
+        GameObject weaponBullet = Instantiate(characterEquipment.currentWeaponBullet);
+        Weapon weaponBulletComp = weaponBullet.GetComponent<Weapon>();
+        weaponBulletComp.SetTarget(currentTarget);
+        weaponBulletComp.OnInit(this);
+        weaponBulletComp.FireWeapon();
+        waitAfterAtkCoroutine = StartCoroutine(WaitAfterAttack(0.7f));
+    }
+
+    public IEnumerator WaitAfterAttack(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
         characterEquipment.ShowWeapon();
+        Debug.Log("Show weapon");
     }
 
     public Transform FindNearestEnemy()
@@ -109,4 +123,6 @@ public class Character : MonoBehaviour
         TargetIndicator enemyIndicator = enemyObj.GetComponentInChildren<TargetIndicator>();
         enemyIndicator.DisableIndicator();
     }
+
+    public void FireWeapon() { }
 }

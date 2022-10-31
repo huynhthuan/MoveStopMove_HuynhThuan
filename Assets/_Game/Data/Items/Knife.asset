@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d563c4abd90c5a748b6a67b79eb196ad, type: 3}
+  m_Name: Knife
+  m_EditorClassIdentifier: 
+  id: Weapon1
+  description: 
+  price: 0
+  icon: {fileID: 0}
+  materialItems:
+  - materialIndex: 0
+    materialAvaibleItems:
+    - material: {fileID: -3620572297651811420, guid: 6ceb482497284c14c825d4e280008204, type: 3}
+      icon: {fileID: 0}
+      price: 0
+    - material: {fileID: -2813467912831258332, guid: 179b83d00d7f3394bacb6b1ba3701b89, type: 3}
+      icon: {fileID: 0}
+      price: 0
+    - material: {fileID: 2100000, guid: 59e4faf24927edf4a82f463ad16f1c37, type: 2}
+      icon: {fileID: 0}
+      price: 0
+  - materialIndex: 1
+    materialAvaibleItems:
+    - material: {fileID: -3620572297651811420, guid: 6ceb482497284c14c825d4e280008204, type: 3}
+      icon: {fileID: 0}
+      price: 0
+    - material: {fileID: -2813467912831258332, guid: 179b83d00d7f3394bacb6b1ba3701b89, type: 3}
+      icon: {fileID: 0}
+      price: 0
+    - material: {fileID: 2100000, guid: 59e4faf24927edf4a82f463ad16f1c37, type: 2}
+      icon: {fileID: 0}
+      price: 0
+  prefabWeapon: {fileID: 2054116970717944770, guid: f254dc076c329c1499c4e4e2eeaa6c7c, type: 3}
+  prefabWeaponBullet: {fileID: 2116977918296577260, guid: dd6e56a4160a0ed4c8efd9bf271db9eb, type: 3}

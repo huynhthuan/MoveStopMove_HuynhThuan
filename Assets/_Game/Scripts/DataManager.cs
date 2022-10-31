@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DataKey {
+public enum DataKey
+{
     GOLD,
     LEVEl_PROGRESS,
     EQUIPMENT
@@ -10,18 +11,17 @@ public enum DataKey {
 
 public class DataManager : Singleton<DataManager>
 {
+    [SerializeField]
+    private DataWeaponConfig dataWeapon;
 
     public void OnInit() { }
 
-    public void LoadData(){
+    public void LoadData() { }
 
-    }
+    public void SaveData() { }
 
-    public void SaveData(){
-
-    }
-
-    public void GetDataByKey(DataKey key){
-
+    public WeaponConfig GetDataWeapon(string weaponId)
+    {
+        return dataWeapon.GetWeapon(weaponId);
     }
 }
