@@ -9,44 +9,44 @@ public enum WeaponType
     BOOMERANG,
 }
 
-public class Weapon : MonoBehaviour
+public class Weapon : GameUnit
 {
-    internal bool isHasFire;
-    private Transform target;
-
     [SerializeField]
     private WeaponType weaponType;
+    [SerializeField]
+    private Rigidbody rb;
+
+    internal bool isHasFire;
+    private Transform target;
+    private Vector3 dirToTarget;
+
+
     private Character character;
 
-    public void OnInit(Character character)
+
+    public void SetDir(Vector3 dir)
     {
-        this.character = character;
+        dirToTarget = dir;
     }
 
-    public void SetTarget(Transform enemyPosition)
+    public override void OnInit()
     {
-        target = enemyPosition;
+
+        rb.velocity = dirToTarget * 5f;
     }
 
-    public void FireWeapon()
+
+    public override void OnDespawn()
     {
-        isHasFire = true;
+        SimplePool.Despawn(this);
     }
 
-    public virtual void Move(Transform target)
+    private void OnTriggerEnter(Collider other)
     {
-        transform.position = Vector3.MoveTowards(
-            character.transform.position,
-            target.position,
-            Time.fixedDeltaTime
-        );
-    }
 
-    private void FixedUpdate()
-    {
-        if (isHasFire)
+        if (other.CompareTag(ConstString.TAG_BOT))
         {
-            Move(target);
+            OnDespawn();
         }
     }
 }

@@ -52,9 +52,14 @@ public class Character : MonoBehaviour
         return Vector3.Distance(transform.position, targetPosition);
     }
 
+    public Vector3 GetDirToTarget()
+    {
+        return (currentTarget.position - transform.position).normalized;
+    }
+
     public void RotationToTarget()
     {
-        Vector3 direction = (currentTarget.position - transform.position).normalized;
+        Vector3 direction = GetDirToTarget();
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
         rb.transform.rotation = rotation;
     }
@@ -68,11 +73,11 @@ public class Character : MonoBehaviour
     {
         ChangeAnim(ConstString.ANIM_ATTACK);
         characterEquipment.HiddenWeapon();
-        GameObject weaponBullet = Instantiate(characterEquipment.currentWeaponBullet);
-        Weapon weaponBulletComp = weaponBullet.GetComponent<Weapon>();
-        weaponBulletComp.SetTarget(currentTarget);
-        weaponBulletComp.OnInit(this);
-        weaponBulletComp.FireWeapon();
+        Vector3 direction = GetDirToTarget();
+        GameUnit weaponBulletUnit = SimplePool.Spawn(characterEquipment.currentWeaponBullet, transform.position, Quaternion.LookRotation(direction, Vector3.up));
+        Weapon weaponBullet = weaponBulletUnit.GetComponent<Weapon>();
+        weaponBullet.SetDir(direction);
+        weaponBulletUnit.OnInit();
         waitAfterAtkCoroutine = StartCoroutine(WaitAfterAttack(0.7f));
     }
 

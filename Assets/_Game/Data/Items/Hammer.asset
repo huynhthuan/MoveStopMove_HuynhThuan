@@ -18,4 +18,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   materialItems: []
   prefabWeapon: {fileID: 2633568407635036849, guid: ebffcf20ceb57f84eb8c3eda24550edd, type: 3}
-  prefabWeaponBullet: {fileID: 7849074773058911657, guid: d5dc62dc18528f84084e7f2cb5949a22, type: 3}
+  prefabWeaponBullet: {fileID: 839939892677345380, guid: d5dc62dc18528f84084e7f2cb5949a22, type: 3}

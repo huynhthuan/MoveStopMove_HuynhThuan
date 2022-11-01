@@ -40,4 +40,4 @@ MonoBehaviour:
       icon: {fileID: 0}
       price: 0
   prefabWeapon: {fileID: 2054116970717944770, guid: f254dc076c329c1499c4e4e2eeaa6c7c, type: 3}
-  prefabWeaponBullet: {fileID: 2116977918296577260, guid: dd6e56a4160a0ed4c8efd9bf271db9eb, type: 3}
+  prefabWeaponBullet: {fileID: -9169036785341963480, guid: dd6e56a4160a0ed4c8efd9bf271db9eb, type: 3}

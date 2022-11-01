@@ -11,7 +11,8 @@ public class CharacterEquipment : MonoBehaviour
     private Transform weaponSlotTransform;
 
     private GameObject currentWeapon;
-    internal GameObject currentWeaponBullet;
+    internal Weapon currentWeaponBullet;
+
     public string weaponId;
 
     // Start is called before the first frame update
