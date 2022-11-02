@@ -6,5 +6,5 @@ using UnityEngine;
 public class WeaponConfig : ItemConfig
 {
     public GameObject prefabWeapon;
-    public GameObject prefabWeaponBullet;
+    public Weapon prefabWeaponBullet;
 }
