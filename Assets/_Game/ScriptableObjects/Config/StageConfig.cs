@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Stage", menuName = "ScriptableObjects/Stage", order = 1)]
 public class StageConfig : ScriptableObject
 {
-    public int playerAlive = 100;
+    public int numberOfPlayer = 100;
+    public GameObject stagePrefab;
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : GameUnit
 {
     [SerializeField]
     internal Rigidbody rb;
@@ -22,20 +22,18 @@ public class Character : MonoBehaviour
     internal CharacterEquipment characterEquipment;
 
     private string currentAnimName;
-    private int scaleRatio = 1;
+    // private int scaleRatio = 1;
     internal bool isCanAtk = true;
     internal Coroutine waitAfterAtkCoroutine;
+    private Stage currentStage;
 
-    private void Start()
+    public override void OnInit()
     {
         characterEquipment = anim.GetComponent<CharacterEquipment>();
-        OnInit();
+        attackRange.OnInit();
+        attackRange.character = this;
     }
 
-    private void OnInit()
-    {
-        attackRange.OnInit(this);
-    }
 
     public void ChangeAnim(string animName)
     {
@@ -129,5 +127,8 @@ public class Character : MonoBehaviour
         enemyIndicator.DisableIndicator();
     }
 
-    public void FireWeapon() { }
+    public override void OnDespawn()
+    {
+        throw new System.NotImplementedException();
+    }
 }

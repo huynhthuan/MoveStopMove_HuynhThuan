@@ -5,11 +5,10 @@ using UnityEngine;
 public class AttackRange : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    private Character character;
+    internal Character character;
 
-    public void OnInit(Character character)
+    public void OnInit()
     {
-        this.character = character;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

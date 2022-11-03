@@ -18,6 +18,7 @@ public class Player : Character
 
     private void Move(Vector3 direction)
     {
+
         if (Vector3.Distance(direction, Vector3.zero) > 0.01f)
         {
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);

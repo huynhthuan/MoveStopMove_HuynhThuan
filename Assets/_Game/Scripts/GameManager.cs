@@ -43,7 +43,8 @@ public class GameManager : Singleton<GameManager>
         // // Init audio
         // audioManager.OnInit();
         // // Init level
-        // levelManager.OnInit();
+        levelManager.OnInit();
+        levelManager.LoadStage();
         // UIManager.Ins.OpenUI<Lobby>();
     }
 

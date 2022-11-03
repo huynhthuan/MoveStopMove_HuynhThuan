@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2102f9604b885364a83f7852257cb2ff, type: 3}
-  m_Name: Stage1
+  m_Name: Stage0
   m_EditorClassIdentifier: 
-  playerAlive: 100
+  numberOfPlayer: 100
+  stagePrefab: {fileID: 8820432103365778401, guid: 0a9492eb61207da43aff87bb3432a19f, type: 3}
