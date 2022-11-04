@@ -49,4 +49,12 @@ public class LevelManager : Singleton<LevelManager>
         currentStage.OnInit();
     }
 
+    public Vector3 RandomPointInStage()
+    {
+        Bounds stageBounds = GetComponent<NavMeshSurface>().navMeshData.sourceBounds;
+        float rx = Random.Range(stageBounds.min.x, stageBounds.max.x);
+        float rz = Random.Range(stageBounds.min.z, stageBounds.max.z);
+        return new Vector3(rx, 0.9f, rz);
+    }
+
 }
