@@ -46,6 +46,8 @@ public class Weapon : GameUnit
 
         if (other.CompareTag(ConstString.TAG_BOT))
         {
+            IHit colliderHit = ColliderCacheIHit.GetHit(other);
+            colliderHit.OnHit();
             OnDespawn();
         }
     }

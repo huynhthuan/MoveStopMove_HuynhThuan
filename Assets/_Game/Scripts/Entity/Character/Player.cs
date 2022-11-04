@@ -6,22 +6,25 @@ public class Player : Character
 {
     [SerializeField]
     public float speed;
-
-    [SerializeField]
     private DynamicJoystick joystick;
+    private DataManager dataManager;
+
+    public override void OnInit()
+    {
+        base.OnInit();
+        dataManager = DataManager.Ins;
+        CameraFollow.Ins.target = TF;
+        joystick = GameManager.Ins.joystick;
+
+        WeaponConfig currentWeaponData = dataManager.GetDataWeapon(dataManager.currentPlayerData.weaponId);
+        Debug.Log("point " + characterEquipment.weaponSlotTransform);
+        characterEquipment.EquipWeapon(currentWeaponData);
+    }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
         Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
-
-        // While player move
-        if (waitAfterAtkCoroutine != null)
-        {
-            StopCoroutine(waitAfterAtkCoroutine);
-        }
-        isCanAtk = true;
-        characterEquipment.ShowWeapon();
     }
 
     private void Move(Vector3 direction)
@@ -53,12 +56,20 @@ public class Player : Character
             }
             else
             {
+
                 // Not has tartget, change idle anim
                 ChangeAnim(ConstString.ANIM_IDLE);
             }
         }
         else
         {
+            // While player move
+            if (waitAfterAtkCoroutine != null)
+            {
+                StopCoroutine(waitAfterAtkCoroutine);
+            }
+            isCanAtk = true;
+            characterEquipment.ShowWeapon();
             ChangeAnim(ConstString.ANIM_RUN);
         }
     }

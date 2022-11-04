@@ -110,9 +110,9 @@ GameObject:
   - component: {fileID: 7809795814854072463}
   - component: {fileID: 2771069936727214626}
   - component: {fileID: 423014546105355591}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bot
-  m_TagString: Player
+  m_TagString: Bot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,7 +191,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3163901421772608209}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -231,8 +231,10 @@ MonoBehaviour:
   attackRange: {fileID: 6532697871922894327}
   currentTarget: {fileID: 352434783547297802}
   targets: []
-  targetIndicator: {fileID: 0}
-  range: 10
+  targetIndicator: {fileID: 3499200513935981064}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!195 &423014546105355591
 NavMeshAgent:
   m_ObjectHideFlags: 0

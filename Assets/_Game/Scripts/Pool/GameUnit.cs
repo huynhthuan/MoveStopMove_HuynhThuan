@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameUnit : MonoBehaviour
+public abstract class GameUnit : MonoBehaviour, IHit
 {
     private Transform tf;
     public Transform TF
@@ -19,4 +19,8 @@ public abstract class GameUnit : MonoBehaviour
     public abstract void OnInit();
     public abstract void OnDespawn();
 
+    public virtual void OnHit()
+    {
+        Debug.Log(gameObject.name + " - Take hit");
+    }
 }

@@ -14,10 +14,9 @@ public class AttackRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        string otherTag = other.tag;
-        if (otherTag == ConstString.TAG_BOT)
+        if (other.CompareTag(ConstString.TAG_BOT))
         {
-            Transform enemy = other.transform;
+            Transform enemy = other.GetComponent<Character>().anim.transform;
             character.AddTagert(enemy);
         }
     }
@@ -27,7 +26,7 @@ public class AttackRange : MonoBehaviour
         string otherTag = other.tag;
         if (otherTag == ConstString.TAG_BOT)
         {
-            Transform enemy = other.transform;
+            Transform enemy = other.GetComponent<Character>().anim.transform;
             character.UnSelectTarget(enemy);
             character.RemoveTarget(enemy);
         }

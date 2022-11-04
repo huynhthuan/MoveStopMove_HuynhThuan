@@ -8,7 +8,7 @@ public class CharacterEquipment : MonoBehaviour
     [SerializeField]
     private GameObject weaponSlot;
 
-    private Transform weaponSlotTransform;
+    public Transform weaponSlotTransform;
 
     private GameObject currentWeapon;
     internal Weapon currentWeaponBullet;
@@ -16,7 +16,7 @@ public class CharacterEquipment : MonoBehaviour
     public string weaponId;
 
     // Start is called before the first frame update
-    void Start()
+    public void Oninit()
     {
         weaponSlotTransform = weaponSlot.transform;
     }

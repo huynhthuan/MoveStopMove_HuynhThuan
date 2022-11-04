@@ -18,9 +18,8 @@ public class DataManager : Singleton<DataManager>
     [SerializeField]
     private DataWeaponConfig dataWeapon;
 
-
     [SerializeField]
-    internal PlayerData currentPlayerData;
+    public PlayerData currentPlayerData;
 
     private string[] DataKeyString = { "GOLD", "USER_NAME", "CURRENT_STAGE", "WEAPON_ID", "WEAPON_MATERIAL_1", "WEAPON_MATERIAL_2" };
 
@@ -32,6 +31,7 @@ public class DataManager : Singleton<DataManager>
 
     public void LoadData()
     {
+        Debug.Log("Load data.");
         currentPlayerData.currentStage = PlayerPrefs.GetInt(GetKeyDataString(DataKey.CURRENT_STAGE), 0);
         currentPlayerData.gold = PlayerPrefs.GetInt(GetKeyDataString(DataKey.GOLD), 100);
         currentPlayerData.userName = PlayerPrefs.GetString(GetKeyDataString(DataKey.CURRENT_STAGE), "Unknow name");

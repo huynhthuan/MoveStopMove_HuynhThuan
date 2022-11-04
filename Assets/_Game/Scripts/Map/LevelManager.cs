@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class LevelManager : Singleton<LevelManager>
 {
     [SerializeField]
-    private GameObject playerPrefab;
+    internal Player playerPrefab;
 
     [SerializeField]
     internal Bot botPrefab;
@@ -21,8 +21,6 @@ public class LevelManager : Singleton<LevelManager>
     private Stage currentStage;
 
     private NavMeshSurface navMeshSurface;
-
-    public Player player;
 
     public void OnInit()
     {

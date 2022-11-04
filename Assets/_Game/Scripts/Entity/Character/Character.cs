@@ -8,7 +8,7 @@ public class Character : GameUnit
     internal Rigidbody rb;
 
     [SerializeField]
-    private Animator anim;
+    internal Animator anim;
 
     [SerializeField]
     private AttackRange attackRange;
@@ -27,15 +27,12 @@ public class Character : GameUnit
     internal Coroutine waitAfterAtkCoroutine;
     private Stage currentStage;
 
-    private void Start()
-    {
-        characterEquipment = anim.GetComponent<CharacterEquipment>();
-    }
-
     public override void OnInit()
     {
         attackRange.OnInit();
         attackRange.character = this;
+        characterEquipment = anim.GetComponent<CharacterEquipment>();
+        characterEquipment.Oninit();
     }
 
 
@@ -133,6 +130,12 @@ public class Character : GameUnit
 
     public override void OnDespawn()
     {
-        throw new System.NotImplementedException();
+
+    }
+
+    public override void OnHit()
+    {
+        base.OnHit();
+        ChangeAnim(ConstString.ANIM_DEAD);
     }
 }

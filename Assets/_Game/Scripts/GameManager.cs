@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField]
+    internal DynamicJoystick joystick;
     public DataManager dataManager;
     public AudioManager audioManager;
     public LevelManager levelManager;
+
 
     protected void Awake()
     {

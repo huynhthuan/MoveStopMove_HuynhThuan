@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : Singleton<CameraFollow>
 {
     [SerializeField]
-    private Transform target;
+    internal Transform target;
 
     [SerializeField]
     private Vector3 offset;

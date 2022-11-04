@@ -9,14 +9,20 @@ public class Stage : MonoBehaviour
 
     private int playerAlive;
     private int maxBot;
+    private Vector3 startPoint;
 
-    private List<Character> botInStage;
+    private List<Character> botInStage = new List<Character>();
 
     public void OnInit()
     {
         // Set player alive
         playerAlive = levelConfig.numberOfPlayer;
         maxBot = levelConfig.maxBot;
+        startPoint = levelConfig.startPoint;
+
+        //Spawn player
+        Player playerObj = (Player)SimplePool.Spawn(LevelManager.Ins.playerPrefab, startPoint, Quaternion.identity);
+        // playerObj.OnInit();
 
         // Spawn bot of stage
         if (IsCanSpawnBot())
@@ -50,7 +56,4 @@ public class Stage : MonoBehaviour
             SpawnBot(1);
         }
     }
-
-    // Update is called once per frame
-    void Update() { }
 }
