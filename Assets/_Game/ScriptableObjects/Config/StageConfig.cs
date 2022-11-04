@@ -6,5 +6,7 @@ using UnityEngine;
 public class StageConfig : ScriptableObject
 {
     public int numberOfPlayer = 100;
+    public int maxBot = 9;
     public GameObject stagePrefab;
+    public Transform startPoint;
 }

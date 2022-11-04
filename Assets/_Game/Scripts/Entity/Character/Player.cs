@@ -14,11 +14,19 @@ public class Player : Character
     private void FixedUpdate()
     {
         Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
+
+        // While player move
+        if (waitAfterAtkCoroutine != null)
+        {
+            StopCoroutine(waitAfterAtkCoroutine);
+        }
+        isCanAtk = true;
+        characterEquipment.ShowWeapon();
     }
 
     private void Move(Vector3 direction)
     {
-
+        // Rotation when move
         if (Vector3.Distance(direction, Vector3.zero) > 0.01f)
         {
             Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -27,13 +35,17 @@ public class Player : Character
 
         rb.velocity = direction * speed * Time.fixedDeltaTime;
 
+        // Check character stop
         if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
         {
+            // Check has target
             if (targets.Count > 0)
             {
                 Debug.Log("isCanAtk " + isCanAtk);
+                // Check can attack
                 if (isCanAtk)
                 {
+                    // Disable can attack
                     isCanAtk = false;
                     RotationToTarget();
                     Attack();
@@ -41,17 +53,12 @@ public class Player : Character
             }
             else
             {
+                // Not has tartget, change idle anim
                 ChangeAnim(ConstString.ANIM_IDLE);
             }
         }
         else
         {
-            if (waitAfterAtkCoroutine != null)
-            {
-                StopCoroutine(waitAfterAtkCoroutine);
-            }
-            isCanAtk = true;
-            characterEquipment.ShowWeapon();
             ChangeAnim(ConstString.ANIM_RUN);
         }
     }

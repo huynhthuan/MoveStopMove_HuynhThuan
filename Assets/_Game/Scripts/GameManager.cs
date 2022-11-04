@@ -30,6 +30,8 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+        // Init all manager
+
         dataManager = DataManager.Ins;
         // audioManager = AudioManager.Ins;
 
@@ -38,12 +40,13 @@ public class GameManager : Singleton<GameManager>
 
     public void OnInit()
     {
-        // Init data player
+        // Init data manger player
         dataManager.OnInit();
-        // // Init audio
+        // Init audio
         // audioManager.OnInit();
-        // // Init level
+        // Init level manager
         levelManager.OnInit();
+        // Load stage
         levelManager.LoadStage();
         // UIManager.Ins.OpenUI<Lobby>();
     }

@@ -26,6 +26,7 @@ public class DataManager : Singleton<DataManager>
 
     public void OnInit()
     {
+        // Load data player
         LoadData();
     }
 

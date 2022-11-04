@@ -44,16 +44,23 @@ public class LevelManager : Singleton<LevelManager>
         int currentPlayerStage = dataManager.currentPlayerData.currentStage;
         StageConfig currentStageConfig = stages[currentPlayerStage];
         GameObject stageObj = Instantiate(currentStageConfig.stagePrefab, Vector3.zero, Quaternion.identity, TF);
+        // Bake nav mesh
         navMeshSurface.BuildNavMesh();
         currentStage = stageObj.GetComponent<Stage>();
+
+        // Init stage has loaded
         currentStage.OnInit();
     }
 
     public Vector3 RandomPointInStage()
     {
+        // Get bounds current stage
         Bounds stageBounds = GetComponent<NavMeshSurface>().navMeshData.sourceBounds;
+        // Random x
         float rx = Random.Range(stageBounds.min.x, stageBounds.max.x);
+        // Random z
         float rz = Random.Range(stageBounds.min.z, stageBounds.max.z);
+        // Return random poin in stage
         return new Vector3(rx, 0.9f, rz);
     }
 

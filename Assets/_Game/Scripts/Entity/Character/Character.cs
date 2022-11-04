@@ -27,9 +27,13 @@ public class Character : GameUnit
     internal Coroutine waitAfterAtkCoroutine;
     private Stage currentStage;
 
-    public override void OnInit()
+    private void Start()
     {
         characterEquipment = anim.GetComponent<CharacterEquipment>();
+    }
+
+    public override void OnInit()
+    {
         attackRange.OnInit();
         attackRange.character = this;
     }
