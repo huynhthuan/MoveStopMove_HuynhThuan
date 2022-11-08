@@ -7,7 +7,7 @@ public class DataWeaponConfig : ScriptableObject
 {
     public List<WeaponConfig> weaponItems;
 
-    public WeaponConfig GetWeapon(string id)
+    public WeaponConfig FindById(string id)
     {
         return weaponItems.Find(item => item.id == id);
     }

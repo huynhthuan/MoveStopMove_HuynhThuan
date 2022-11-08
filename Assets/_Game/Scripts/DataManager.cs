@@ -31,7 +31,7 @@ public class DataManager : Singleton<DataManager>
 
     public void LoadData()
     {
-        Debug.Log("Load data.");
+        Debug.Log("[~] Load data player.");
         playerData.currentStage = PlayerPrefs.GetInt(GetKey(DataKey.CURRENT_STAGE), 0);
         playerData.gold = PlayerPrefs.GetInt(GetKey(DataKey.GOLD), 100);
         playerData.userName = PlayerPrefs.GetString(GetKey(DataKey.CURRENT_STAGE), ConstString.DEFAULT_USER_NAME);
@@ -42,6 +42,7 @@ public class DataManager : Singleton<DataManager>
 
     public void SaveData()
     {
+        Debug.Log("[+] Save data player.");
         PlayerPrefs.SetInt(GetKey(DataKey.CURRENT_STAGE), playerData.currentStage);
         PlayerPrefs.SetInt(GetKey(DataKey.GOLD), playerData.gold);
         PlayerPrefs.SetString(GetKey(DataKey.USER_NAME), playerData.userName);
@@ -55,31 +56,10 @@ public class DataManager : Singleton<DataManager>
         return DataKeyString[(int)key];
     }
 
-    public WeaponConfig GetWeapon(string weaponId)
+    public WeaponConfig GetWeaponConfig(string weaponId)
     {
-        return dataWeapon.GetWeapon(weaponId);
+        Debug.Log("[~] Get weapon config. Weapon: " + weaponId);
+        return dataWeapon.FindById(weaponId);
     }
 
 }
-
-#if UNITY_EDITOR
-[CustomEditor(typeof(DataManager))]
-public class GetCurrentDataButton : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-        if (GUILayout.Button("Get current data"))
-        {
-            ((DataManager)target).LoadData();
-            Debug.Log("Load data success.");
-        }
-
-        if (GUILayout.Button("Save current data"))
-        {
-            ((DataManager)target).SaveData();
-            Debug.Log("Save data success.");
-        }
-    }
-}
-#endif

@@ -12,12 +12,10 @@ public class Player : Character
     public override void OnInit()
     {
         base.OnInit();
-        dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
         joystick = GameManager.Ins.joystick;
 
-        WeaponConfig currentWeaponData = dataManager.GetWeapon(dataManager.playerData.weaponId);
-        Debug.Log("point " + characterEquipment.weaponSlotTransform);
+        WeaponConfig currentWeaponData = DataManager.Ins.GetWeaponConfig(DataManager.Ins.playerData.weaponId);
         characterEquipment.EquipWeapon(currentWeaponData);
     }
 
@@ -56,7 +54,6 @@ public class Player : Character
             }
             else
             {
-
                 // Not has tartget, change idle anim
                 ChangeAnim(ConstString.ANIM_IDLE);
             }

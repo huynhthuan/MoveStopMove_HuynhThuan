@@ -47,20 +47,3 @@ public class CharacterEquipment : MonoBehaviour
         currentWeaponBullet = weaponData.prefabWeaponBullet;
     }
 }
-
-#if UNITY_EDITOR
-[CustomEditor(typeof(CharacterEquipment))]
-public class ChangeWeaponHolderButton : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-        if (GUILayout.Button("Change Weapon"))
-        {
-            ((CharacterEquipment)target).EquipWeapon(
-                DataManager.Ins.GetWeapon(((CharacterEquipment)target).weaponId)
-            );
-        }
-    }
-}
-#endif
