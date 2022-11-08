@@ -6,5 +6,7 @@ public class ConstString
     public const string ANIM_ATTACK = "Attack";
     public const string TAG_BOT = "Bot";
     public const string PLAYER_DATA = "PLAYER_DATA";
+    public const string DEFAULT_USER_NAME = "Unknow name";
+    public const string DEFAULT_WEAPON_ID = "Weapon_1";
 
 }

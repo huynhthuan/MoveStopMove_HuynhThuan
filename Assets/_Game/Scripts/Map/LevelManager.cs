@@ -39,7 +39,7 @@ public class LevelManager : Singleton<LevelManager>
         }
 
         // Load new stage
-        int currentPlayerStage = dataManager.currentPlayerData.currentStage;
+        int currentPlayerStage = dataManager.playerData.currentStage;
         StageConfig currentStageConfig = stages[currentPlayerStage];
         GameObject stageObj = Instantiate(currentStageConfig.stagePrefab, Vector3.zero, Quaternion.identity, TF);
         // Bake nav mesh

@@ -22,12 +22,8 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField]
     private AudioMixer audioMixers;
 
-    private DataManager dataManager;
-
     public void OnInit()
     {
-        dataManager = GameManager.Ins.dataManager;
-
         InitAudioSourcesOutPut();
     }
 

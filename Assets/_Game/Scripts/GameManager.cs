@@ -6,10 +6,6 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     internal DynamicJoystick joystick;
-    public DataManager dataManager;
-    public AudioManager audioManager;
-    public LevelManager levelManager;
-
 
     protected void Awake()
     {
@@ -33,26 +29,35 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        // Init all manager
-
-        dataManager = DataManager.Ins;
-        // audioManager = AudioManager.Ins;
 
         OnInit();
     }
 
     public void OnInit()
     {
-        // Init data manger player
-        dataManager.OnInit();
+        // Init data manager
+        DataManager.Ins.OnInit();
+
         // Init audio
-        // audioManager.OnInit();
+        // AudioManager.Ins.OnInit();
+
         // Init level manager
-        levelManager.OnInit();
-        // Load stage
-        levelManager.LoadStage();
+        LevelManager.Ins.OnInit();
+
+        // UI init
         // UIManager.Ins.OpenUI<Lobby>();
+
+        // Load new game
+        NewGame();
     }
+
+    public void NewGame()
+    {
+        // Load stage
+        LevelManager.Ins.LoadStage();
+    }
+
+
 
     // Update is called once per frame
     void Update() { }

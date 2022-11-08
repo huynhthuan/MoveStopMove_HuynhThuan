@@ -58,7 +58,7 @@ public class ChangeWeaponHolderButton : Editor
         if (GUILayout.Button("Change Weapon"))
         {
             ((CharacterEquipment)target).EquipWeapon(
-                DataManager.Ins.GetDataWeapon(((CharacterEquipment)target).weaponId)
+                DataManager.Ins.GetWeapon(((CharacterEquipment)target).weaponId)
             );
         }
     }

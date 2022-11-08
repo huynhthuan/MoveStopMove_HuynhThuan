@@ -16,7 +16,7 @@ public class Player : Character
         CameraFollow.Ins.target = TF;
         joystick = GameManager.Ins.joystick;
 
-        WeaponConfig currentWeaponData = dataManager.GetDataWeapon(dataManager.currentPlayerData.weaponId);
+        WeaponConfig currentWeaponData = dataManager.GetWeapon(dataManager.playerData.weaponId);
         Debug.Log("point " + characterEquipment.weaponSlotTransform);
         characterEquipment.EquipWeapon(currentWeaponData);
     }
