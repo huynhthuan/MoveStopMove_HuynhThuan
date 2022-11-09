@@ -7,47 +7,47 @@ public class AttackRange : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     internal Character character;
 
-    public void OnInit()
+    public void OnInit(Character character)
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        this.character = character;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (character != null)
+        if (IsCanTrigger(other))
         {
-            if (other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER))
+            Debug.Log("On trigger enter" + other.name);
+            Transform enemy = other.GetComponent<Character>().anim.transform;
+
+            if (!character.targets.Contains(enemy))
             {
-                Debug.Log("On trigger enter" + other.name);
-                // Transform enemy = other.GetComponent<Character>().anim.transform;
-                // character.AddTagert(enemy);
+                character.AddTagert(enemy);
+            }
 
-                // if (character.targets.Count > 0 && spriteRenderer != null)
-                // {
-                //     spriteRenderer.color = Color.red;
-
-                //     Transform nearestEnemy = character.FindNearestEnemy();
-
-                //     return;
-                //     character.SelectTarget(nearestEnemy);
-                // }
+            if (character.targets.Count > 0)
+            {
+                spriteRenderer.color = Color.red;
+                Transform nearestEnemy = character.FindNearestEnemy();
+                character.SelectTarget(nearestEnemy);
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (character != null)
+        if (IsCanTrigger(other))
         {
-            if (other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER))
-            {
-                Debug.Log("On trigger exits" + other.name);
-
-                // Transform enemy = other.GetComponent<Character>().anim.transform;
-                // character.UnSelectTarget(enemy);
-                // character.RemoveTarget(enemy);
-                // spriteRenderer.color = Color.white;
-            }
+            Debug.Log("On trigger exits" + other.name);
+            Transform enemy = other.GetComponent<Character>().anim.transform;
+            character.UnSelectTarget(enemy);
+            character.RemoveTarget(enemy);
+            spriteRenderer.color = Color.white;
         }
+    }
+
+    private bool IsCanTrigger(Collider other)
+    {
+        return other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER);
     }
 }

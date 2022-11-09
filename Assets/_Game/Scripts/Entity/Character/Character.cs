@@ -30,7 +30,7 @@ public class Character : GameUnit
 
     public override void OnInit()
     {
-        attackRange.OnInit();
+        attackRange.OnInit(this);
         attackRange.character = this;
         characterEquipment = anim.GetComponent<CharacterEquipment>();
         characterEquipment.Oninit();
