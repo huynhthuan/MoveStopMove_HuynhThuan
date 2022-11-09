@@ -12,10 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d563c4abd90c5a748b6a67b79eb196ad, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  id: Weapon2
+  id: Weapon_2
   description: 
   price: 0
   icon: {fileID: 0}
-  materialItems: []
+  materialItems:
+  - materialIndex: 0
+    materialAvaibleItems:
+    - material: {fileID: 2100000, guid: 59e4faf24927edf4a82f463ad16f1c37, type: 2}
+      icon: {fileID: 0}
+      price: 0
+    - material: {fileID: -2813467912831258332, guid: 179b83d00d7f3394bacb6b1ba3701b89, type: 3}
+      icon: {fileID: 0}
+      price: 0
+  - materialIndex: 1
+    materialAvaibleItems:
+    - material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+      icon: {fileID: 0}
+      price: 0
+    - material: {fileID: -2813467912831258332, guid: 179b83d00d7f3394bacb6b1ba3701b89, type: 3}
+      icon: {fileID: 0}
+      price: 0
   prefabWeapon: {fileID: 2633568407635036849, guid: ebffcf20ceb57f84eb8c3eda24550edd, type: 3}
   prefabWeaponBullet: {fileID: 839939892677345380, guid: d5dc62dc18528f84084e7f2cb5949a22, type: 3}

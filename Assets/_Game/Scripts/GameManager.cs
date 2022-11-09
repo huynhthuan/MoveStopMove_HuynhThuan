@@ -33,24 +33,28 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        // Init all manager
-
-        dataManager = DataManager.Ins;
-        // audioManager = AudioManager.Ins;
-
         OnInit();
     }
 
     public void OnInit()
     {
+        Debug.Log(this.GetType() + " Oninit game manager...");
+        // Init all manager
+        dataManager = DataManager.Ins;
+        // audioManager = AudioManager.Ins;
+
         // Init data manger player
         dataManager.OnInit();
+
         // Init audio
         // audioManager.OnInit();
+
         // Init level manager
         levelManager.OnInit();
+
         // Load stage
         levelManager.LoadStage();
+
         // UIManager.Ins.OpenUI<Lobby>();
     }
 

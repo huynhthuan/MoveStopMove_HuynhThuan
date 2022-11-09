@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7809795814854072463}
   - component: {fileID: 2771069936727214626}
   - component: {fileID: 423014546105355591}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Bot
   m_TagString: Bot
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ MonoBehaviour:
   targetIndicator: {fileID: 3499200513935981064}
   layerMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 72
 --- !u!195 &423014546105355591
 NavMeshAgent:
   m_ObjectHideFlags: 0

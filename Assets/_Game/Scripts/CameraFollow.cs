@@ -12,6 +12,9 @@ public class CameraFollow : Singleton<CameraFollow>
 
     private void FixedUpdate()
     {
-        transform.position = target.position + offset;
+        if (target != null)
+        {
+            transform.position = target.position + offset;
+        }
     }
 }

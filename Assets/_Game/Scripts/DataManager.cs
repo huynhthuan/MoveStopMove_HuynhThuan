@@ -16,7 +16,7 @@ public enum DataKey
 public class DataManager : Singleton<DataManager>
 {
     [SerializeField]
-    private DataWeaponConfig dataWeapon;
+    internal DataWeaponConfig dataWeapon;
 
     [SerializeField]
     public PlayerData currentPlayerData;
@@ -26,12 +26,18 @@ public class DataManager : Singleton<DataManager>
     public void OnInit()
     {
         // Load data player
+        Debug.Log("Oninit data manager...");
         LoadData();
+    }
+
+    private void Start()
+    {
+
     }
 
     public void LoadData()
     {
-        Debug.Log("Load data.");
+        Debug.Log("Load data...");
         currentPlayerData.currentStage = PlayerPrefs.GetInt(GetKeyDataString(DataKey.CURRENT_STAGE), 0);
         currentPlayerData.gold = PlayerPrefs.GetInt(GetKeyDataString(DataKey.GOLD), 100);
         currentPlayerData.userName = PlayerPrefs.GetString(GetKeyDataString(DataKey.CURRENT_STAGE), "Unknow name");
@@ -57,7 +63,7 @@ public class DataManager : Singleton<DataManager>
 
     public WeaponConfig GetDataWeapon(string weaponId)
     {
-        return dataWeapon.GetWeapon(weaponId);
+        return dataWeapon.weaponItems.Find(item => item.id == weaponId);
     }
 
 }

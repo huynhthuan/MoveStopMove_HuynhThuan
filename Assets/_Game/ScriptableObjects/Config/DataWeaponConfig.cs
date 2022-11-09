@@ -6,9 +6,4 @@ using UnityEngine;
 public class DataWeaponConfig : ScriptableObject
 {
     public List<WeaponConfig> weaponItems;
-
-    public WeaponConfig GetWeapon(string id)
-    {
-        return weaponItems.Find(item => item.id == id);
-    }
 }

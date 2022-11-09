@@ -24,6 +24,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void OnInit()
     {
+        Debug.Log("Oninit level manager...");
         dataManager = DataManager.Ins;
         TF = gameObject.transform;
         navMeshSurface = GetComponent<NavMeshSurface>();
@@ -31,6 +32,8 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadStage()
     {
+
+        Debug.Log("Load stage data...");
         // Check has stage
         if (currentStage != null)
         {
@@ -43,6 +46,7 @@ public class LevelManager : Singleton<LevelManager>
         StageConfig currentStageConfig = stages[currentPlayerStage];
         GameObject stageObj = Instantiate(currentStageConfig.stagePrefab, Vector3.zero, Quaternion.identity, TF);
         // Bake nav mesh
+        Debug.Log("Build navmesh stage...");
         navMeshSurface.BuildNavMesh();
         currentStage = stageObj.GetComponent<Stage>();
 

@@ -14,37 +14,39 @@ public class AttackRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(ConstString.TAG_BOT))
+        if (character != null)
         {
-            Transform enemy = other.GetComponent<Character>().anim.transform;
-            character.AddTagert(enemy);
+            if (other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER))
+            {
+                Debug.Log("On trigger enter" + other.name);
+                // Transform enemy = other.GetComponent<Character>().anim.transform;
+                // character.AddTagert(enemy);
+
+                // if (character.targets.Count > 0 && spriteRenderer != null)
+                // {
+                //     spriteRenderer.color = Color.red;
+
+                //     Transform nearestEnemy = character.FindNearestEnemy();
+
+                //     return;
+                //     character.SelectTarget(nearestEnemy);
+                // }
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        string otherTag = other.tag;
-        if (otherTag == ConstString.TAG_BOT)
-        {
-            Transform enemy = other.GetComponent<Character>().anim.transform;
-            character.UnSelectTarget(enemy);
-            character.RemoveTarget(enemy);
-        }
-    }
-
-    private void FixedUpdate()
-    {
         if (character != null)
         {
-            if (character.targets.Count > 0 && spriteRenderer != null)
+            if (other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER))
             {
-                spriteRenderer.color = Color.red;
-                Transform nearestEnemy = character.FindNearestEnemy();
-                character.SelectTarget(nearestEnemy);
-            }
-            else
-            {
-                spriteRenderer.color = Color.white;
+                Debug.Log("On trigger exits" + other.name);
+
+                // Transform enemy = other.GetComponent<Character>().anim.transform;
+                // character.UnSelectTarget(enemy);
+                // character.RemoveTarget(enemy);
+                // spriteRenderer.color = Color.white;
             }
         }
     }

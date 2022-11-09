@@ -11,20 +11,23 @@ public class Player : Character
 
     public override void OnInit()
     {
+        Debug.Log("Oninit player manager...");
         base.OnInit();
         dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
         joystick = GameManager.Ins.joystick;
-
         WeaponConfig currentWeaponData = dataManager.GetDataWeapon(dataManager.currentPlayerData.weaponId);
-        Debug.Log("point " + characterEquipment.weaponSlotTransform);
         characterEquipment.EquipWeapon(currentWeaponData);
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
+        if (joystick != null)
+        {
+            Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
+        }
+
     }
 
     private void Move(Vector3 direction)

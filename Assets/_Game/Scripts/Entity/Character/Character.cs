@@ -22,10 +22,11 @@ public class Character : GameUnit
     internal CharacterEquipment characterEquipment;
 
     private string currentAnimName;
-    // private int scaleRatio = 1;
+    private int scaleRatio = 1;
     internal bool isCanAtk = true;
     internal Coroutine waitAfterAtkCoroutine;
-    private Stage currentStage;
+    internal Stage currentStage;
+    internal float attackRadius;
 
     public override void OnInit()
     {
