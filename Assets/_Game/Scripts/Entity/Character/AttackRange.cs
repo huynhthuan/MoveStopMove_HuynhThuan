@@ -18,7 +18,7 @@ public class AttackRange : MonoBehaviour
         if (IsCanTrigger(other))
         {
             Debug.Log("On trigger enter" + other.name);
-            Transform enemy = other.GetComponent<Character>().anim.transform;
+            Transform enemy = ColiderCahe.GetTransformAnim(other);
 
             if (!character.targets.Contains(enemy))
             {
@@ -39,7 +39,7 @@ public class AttackRange : MonoBehaviour
         if (IsCanTrigger(other))
         {
             Debug.Log("On trigger exits" + other.name);
-            Transform enemy = other.GetComponent<Character>().anim.transform;
+            Transform enemy = ColiderCahe.GetTransformAnim(other);
             character.UnSelectTarget(enemy);
             character.RemoveTarget(enemy);
             spriteRenderer.color = Color.white;

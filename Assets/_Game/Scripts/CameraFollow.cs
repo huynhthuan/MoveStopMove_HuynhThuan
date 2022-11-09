@@ -9,12 +9,18 @@ public class CameraFollow : Singleton<CameraFollow>
 
     [SerializeField]
     private Vector3 offset;
+    private Transform TF;
+
+    private void Start()
+    {
+        TF = transform;
+    }
 
     private void FixedUpdate()
     {
         if (target != null)
         {
-            transform.position = target.position + offset;
+            TF.position = target.position + offset;
         }
     }
 }

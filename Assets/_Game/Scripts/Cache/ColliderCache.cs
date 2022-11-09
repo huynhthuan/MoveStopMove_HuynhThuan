@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ColliderCacheIHit
+public static class ColliderCache
 {
     static Dictionary<Collider, IHit> Collider_IHit_Dic = new Dictionary<Collider, IHit>();
     static Dictionary<Collider, Character> Collider_Character_Dic = new Dictionary<Collider, Character>();
     static Dictionary<Collider, Transform> Collider_Transform_Dic = new Dictionary<Collider, Transform>();
+    static Dictionary<Collider, Transform> Collider_TransformAnim_Dic = new Dictionary<Collider, Transform>();
 
     public static IHit GetHit(Collider collider)
     {
@@ -32,5 +33,14 @@ public static class ColliderCacheIHit
             Collider_Transform_Dic.Add(collider, collider.transform);
         }
         return Collider_Transform_Dic[collider];
+    }
+
+    public static Transform GetTransformAnim(Collider collider)
+    {
+        if (!Collider_TransformAnim_Dic.ContainsKey(collider))
+        {
+            Collider_TransformAnim_Dic.Add(collider, collider.transform.GetComponent<Character>().anim.transform);
+        }
+        return Collider_TransformAnim_Dic[collider];
     }
 }

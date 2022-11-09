@@ -6,21 +6,15 @@ public class Character : GameUnit
 {
     [SerializeField]
     internal Rigidbody rb;
-
     [SerializeField]
     internal Animator anim;
-
     [SerializeField]
     private AttackRange attackRange;
-
     [SerializeField]
     internal Transform currentTarget;
-
     [SerializeField]
     internal List<Transform> targets = new List<Transform>();
-
     internal CharacterEquipment characterEquipment;
-
     private string currentAnimName;
     private int scaleRatio = 1;
     internal bool isCanAtk = true;
@@ -49,19 +43,19 @@ public class Character : GameUnit
 
     public float GetDistanceFromTarget(Vector3 targetPosition)
     {
-        return Vector3.Distance(transform.position, targetPosition);
+        return Vector3.Distance(TF.position, targetPosition);
     }
 
     public Vector3 GetDirToTarget()
     {
-        return (currentTarget.position - transform.position).normalized;
+        return (currentTarget.position - TF.position).normalized;
     }
 
     public void RotationToTarget()
     {
         Vector3 direction = GetDirToTarget();
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-        rb.transform.rotation = rotation;
+        TF.rotation = rotation;
     }
 
     public void AddTagert(Transform target)
@@ -74,7 +68,7 @@ public class Character : GameUnit
         ChangeAnim(ConstString.ANIM_ATTACK);
         characterEquipment.HiddenWeapon();
         Vector3 direction = GetDirToTarget();
-        GameUnit weaponBulletUnit = SimplePool.Spawn(characterEquipment.currentWeaponBullet, transform.position, Quaternion.LookRotation(direction, Vector3.up));
+        GameUnit weaponBulletUnit = SimplePool.Spawn(characterEquipment.currentWeaponBullet, TF.position, Quaternion.LookRotation(direction, Vector3.up));
         Weapon weaponBullet = weaponBulletUnit.GetComponent<Weapon>();
         weaponBullet.SetDir(direction);
         weaponBulletUnit.OnInit();
@@ -91,13 +85,13 @@ public class Character : GameUnit
     public Transform FindNearestEnemy()
     {
         Transform nearestEnemy = targets[0];
-        float minDistance = GetDistanceFromTarget(nearestEnemy.transform.position);
+        float minDistance = GetDistanceFromTarget(nearestEnemy.position);
 
-        foreach (Transform target in targets)
+        for (int i = 0; i < targets.Count; i++)
         {
-            if (Vector3.Distance(transform.position, target.position) < minDistance)
+            if (Vector3.Distance(TF.position, targets[i].position) < minDistance)
             {
-                nearestEnemy = target;
+                nearestEnemy = targets[i];
                 break;
             }
         }

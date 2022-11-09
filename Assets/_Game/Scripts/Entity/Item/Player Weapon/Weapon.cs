@@ -9,7 +9,7 @@ public enum WeaponType
     BOOMERANG,
 }
 
-public class Weapon : GameUnit
+public class Weapon : GameUnit, IHit
 {
     [SerializeField]
     private WeaponType weaponType;
@@ -46,7 +46,7 @@ public class Weapon : GameUnit
 
         if (other.CompareTag(ConstString.TAG_BOT))
         {
-            IHit colliderHit = ColliderCacheIHit.GetHit(other);
+            IHit colliderHit = ColliderCache.GetHit(other);
             colliderHit.OnHit();
             OnDespawn();
         }

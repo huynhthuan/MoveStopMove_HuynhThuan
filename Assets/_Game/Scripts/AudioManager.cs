@@ -29,9 +29,9 @@ public class AudioManager : Singleton<AudioManager>
 
     private void InitAudioSourcesOutPut()
     {
-        foreach (AudioSource audio in audioSources)
+        for (int i = 0; i < audioSources.Length; i++)
         {
-            audio.outputAudioMixerGroup = audioMixers.outputAudioMixerGroup;
+            audioSources[i].outputAudioMixerGroup = audioMixers.outputAudioMixerGroup;
         }
     }
 
