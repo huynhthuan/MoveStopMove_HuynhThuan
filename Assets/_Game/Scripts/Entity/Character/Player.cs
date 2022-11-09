@@ -13,10 +13,10 @@ public class Player : Character
     {
         Debug.Log("Oninit player manager...");
         base.OnInit();
-        dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
         joystick = GameManager.Ins.joystick;
-        WeaponConfig currentWeaponData = dataManager.GetDataWeapon(dataManager.currentPlayerData.weaponId);
+
+        WeaponConfig currentWeaponData = DataManager.Ins.GetWeaponConfig(DataManager.Ins.playerData.weaponId);
         characterEquipment.EquipWeapon(currentWeaponData);
     }
 
@@ -59,7 +59,6 @@ public class Player : Character
             }
             else
             {
-
                 // Not has tartget, change idle anim
                 ChangeAnim(ConstString.ANIM_IDLE);
             }

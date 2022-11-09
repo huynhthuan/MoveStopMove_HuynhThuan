@@ -6,10 +6,6 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     internal DynamicJoystick joystick;
-    public DataManager dataManager;
-    public AudioManager audioManager;
-    public LevelManager levelManager;
-
 
     protected void Awake()
     {
@@ -38,25 +34,29 @@ public class GameManager : Singleton<GameManager>
 
     public void OnInit()
     {
-        Debug.Log(this.GetType() + " Oninit game manager...");
-        // Init all manager
-        dataManager = DataManager.Ins;
-        // audioManager = AudioManager.Ins;
-
-        // Init data manger player
-        dataManager.OnInit();
+        // Init data manager
+        DataManager.Ins.OnInit();
 
         // Init audio
-        // audioManager.OnInit();
+        // AudioManager.Ins.OnInit();
 
         // Init level manager
-        levelManager.OnInit();
+        LevelManager.Ins.OnInit();
 
-        // Load stage
-        levelManager.LoadStage();
-
+        // UI init
         // UIManager.Ins.OpenUI<Lobby>();
+
+        // Load new game
+        NewGame();
     }
+
+    public void NewGame()
+    {
+        // Load stage
+        LevelManager.Ins.LoadStage();
+    }
+
+
 
     // Update is called once per frame
     void Update() { }
