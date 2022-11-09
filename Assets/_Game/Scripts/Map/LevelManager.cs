@@ -22,6 +22,8 @@ public class LevelManager : Singleton<LevelManager>
 
     private NavMeshSurface navMeshSurface;
 
+    internal Player player;
+
     public void OnInit()
     {
         Debug.Log("Oninit level manager...");

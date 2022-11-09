@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 6078238665169250649}
   - component: {fileID: 319165453062760121}
   - component: {fileID: 6615951081832141238}
+  - component: {fileID: 5014843805994916038}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2901353672999933754
 Transform:
@@ -95,6 +96,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &5014843805994916038
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4145978875457311818}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8820432103365778401
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelConfig: {fileID: 11400000, guid: c946c846863aaa54b8abf9dc763b3ae7, type: 2}
+  characterInStage: []
 --- !u!1 &8820432103446813948
 GameObject:
   m_ObjectHideFlags: 0

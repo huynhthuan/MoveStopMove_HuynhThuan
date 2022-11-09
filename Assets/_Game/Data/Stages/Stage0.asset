@@ -15,4 +15,4 @@ MonoBehaviour:
   numberOfPlayer: 100
   maxBot: 9
   stagePrefab: {fileID: 8820432103365778401, guid: 0a9492eb61207da43aff87bb3432a19f, type: 3}
-  startPoint: {x: 0, y: 0.9, z: 0}
+  startPoint: {x: 0, y: 1.083333, z: 0}

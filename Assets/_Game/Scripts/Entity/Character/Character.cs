@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : GameUnit
+public class Character : GameUnit, IHit
 {
     [SerializeField]
     internal Rigidbody rb;
@@ -48,14 +48,14 @@ public class Character : GameUnit
 
     public Vector3 GetDirToTarget()
     {
-        return (currentTarget.position - TF.position).normalized;
+        return (new Vector3(currentTarget.position.x, TF.position.y, currentTarget.position.z) - TF.position).normalized;
     }
 
     public void RotationToTarget()
     {
         Vector3 direction = GetDirToTarget();
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-        TF.rotation = rotation;
+        rb.transform.rotation = rotation;
     }
 
     public void AddTagert(Transform target)
@@ -110,27 +110,35 @@ public class Character : GameUnit
         {
             UnSelectTarget(currentTarget);
         }
+
         currentTarget = target;
-        GameObject enemyObj = target.gameObject;
-        TargetIndicator enemyIndicator = enemyObj.GetComponentInChildren<TargetIndicator>();
-        enemyIndicator.EnableIndicator();
+        Bot enemy = target.GetComponent<Bot>();
+        if (this is Player)
+        {
+            TargetIndicator enemyIndicator = enemy.targetIndicator;
+            enemyIndicator.EnableIndicator();
+        }
     }
 
     public void UnSelectTarget(Transform target)
     {
-        GameObject enemyObj = target.gameObject;
-        TargetIndicator enemyIndicator = enemyObj.GetComponentInChildren<TargetIndicator>();
-        enemyIndicator.DisableIndicator();
+        Bot enemy = target.GetComponent<Bot>();
+        if (this is Player)
+        {
+            TargetIndicator enemyIndicator = enemy.targetIndicator;
+            enemyIndicator.DisableIndicator();
+        }
+    }
+
+    public void OnHit()
+    {
+        Debug.Log("Character on hit " + gameObject.name);
+        ChangeAnim(ConstString.ANIM_DEAD);
+        // OnDespawn();
     }
 
     public override void OnDespawn()
     {
-
-    }
-
-    public override void OnHit()
-    {
-        base.OnHit();
-        ChangeAnim(ConstString.ANIM_DEAD);
+        SimplePool.Despawn(this);
     }
 }

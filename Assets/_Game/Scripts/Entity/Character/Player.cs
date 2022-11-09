@@ -47,7 +47,7 @@ public class Player : Character
             // Check has target
             if (targets.Count > 0)
             {
-                Debug.Log("isCanAtk " + isCanAtk);
+                // Debug.Log("isCanAtk " + isCanAtk);
                 // Check can attack
                 if (isCanAtk)
                 {

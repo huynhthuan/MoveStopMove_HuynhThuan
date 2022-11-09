@@ -34,13 +34,4 @@ public static class ColliderCache
         }
         return Collider_Transform_Dic[collider];
     }
-
-    public static Transform GetTransformAnim(Collider collider)
-    {
-        if (!Collider_TransformAnim_Dic.ContainsKey(collider))
-        {
-            Collider_TransformAnim_Dic.Add(collider, collider.transform.GetComponent<Character>().anim.transform);
-        }
-        return Collider_TransformAnim_Dic[collider];
-    }
 }

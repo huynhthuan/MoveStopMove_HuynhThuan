@@ -47,8 +47,14 @@ public class Weapon : GameUnit, IHit
         if (other.CompareTag(ConstString.TAG_BOT))
         {
             IHit colliderHit = ColliderCache.GetHit(other);
+            Debug.Log("Run hit");
             colliderHit.OnHit();
             OnDespawn();
         }
+    }
+
+    public void OnHit()
+    {
+        Debug.Log(gameObject.name + " - Take hit");
     }
 }

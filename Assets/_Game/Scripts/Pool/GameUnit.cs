@@ -18,9 +18,4 @@ public abstract class GameUnit : MonoBehaviour
 
     public abstract void OnInit();
     public abstract void OnDespawn();
-
-    public virtual void OnHit()
-    {
-        Debug.Log(gameObject.name + " - Take hit");
-    }
 }

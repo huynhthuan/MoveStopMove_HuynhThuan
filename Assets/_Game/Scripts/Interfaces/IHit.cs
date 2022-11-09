@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IHit
 {
-    public void OnHit();
+    void OnHit();
 }

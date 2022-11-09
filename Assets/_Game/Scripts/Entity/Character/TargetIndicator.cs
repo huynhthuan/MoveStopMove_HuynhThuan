@@ -6,7 +6,8 @@ public class TargetIndicator : MonoBehaviour
 {
     private SpriteRenderer spriteIndicator;
 
-    private void Start()
+
+    public void OnInit()
     {
         spriteIndicator = GetComponent<SpriteRenderer>();
         DisableIndicator();
