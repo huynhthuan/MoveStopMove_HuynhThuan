@@ -18,9 +18,14 @@ public class Character : GameUnit, IHit
     private string currentAnimName;
     private int scaleRatio = 1;
     internal bool isCanAtk = true;
-    internal Coroutine waitAfterAtkCoroutine;
+    private Coroutine waitAfterAtkCoroutine;
+    private Coroutine waitAfterDeathCoroutine;
     internal Stage currentStage;
     internal float attackRadius;
+
+    public delegate void CallbackMethod();
+    public CallbackMethod m_callback;
+    internal bool isDead = false;
 
     public override void OnInit()
     {
@@ -29,7 +34,6 @@ public class Character : GameUnit, IHit
         characterEquipment = anim.GetComponent<CharacterEquipment>();
         characterEquipment.Oninit();
     }
-
 
     public void ChangeAnim(string animName)
     {
@@ -65,21 +69,37 @@ public class Character : GameUnit, IHit
 
     public void Attack()
     {
+        Character currentTargetCharacter = currentTarget.GetComponent<Character>();
+
+        if (currentTargetCharacter.isDead)
+        {
+            return;
+        }
+
         ChangeAnim(ConstString.ANIM_ATTACK);
-        characterEquipment.HiddenWeapon();
         Vector3 direction = GetDirToTarget();
+        characterEquipment.HiddenWeapon();
         GameUnit weaponBulletUnit = SimplePool.Spawn(characterEquipment.currentWeaponBullet, TF.position, Quaternion.LookRotation(direction, Vector3.up));
         Weapon weaponBullet = weaponBulletUnit.GetComponent<Weapon>();
         weaponBullet.SetDir(direction);
         weaponBulletUnit.OnInit();
-        waitAfterAtkCoroutine = StartCoroutine(WaitAfterAttack(0.7f));
+        float animLength = anim.GetCurrentAnimatorStateInfo(0).length;
+
+        waitAfterAtkCoroutine = StartCoroutine(WaitAnimEnd(animLength, () =>
+        {
+            StopCoroutine(waitAfterAtkCoroutine);
+            characterEquipment.ShowWeapon();
+            Debug.Log("Show weapon");
+        }));
     }
 
-    public IEnumerator WaitAfterAttack(float delayTime)
+    public IEnumerator WaitAnimEnd(float animLength, CallbackMethod cb)
     {
-        yield return new WaitForSeconds(delayTime);
-        characterEquipment.ShowWeapon();
-        Debug.Log("Show weapon");
+        yield return new WaitForSeconds(animLength);
+        if (cb != null)
+        {
+            cb();
+        }
     }
 
     public Transform FindNearestEnemy()
@@ -133,12 +153,21 @@ public class Character : GameUnit, IHit
     public void OnHit()
     {
         Debug.Log("Character on hit " + gameObject.name);
+        isDead = true;
+        rb.detectCollisions = false;
         ChangeAnim(ConstString.ANIM_DEAD);
-        // OnDespawn();
+        waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
+        {
+            StopCoroutine(waitAfterDeathCoroutine);
+            Debug.Log("Anim dead end");
+            OnDespawn();
+        }));
+
     }
 
     public override void OnDespawn()
     {
+
         SimplePool.Despawn(this);
     }
 }

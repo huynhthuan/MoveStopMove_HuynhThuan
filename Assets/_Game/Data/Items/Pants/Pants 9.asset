@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e69ea73663a5b8d4a92e3e277bc580ab, type: 3}
-  m_Name: DataWeapon
+  m_Script: {fileID: 11500000, guid: 4a84cbb7b266a6c4eba64b48f68182e8, type: 3}
+  m_Name: Pants 9
   m_EditorClassIdentifier: 
-  weaponItems:
-  - {fileID: 11400000, guid: 1d5d8a14647ad0e489f89ea3fa9ba385, type: 2}
-  - {fileID: 11400000, guid: 6bfcd6c9cec3a8748807230b58c1b8ab, type: 2}
+  id: Pants_9
+  description: This is pants
+  price: 0
+  icon: {fileID: 0}
+  material: {fileID: 2100000, guid: db1396fdf125ddd408933c708dca82a3, type: 2}

@@ -17,7 +17,11 @@ public class Player : Character
         joystick = GameManager.Ins.joystick;
 
         WeaponConfig currentWeaponData = DataManager.Ins.GetWeaponConfig(DataManager.Ins.playerData.weaponId);
+        PantsConfig currentPantsData = DataManager.Ins.GetPantsConfig(DataManager.Ins.playerData.pantsId);
+
         characterEquipment.EquipWeapon(currentWeaponData);
+        Debug.Log("currentPantsData " + JsonUtility.ToJson(currentPantsData));
+        characterEquipment.WearPants(currentPantsData);
     }
 
     // Update is called once per frame
@@ -66,10 +70,10 @@ public class Player : Character
         else
         {
             // While player move
-            if (waitAfterAtkCoroutine != null)
-            {
-                StopCoroutine(waitAfterAtkCoroutine);
-            }
+            // if (waitAfterAtkCoroutine != null)
+            // {
+            //     StopCoroutine(waitAfterAtkCoroutine);
+            // }
             isCanAtk = true;
             characterEquipment.ShowWeapon();
             ChangeAnim(ConstString.ANIM_RUN);

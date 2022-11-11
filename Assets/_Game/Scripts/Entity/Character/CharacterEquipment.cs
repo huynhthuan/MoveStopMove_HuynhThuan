@@ -7,13 +7,13 @@ public class CharacterEquipment : MonoBehaviour
 {
     [SerializeField]
     private GameObject weaponSlot;
+    [SerializeField]
+    private GameObject pantsSlot;
 
     public Transform weaponSlotTransform;
 
     private GameObject currentWeapon;
     internal Weapon currentWeaponBullet;
-
-    public string weaponId;
 
     // Start is called before the first frame update
     public void Oninit()
@@ -45,5 +45,25 @@ public class CharacterEquipment : MonoBehaviour
         GameObject newWeaponObj = Instantiate(weaponData.prefabWeapon, weaponSlotTransform);
         currentWeapon = newWeaponObj;
         currentWeaponBullet = weaponData.prefabWeaponBullet;
+    }
+
+    public void WearPants(PantsConfig pantsConfig)
+    {
+        SkinnedMeshRenderer pantsMeshRenderer = pantsSlot.GetComponent<SkinnedMeshRenderer>();
+
+        Material[] mats = new Material[] { pantsConfig.material };
+        pantsMeshRenderer.materials = mats;
+    }
+
+    public WeaponConfig RandomWeapon()
+    {
+        int weaponIndexRandom = Random.Range(0, DataManager.Ins.dataWeapon.weaponItems.Count);
+        return DataManager.Ins.dataWeapon.weaponItems[weaponIndexRandom];
+    }
+
+    public PantsConfig RandomPants()
+    {
+        int pantsIndexRandom = Random.Range(0, DataManager.Ins.dataPants.pantsItems.Count);
+        return DataManager.Ins.dataPants.pantsItems[pantsIndexRandom];
     }
 }

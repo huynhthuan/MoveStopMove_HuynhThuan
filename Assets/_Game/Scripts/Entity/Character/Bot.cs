@@ -23,13 +23,12 @@ public class Bot : Character
         targetIndicator.OnInit();
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.enabled = true;
-    }
 
-    // #if UNITY_EDITOR
-    //     private void OnDrawGizmos()
-    //     {
-    //         Gizmos.color = Color.yellow;
-    //         Gizmos.DrawWireSphere(transform.position, 1.2f * 3);
-    //     }
-    // #endif
+        // Equip random weapon
+        WeaponConfig weaponRandom = characterEquipment.RandomWeapon();
+        PantsConfig pantsRandom = characterEquipment.RandomPants();
+
+        characterEquipment.EquipWeapon(weaponRandom);
+        characterEquipment.WearPants(pantsRandom);
+    }
 }

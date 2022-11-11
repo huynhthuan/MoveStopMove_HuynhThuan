@@ -1290,9 +1290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 1813221959}
-  dataManager: {fileID: 2140259225}
-  audioManager: {fileID: 0}
-  levelManager: {fileID: 130219767}
 --- !u!1 &2140259224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,13 +1320,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataWeapon: {fileID: 11400000, guid: 75167f719dbd5b9418edcea11b3a89d1, type: 2}
-  currentPlayerData:
+  dataPants: {fileID: 11400000, guid: 7889aa87fedfec9439bd327805a63086, type: 2}
+  playerData:
     gold: 0
     userName: 
     currentStage: 0
     weaponId: 
     weaponMaterial1: 0
     weaponMaterial2: 0
+    pantsId: 
 --- !u!4 &2140259226
 Transform:
   m_ObjectHideFlags: 0

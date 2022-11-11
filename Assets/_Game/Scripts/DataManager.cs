@@ -11,6 +11,7 @@ public enum DataKey
     WEAPON_ID,
     WEAPON_MATERIAL_1,
     WEAPON_MATERIAL_2,
+    PANTS_ID,
 }
 
 public class DataManager : Singleton<DataManager>
@@ -19,9 +20,12 @@ public class DataManager : Singleton<DataManager>
     internal DataWeaponConfig dataWeapon;
 
     [SerializeField]
+    internal DataPantsConfig dataPants;
+
+    [SerializeField]
     public PlayerData playerData;
 
-    private string[] DataKeyString = { "GOLD", "USER_NAME", "CURRENT_STAGE", "WEAPON_ID", "WEAPON_MATERIAL_1", "WEAPON_MATERIAL_2" };
+    private string[] DataKeyString = { "GOLD", "USER_NAME", "CURRENT_STAGE", "WEAPON_ID", "WEAPON_MATERIAL_1", "WEAPON_MATERIAL_2", "PANTS_ID" };
 
     public void OnInit()
     {
@@ -44,6 +48,7 @@ public class DataManager : Singleton<DataManager>
         playerData.weaponId = PlayerPrefs.GetString(GetKey(DataKey.WEAPON_ID), ConstString.DEFAULT_WEAPON_ID);
         playerData.weaponMaterial1 = PlayerPrefs.GetInt(GetKey(DataKey.CURRENT_STAGE), 0);
         playerData.weaponMaterial2 = PlayerPrefs.GetInt(GetKey(DataKey.CURRENT_STAGE), 0);
+        playerData.pantsId = PlayerPrefs.GetString(GetKey(DataKey.PANTS_ID), ConstString.DEFAULT_PANTS_ID);
     }
 
     public void SaveData()
@@ -55,6 +60,7 @@ public class DataManager : Singleton<DataManager>
         PlayerPrefs.SetString(GetKey(DataKey.WEAPON_ID), playerData.weaponId);
         PlayerPrefs.SetInt(GetKey(DataKey.WEAPON_MATERIAL_1), playerData.weaponMaterial1);
         PlayerPrefs.SetInt(GetKey(DataKey.WEAPON_MATERIAL_2), playerData.weaponMaterial2);
+        PlayerPrefs.SetString(GetKey(DataKey.PANTS_ID), playerData.pantsId);
     }
 
     public string GetKey(DataKey key)
@@ -66,6 +72,12 @@ public class DataManager : Singleton<DataManager>
     {
         Debug.Log("[~] Get weapon config. Weapon: " + weaponId);
         return dataWeapon.FindById(weaponId);
+    }
+
+    public PantsConfig GetPantsConfig(string pantsId)
+    {
+        Debug.Log("[~] Get pants config. Pants: " + pantsId);
+        return dataPants.FindById(pantsId);
     }
 
 }

@@ -11,5 +11,5 @@ public class PlayerData
     public string weaponId;
     public int weaponMaterial1;
     public int weaponMaterial2;
-
+    public string pantsId;
 }

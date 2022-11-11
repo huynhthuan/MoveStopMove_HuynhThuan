@@ -9,5 +9,6 @@ public class ConstString
     public const string PLAYER_DATA = "PLAYER_DATA";
     public const string DEFAULT_USER_NAME = "Unknow name";
     public const string DEFAULT_WEAPON_ID = "Weapon_1";
+    public const string DEFAULT_PANTS_ID = "Pants_1";
 
 }
