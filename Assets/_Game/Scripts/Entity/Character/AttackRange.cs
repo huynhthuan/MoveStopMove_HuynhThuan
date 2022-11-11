@@ -24,13 +24,6 @@ public class AttackRange : MonoBehaviour
             {
                 character.AddTagert(enemy);
             }
-
-            if (character.targets.Count > 0)
-            {
-                spriteRenderer.color = Color.red;
-                Transform nearestEnemy = character.FindNearestEnemy();
-                character.SelectTarget(nearestEnemy);
-            }
         }
     }
 
@@ -49,5 +42,15 @@ public class AttackRange : MonoBehaviour
     private bool IsCanTrigger(Collider other)
     {
         return other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER);
+    }
+
+    private void FixedUpdate()
+    {
+        if (character.targets.Count > 0)
+        {
+            spriteRenderer.color = Color.red;
+            Transform nearestEnemy = character.FindNearestEnemy();
+            character.SelectTarget(nearestEnemy);
+        }
     }
 }

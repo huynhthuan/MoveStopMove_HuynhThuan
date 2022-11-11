@@ -9,20 +9,16 @@ public enum WeaponType
     BOOMERANG,
 }
 
-public class Weapon : GameUnit, IHit
+public class Weapon : GameUnit
 {
     [SerializeField]
     private WeaponType weaponType;
     [SerializeField]
     private Rigidbody rb;
-
     internal bool isHasFire;
     private Transform target;
     private Vector3 dirToTarget;
-
-
-    private Character character;
-
+    internal Character owner;
 
     public void SetDir(Vector3 dir)
     {
@@ -31,10 +27,9 @@ public class Weapon : GameUnit, IHit
 
     public override void OnInit()
     {
-
         rb.velocity = dirToTarget * 5f;
-    }
 
+    }
 
     public override void OnDespawn()
     {
@@ -48,13 +43,8 @@ public class Weapon : GameUnit, IHit
         {
             IHit colliderHit = ColliderCache.GetHit(other);
             Debug.Log("Run hit");
-            colliderHit.OnHit();
+            colliderHit.OnHit(owner.TF);
             OnDespawn();
         }
-    }
-
-    public void OnHit()
-    {
-        Debug.Log(gameObject.name + " - Take hit");
     }
 }

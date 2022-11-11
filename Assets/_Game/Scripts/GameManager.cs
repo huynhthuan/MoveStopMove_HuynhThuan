@@ -7,6 +7,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     internal DynamicJoystick joystick;
 
+    internal bool isPlayGame;
+
     protected void Awake()
     {
         Input.multiTouchEnabled = false;

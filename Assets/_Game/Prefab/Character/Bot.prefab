@@ -229,9 +229,10 @@ MonoBehaviour:
   rb: {fileID: 7809795814854072463}
   anim: {fileID: 1966113604146135583}
   attackRange: {fileID: 6532697871922894327}
-  currentTarget: {fileID: 352434783547297802}
+  currentTarget: {fileID: 0}
   targets: []
   targetIndicator: {fileID: 3499200513935981064}
+  characterEquipment: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 72

@@ -274,6 +274,8 @@ MonoBehaviour:
   attackRange: {fileID: 6136475393729493022}
   currentTarget: {fileID: 0}
   targets: []
+  targetIndicator: {fileID: 0}
+  colliderMain: {fileID: 0}
   speed: 200
 --- !u!1001 &4457838830437894202
 PrefabInstance:
@@ -794,6 +796,10 @@ PrefabInstance:
       propertyPath: weaponId
       value: Weapon1
       objectReference: {fileID: 0}
+    - target: {fileID: 6030165603264226135, guid: d0a16684b100c86489982faf1e4b7726, type: 3}
+      propertyPath: weaponSlotTransform
+      value: 
+      objectReference: {fileID: 461060007828508373}
     - target: {fileID: 6319872354718842851, guid: d0a16684b100c86489982faf1e4b7726, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -31.977917
@@ -1008,5 +1014,10 @@ Transform:
 --- !u!95 &9140500559274157260 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4829257485547875574, guid: d0a16684b100c86489982faf1e4b7726, type: 3}
+  m_PrefabInstance: {fileID: 4457838830437894202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &461060007828508373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4304156388477650671, guid: d0a16684b100c86489982faf1e4b7726, type: 3}
   m_PrefabInstance: {fileID: 4457838830437894202}
   m_PrefabAsset: {fileID: 0}

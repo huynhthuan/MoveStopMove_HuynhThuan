@@ -14,15 +14,18 @@ public class Character : GameUnit, IHit
     internal Transform currentTarget;
     [SerializeField]
     internal List<Transform> targets = new List<Transform>();
+    [SerializeField]
+    internal TargetIndicator targetIndicator;
+    [SerializeField]
     internal CharacterEquipment characterEquipment;
     private string currentAnimName;
-    private int scaleRatio = 1;
+    private Vector3 scaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
     internal bool isCanAtk = true;
     private Coroutine waitAfterAtkCoroutine;
     private Coroutine waitAfterDeathCoroutine;
     internal Stage currentStage;
     internal float attackRadius;
-
+    internal float range = 1f;
     public delegate void CallbackMethod();
     public CallbackMethod m_callback;
     internal bool isDead = false;
@@ -80,8 +83,10 @@ public class Character : GameUnit, IHit
         Vector3 direction = GetDirToTarget();
         characterEquipment.HiddenWeapon();
         GameUnit weaponBulletUnit = SimplePool.Spawn(characterEquipment.currentWeaponBullet, TF.position, Quaternion.LookRotation(direction, Vector3.up));
+
         Weapon weaponBullet = weaponBulletUnit.GetComponent<Weapon>();
         weaponBullet.SetDir(direction);
+        weaponBullet.owner = this;
         weaponBulletUnit.OnInit();
         float animLength = anim.GetCurrentAnimatorStateInfo(0).length;
 
@@ -106,6 +111,8 @@ public class Character : GameUnit, IHit
     {
         Transform nearestEnemy = targets[0];
         float minDistance = GetDistanceFromTarget(nearestEnemy.position);
+
+        Debug.Log("pos " + nearestEnemy.position + "origin " + TF.position);
 
         for (int i = 0; i < targets.Count; i++)
         {
@@ -150,11 +157,18 @@ public class Character : GameUnit, IHit
         }
     }
 
-    public void OnHit()
+    public void OnHit(Transform attacker)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         Debug.Log("Character on hit " + gameObject.name);
+        Debug.Log("Attacker make hit " + attacker.name);
         isDead = true;
         rb.detectCollisions = false;
+        attacker.GetComponent<Character>().LevelUp();
         ChangeAnim(ConstString.ANIM_DEAD);
         waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
         {
@@ -167,7 +181,16 @@ public class Character : GameUnit, IHit
 
     public override void OnDespawn()
     {
-
         SimplePool.Despawn(this);
+    }
+
+    public void LevelUp()
+    {
+        attackRange.transform.localScale += scaleRatio * 2f;
+        anim.transform.localScale += scaleRatio;
+        if (targetIndicator != null)
+        {
+            targetIndicator.transform.localScale += scaleRatio;
+        }
     }
 }

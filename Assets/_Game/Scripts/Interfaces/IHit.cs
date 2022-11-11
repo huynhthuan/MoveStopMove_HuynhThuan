@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IHit
 {
-    void OnHit();
+    void OnHit(Transform attacker);
 }
