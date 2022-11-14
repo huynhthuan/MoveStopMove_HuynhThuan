@@ -1290,6 +1290,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 1813221959}
+  cameraFollow: {fileID: 963194229}
+  characterScaleRatio: {x: 0.5, y: 0.5, z: 0.5}
+  cameraFollowScaleRatio: 1
 --- !u!1 &2140259224
 GameObject:
   m_ObjectHideFlags: 0

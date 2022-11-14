@@ -15,10 +15,10 @@ public class IStateBotFindEnemy : IStateBot
     {
         bot.ChangeAnim(ConstString.ANIM_RUN);
         bot.navMeshAgent.SetDestination(target);
-        if (bot.navMeshAgent.remainingDistance <= 0.01f)
-        {
-            bot.ChangeState(new IStateBotIdle());
-        }
+        // if (bot.navMeshAgent.remainingDistance <= 0.01f)
+        // {
+        //     bot.ChangeState(new IStateBotIdle());
+        // }
     }
 
     public void OnExit(Bot bot) { }

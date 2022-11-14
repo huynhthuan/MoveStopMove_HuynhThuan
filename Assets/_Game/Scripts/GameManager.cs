@@ -6,7 +6,12 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     internal DynamicJoystick joystick;
-
+    [SerializeField]
+    internal CameraFollow cameraFollow;
+    [SerializeField]
+    internal Vector3 characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
+    [SerializeField]
+    internal float cameraFollowScaleRatio = 2.5f;
     internal bool isPlayGame;
 
     protected void Awake()

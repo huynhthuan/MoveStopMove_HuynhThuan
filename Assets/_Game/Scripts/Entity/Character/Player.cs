@@ -2,12 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Character
+public class Player : Character, IHit
+
 {
     [SerializeField]
     public float speed;
     private DynamicJoystick joystick;
     private DataManager dataManager;
+
+    public void OnHit(Transform attacker)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        Debug.Log("Character on hit " + gameObject.name);
+        Debug.Log("Attacker make hit " + attacker.name);
+        isDead = true;
+        rb.detectCollisions = false;
+        attacker.GetComponent<Character>().LevelUp();
+        ChangeAnim(ConstString.ANIM_DEAD);
+        waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
+              {
+                  StopCoroutine(waitAfterDeathCoroutine);
+                  Debug.Log("Anim dead end");
+                  OnDespawn();
+              }));
+    }
 
     public override void OnInit()
     {
@@ -57,7 +79,10 @@ public class Player : Character
                 {
                     // Disable can attack
                     isCanAtk = false;
-                    RotationToTarget();
+                    if (currentTarget != null && !currentTarget.isDead)
+                    {
+                        RotationToTarget();
+                    }
                     Attack();
                 }
             }

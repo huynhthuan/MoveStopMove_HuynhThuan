@@ -13,7 +13,7 @@ public static class ColliderCache
     {
         if (!Collider_IHit_Dic.ContainsKey(collider))
         {
-            Collider_IHit_Dic.Add(collider, collider.GetComponent<IHit>());
+            Collider_IHit_Dic.Add(collider, collider.GetComponent<CharacterCollider>().character.GetComponent<IHit>());
         }
         return Collider_IHit_Dic[collider];
     }
@@ -22,7 +22,7 @@ public static class ColliderCache
     {
         if (!Collider_Character_Dic.ContainsKey(collider))
         {
-            Collider_Character_Dic.Add(collider, collider.GetComponent<Character>());
+            Collider_Character_Dic.Add(collider, collider.GetComponent<CharacterCollider>().character);
         }
         return Collider_Character_Dic[collider];
     }
@@ -30,7 +30,7 @@ public static class ColliderCache
     {
         if (!Collider_Transform_Dic.ContainsKey(collider))
         {
-            Collider_Transform_Dic.Add(collider, collider.transform);
+            Collider_Transform_Dic.Add(collider, collider.GetComponent<CharacterCollider>().character.transform);
         }
         return Collider_Transform_Dic[collider];
     }

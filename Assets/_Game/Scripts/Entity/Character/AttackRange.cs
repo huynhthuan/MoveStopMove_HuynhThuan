@@ -18,7 +18,7 @@ public class AttackRange : MonoBehaviour
         if (IsCanTrigger(other))
         {
             Debug.Log("On trigger enter" + other.name);
-            Transform enemy = ColliderCache.GetTransform(other);
+            Character enemy = ColliderCache.GetCharacter(other);
 
             if (!character.targets.Contains(enemy))
             {
@@ -32,7 +32,7 @@ public class AttackRange : MonoBehaviour
         if (IsCanTrigger(other))
         {
             Debug.Log("On trigger exits" + other.name);
-            Transform enemy = ColliderCache.GetTransform(other);
+            Character enemy = ColliderCache.GetCharacter(other);
             character.UnSelectTarget(enemy);
             character.RemoveTarget(enemy);
             spriteRenderer.color = Color.white;
@@ -49,7 +49,7 @@ public class AttackRange : MonoBehaviour
         if (character.targets.Count > 0)
         {
             spriteRenderer.color = Color.red;
-            Transform nearestEnemy = character.FindNearestEnemy();
+            Character nearestEnemy = character.FindNearestEnemy();
             character.SelectTarget(nearestEnemy);
         }
     }

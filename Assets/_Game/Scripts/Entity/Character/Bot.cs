@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Bot : Character
+public class Bot : Character, IHit
 {
     [SerializeField]
     private LayerMask layerMask;
@@ -77,7 +77,6 @@ public class Bot : Character
         for (int i = 0; i < currentStage.characterInStage.Count; i++)
         {
             Character enemy = currentStage.characterInStage[i];
-            Debug.Log("Check distance " + TF.position + " " + enemy.TF.position);
             if (Vector3.Distance(TF.position, enemy.TF.position) >= 5f && enemy != this)
             {
                 enemyInVision.Add(enemy.TF);
@@ -85,5 +84,26 @@ public class Bot : Character
         }
 
         return enemyInVision;
+    }
+
+    public void OnHit(Transform attacker)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        Debug.Log("Character on hit " + gameObject.name);
+        Debug.Log("Attacker make hit " + attacker.name);
+        isDead = true;
+        rb.detectCollisions = false;
+        attacker.GetComponent<Character>().LevelUp();
+        ChangeState(new IStateBotDie());
+        waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
+              {
+                  StopCoroutine(waitAfterDeathCoroutine);
+                  Debug.Log("Anim dead end");
+                  OnDespawn();
+              }));
     }
 }

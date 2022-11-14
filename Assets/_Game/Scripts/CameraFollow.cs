@@ -8,8 +8,8 @@ public class CameraFollow : Singleton<CameraFollow>
     internal Transform target;
 
     [SerializeField]
-    private Vector3 offset;
-    private Transform TF;
+    internal Vector3 offset;
+    internal Transform TF;
 
     private void Start()
     {

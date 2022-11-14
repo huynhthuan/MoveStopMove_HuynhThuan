@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ff61f11ffe33f4f88ad10e8e9d23ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3163901421772608209
+--- !u!1 &1606094621698421672
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,52 +103,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5398081492385629654}
-  - component: {fileID: 3944543343855977433}
-  - component: {fileID: 3455243735817663171}
-  - component: {fileID: 2666632094046256304}
-  - component: {fileID: 7809795814854072463}
-  - component: {fileID: 2771069936727214626}
-  - component: {fileID: 423014546105355591}
-  m_Layer: 6
-  m_Name: Bot
+  - component: {fileID: 8752296191134055875}
+  - component: {fileID: 8712366174076949734}
+  - component: {fileID: 4969832438472551356}
+  - component: {fileID: 4385818693316814532}
+  - component: {fileID: 2395801424497542172}
+  m_Layer: 3
+  m_Name: Collider
   m_TagString: Bot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5398081492385629654
+--- !u!4 &8752296191134055875
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3163901421772608209}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_GameObject: {fileID: 1606094621698421672}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3722867120897773809}
-  - {fileID: 3980381063337539890}
-  - {fileID: 352434783547297802}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Children: []
+  m_Father: {fileID: 5398081492385629654}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3944543343855977433
+--- !u!33 &8712366174076949734
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3163901421772608209}
+  m_GameObject: {fileID: 1606094621698421672}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3455243735817663171
+--- !u!23 &4969832438472551356
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3163901421772608209}
+  m_GameObject: {fileID: 1606094621698421672}
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -183,13 +178,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2666632094046256304
+--- !u!136 &4385818693316814532
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3163901421772608209}
+  m_GameObject: {fileID: 1606094621698421672}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -197,6 +192,56 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2395801424497542172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606094621698421672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58992b35217e8347a4b7b9ce284625c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 2771069936727214626}
+--- !u!1 &3163901421772608209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5398081492385629654}
+  - component: {fileID: 7809795814854072463}
+  - component: {fileID: 2771069936727214626}
+  - component: {fileID: 423014546105355591}
+  m_Layer: 6
+  m_Name: Bot
+  m_TagString: Bot
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5398081492385629654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163901421772608209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3722867120897773809}
+  - {fileID: 3980381063337539890}
+  - {fileID: 352434783547297802}
+  - {fileID: 8752296191134055875}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7809795814854072463
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -233,6 +278,7 @@ MonoBehaviour:
   targets: []
   targetIndicator: {fileID: 3499200513935981064}
   characterEquipment: {fileID: 0}
+  capsuleCollider: {fileID: 4385818693316814532}
   layerMask:
     serializedVersion: 2
     m_Bits: 72
