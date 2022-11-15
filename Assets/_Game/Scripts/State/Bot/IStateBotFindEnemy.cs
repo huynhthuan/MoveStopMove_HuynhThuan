@@ -13,8 +13,11 @@ public class IStateBotFindEnemy : IStateBot
 
     public void OnExecute(Bot bot)
     {
-        bot.ChangeAnim(ConstString.ANIM_RUN);
         bot.navMeshAgent.SetDestination(target);
+        bot.ChangeAnim(ConstString.ANIM_RUN);
+
+        Debug.Log("remainingDistance " + bot.navMeshAgent.remainingDistance);
+
         // if (bot.navMeshAgent.remainingDistance <= 0.01f)
         // {
         //     bot.ChangeState(new IStateBotIdle());

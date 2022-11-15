@@ -121,14 +121,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116977918296577260}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0, w: -1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 41.690052, y: 41.690052, z: 41.690052}
   m_Children:
   - {fileID: 6707899887436331079}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!114 &-9169036785341963480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   poolType: 0
   weaponType: 0
   rb: {fileID: 4949424069701539685}
+  anim: {fileID: 6707899887436331079}
 --- !u!54 &4949424069701539685
 Rigidbody:
   m_ObjectHideFlags: 0

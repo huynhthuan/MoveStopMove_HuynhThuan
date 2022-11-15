@@ -20,6 +20,12 @@ public class Character : GameUnit
     internal CharacterEquipment characterEquipment;
     [SerializeField]
     internal CapsuleCollider capsuleCollider;
+    [SerializeField]
+    public float speed;
+    [SerializeField]
+    private DynamicJoystick joystick;
+    internal float delayAttack = 0f;
+    internal bool isCoolDownAttack = false;
     private string currentAnimName;
     private int level = 0;
     internal bool isCanAtk = true;
@@ -44,6 +50,7 @@ public class Character : GameUnit
         colliderTF = capsuleCollider.transform;
         cameraFollowScaleRatio = GameManager.Ins.cameraFollowScaleRatio;
         characterScaleRatio = GameManager.Ins.characterScaleRatio;
+        joystick = GameManager.Ins.joystick;
     }
 
     public void ChangeAnim(string animName)
@@ -87,9 +94,18 @@ public class Character : GameUnit
 
     public void Attack()
     {
-        Character currentTargetCharacter = currentTarget.GetComponent<Character>();
 
-        if (currentTargetCharacter.isDead)
+        if (delayAttack >= 0.01f)
+        {
+            ChangeAnim(ConstString.ANIM_IDLE);
+            return;
+        }
+
+        isCoolDownAttack = true;
+        delayAttack = 2f;
+
+
+        if (currentTarget.isDead)
         {
             return;
         }
@@ -97,12 +113,9 @@ public class Character : GameUnit
         ChangeAnim(ConstString.ANIM_ATTACK);
         Vector3 direction = GetDirToFireWeapon();
         characterEquipment.HiddenWeapon();
-        GameUnit weaponBulletUnit = SimplePool.Spawn(characterEquipment.currentWeaponBullet, TF.position, Quaternion.LookRotation(direction, Vector3.up));
-        weaponBulletUnit.TF.localScale += level * characterScaleRatio * 20f;
-        Weapon weaponBullet = weaponBulletUnit.GetComponent<Weapon>();
-        weaponBullet.SetDir(direction);
-        weaponBullet.owner = this;
-        weaponBulletUnit.OnInit();
+
+        SpawnWeaponBullet(direction);
+
         float animLength = anim.GetCurrentAnimatorStateInfo(0).length;
 
         waitAfterAtkCoroutine = StartCoroutine(WaitAnimEnd(animLength, () =>
@@ -111,6 +124,17 @@ public class Character : GameUnit
             characterEquipment.ShowWeapon();
             Debug.Log("Show weapon");
         }));
+    }
+
+    public void SpawnWeaponBullet(Vector3 dir)
+    {
+        Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
+        Weapon weaponPrefab = characterEquipment.currentWeaponBullet;
+        Weapon weaponBulletUnit = SimplePool.Spawn<Weapon>(weaponPrefab, TF.position, rotation);
+        weaponBulletUnit.TF.localScale += level * characterScaleRatio * 20f;
+        weaponBulletUnit.SetDir(dir);
+        weaponBulletUnit.owner = this;
+        weaponBulletUnit.isHasFire = true;
     }
 
     public IEnumerator WaitAnimEnd(float animLength, CallbackMethod cb)
@@ -186,6 +210,63 @@ public class Character : GameUnit
         if (targetIndicator != null)
         {
             targetIndicator.transform.localScale += characterScaleRatio;
+        }
+    }
+
+    private void Move(Vector3 direction)
+    {
+        // Rotation when move
+        if (Vector3.Distance(direction, Vector3.zero) > 0.01f)
+        {
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            rb.transform.rotation = rotation;
+        }
+
+        rb.velocity = direction.normalized * speed * Time.fixedDeltaTime;
+
+        // Check character stop
+        if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
+        {
+            // Check has target
+            if (targets.Count > 0)
+            {
+                // Check can attack
+                if (isCanAtk)
+                {
+                    // Disable can attack
+                    isCanAtk = false;
+                    if (currentTarget != null && !currentTarget.isDead)
+                    {
+                        RotationToTarget();
+                        Attack();
+                    }
+
+                }
+            }
+            else
+            {
+                // Not has tartget, change idle anim
+                ChangeAnim(ConstString.ANIM_IDLE);
+            }
+        }
+        else
+        {
+            isCanAtk = true;
+            characterEquipment.ShowWeapon();
+            ChangeAnim(ConstString.ANIM_RUN);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isCoolDownAttack)
+        {
+            delayAttack -= Time.fixedDeltaTime;
+        }
+
+        if (joystick != null && this is Player)
+        {
+            Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
         }
     }
 }

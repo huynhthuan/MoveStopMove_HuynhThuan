@@ -25,7 +25,7 @@ public class Stage : MonoBehaviour
         Debug.Log("Start point: " + startPoint);
 
         //Spawn player
-        Player playerObj = (Player)SimplePool.Spawn(LevelManager.Ins.playerPrefab, startPoint, Quaternion.identity);
+        Player playerObj = SimplePool.Spawn<Player>(LevelManager.Ins.playerPrefab, startPoint, Quaternion.identity);
         playerObj.currentStage = this;
         characterInStage.Add(playerObj);
         playerObj.OnInit();
@@ -40,12 +40,12 @@ public class Stage : MonoBehaviour
 
     public void SpawnBot(int numberBot)
     {
-        Debug.Log("Start spawn bot...");
+        // Debug.Log("Start spawn bot...");
         for (int i = 1; i <= numberBot; i++)
         {
-            Debug.Log("Start spawn bot index [" + i + "]...");
+            // Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
-            Bot botOjb = (Bot)SimplePool.Spawn(LevelManager.Ins.botPrefab, Vector3.zero, Quaternion.identity);
+            Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, Vector3.zero, Quaternion.identity);
             botOjb.currentStage = this;
             characterInStage.Add(botOjb);
             botOjb.OnInit();
@@ -84,7 +84,7 @@ public class Stage : MonoBehaviour
             }
         }
 
-        Debug.Log("Spawn bot to point: " + hit.position);
+        // Debug.Log("Spawn bot to point: " + hit.position);
 
         return hit.position;
     }

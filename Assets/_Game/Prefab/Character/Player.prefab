@@ -322,7 +322,7 @@ MonoBehaviour:
   targetIndicator: {fileID: 0}
   characterEquipment: {fileID: 0}
   capsuleCollider: {fileID: 7907544990324267056}
-  speed: 200
+  speed: 240
 --- !u!1001 &4457838830437894202
 PrefabInstance:
   m_ObjectHideFlags: 0
