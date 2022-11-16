@@ -7,16 +7,26 @@ public class Bot : Character, IHit
 {
     [SerializeField]
     private LayerMask layerMask;
+    [SerializeField]
+    private LayerMask targetMask;
+    [SerializeField]
+    private LayerMask obstructionMask;
 
     internal NavMeshAgent navMeshAgent;
     private float rangeSearchPoint = 10.0f;
 
     private IStateBot currentState;
     private List<Transform> enemyInVision = new List<Transform>();
+    public float radius;
+    [Range(0, 360)]
+    public float angle;
+    public Collider[] targetInVision;
+    public List<Transform> targetCanSee;
 
     public override void OnDespawn()
     {
         base.OnDespawn();
+        StopCoroutine(FOVRoutine());
     }
 
     public override void OnInit()
@@ -32,8 +42,10 @@ public class Bot : Character, IHit
 
         characterEquipment.EquipWeapon(weaponRandom);
         characterEquipment.WearPants(pantsRandom);
+        StartCoroutine(FOVRoutine());
 
         ChangeState(new IStateBotIdle());
+
     }
 
     public void ChangeState(IStateBot newState)
@@ -64,28 +76,6 @@ public class Bot : Character, IHit
         }
     }
 
-    public Vector3 FindEnemy()
-    {
-        GetEnemysInVision();
-        int randomEnemyIndex = Random.Range(0, enemyInVision.Count);
-
-        return new Vector3(enemyInVision[randomEnemyIndex].position.x, 1.08f, enemyInVision[randomEnemyIndex].position.z);
-    }
-
-    public List<Transform> GetEnemysInVision()
-    {
-        for (int i = 0; i < currentStage.characterInStage.Count; i++)
-        {
-            Character enemy = currentStage.characterInStage[i];
-            if (Vector3.Distance(TF.position, enemy.TF.position) >= 5f && enemy != this)
-            {
-                enemyInVision.Add(enemy.TF);
-            }
-        }
-
-        return enemyInVision;
-    }
-
     public void OnHit(Transform attacker)
     {
         if (isDead)
@@ -105,5 +95,71 @@ public class Bot : Character, IHit
                   Debug.Log("Anim dead end");
                   OnDespawn();
               }));
+    }
+
+    private IEnumerator FOVRoutine()
+    {
+        WaitForSeconds wait = new WaitForSeconds(0.2f);
+
+        while (true)
+        {
+            yield return wait;
+            FieldOfViewCheck();
+        }
+    }
+
+
+    private void FieldOfViewCheck()
+    {
+        targetInVision = Physics.OverlapSphere(TF.position, radius, targetMask);
+
+
+        if (targetInVision.Length != 0)
+        {
+            for (int i = 0; i < targetInVision.Length; i++)
+            {
+                Transform targetTF = ColliderCache.GetTransform(targetInVision[i]);
+                if (CheckCanSeeTarget(targetTF))
+                {
+                    if (targetCanSee.Contains(targetTF) || targetTF == this.TF)
+                    {
+                        return;
+                    }
+                    targetCanSee.Add(targetTF);
+                }
+            }
+        }
+    }
+
+    private bool CheckCanSeeTarget(Transform target)
+    {
+        bool canSeePlayer = false;
+        Vector3 directionToTarget = (target.position - TF.position).normalized;
+
+        if (Vector3.Angle(TF.forward, directionToTarget) < angle / 2)
+        {
+            float distanceToTarget = Vector3.Distance(TF.position, target.position);
+
+            if (!Physics.Raycast(TF.position, directionToTarget, distanceToTarget, obstructionMask))
+            {
+                canSeePlayer = true;
+            }
+            else
+            {
+                canSeePlayer = false;
+            }
+        }
+        else
+        {
+            canSeePlayer = false;
+        }
+
+        return canSeePlayer;
+    }
+
+    internal Vector3 GetRandomTargetInVision()
+    {
+        Transform randomTF = targetCanSee[Random.Range(0, targetCanSee.Count)];
+        return new Vector3(randomTF.position.x, TF.position.y, randomTF.position.z);
     }
 }

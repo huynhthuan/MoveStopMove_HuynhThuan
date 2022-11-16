@@ -261,9 +261,9 @@ GameObject:
   - component: {fileID: 6136475394438716181}
   - component: {fileID: 6136475394438716185}
   - component: {fileID: 6136475394438716190}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -323,6 +323,7 @@ MonoBehaviour:
   characterEquipment: {fileID: 0}
   capsuleCollider: {fileID: 7907544990324267056}
   speed: 240
+  joystick: {fileID: 0}
 --- !u!1001 &4457838830437894202
 PrefabInstance:
   m_ObjectHideFlags: 0

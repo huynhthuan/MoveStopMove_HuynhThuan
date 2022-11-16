@@ -46,6 +46,7 @@ public class Stage : MonoBehaviour
             // Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
             Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, Vector3.zero, Quaternion.identity);
+            botOjb.name = $"Bot - {i}";
             botOjb.currentStage = this;
             characterInStage.Add(botOjb);
             botOjb.OnInit();

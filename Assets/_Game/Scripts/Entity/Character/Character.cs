@@ -24,6 +24,7 @@ public class Character : GameUnit
     public float speed;
     [SerializeField]
     private DynamicJoystick joystick;
+
     internal float delayAttack = 0f;
     internal bool isCoolDownAttack = false;
     private string currentAnimName;
@@ -268,5 +269,7 @@ public class Character : GameUnit
         {
             Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
         }
+
+
     }
 }

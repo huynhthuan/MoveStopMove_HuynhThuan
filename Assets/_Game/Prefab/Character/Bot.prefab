@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 4969832438472551356}
   - component: {fileID: 4385818693316814532}
   - component: {fileID: 2395801424497542172}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Bot
   m_Icon: {fileID: 0}
@@ -217,9 +217,9 @@ GameObject:
   - component: {fileID: 7809795814854072463}
   - component: {fileID: 2771069936727214626}
   - component: {fileID: 423014546105355591}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bot
-  m_TagString: Bot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -285,6 +285,16 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 72
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 72
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 128
+  radius: 35
+  angle: 56
+  targetInVision: []
+  targetCanSee: []
 --- !u!195 &423014546105355591
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -294,7 +304,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3163901421772608209}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -456,15 +466,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9085522342872129551}
-  - component: {fileID: 3452655308307025036}
-  - component: {fileID: 4992949060623377274}
-  m_Layer: 6
+  - component: {fileID: 5316402123771285140}
+  m_Layer: 0
   m_Name: Vision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9085522342872129551
 Transform:
   m_ObjectHideFlags: 0
@@ -472,14 +481,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5962492598616752429}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 5398081492385629654}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3452655308307025036
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!212 &5316402123771285140
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -524,36 +533,12 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.32, y: 2.93}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &4992949060623377274
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962492598616752429}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -1.6534177, y: 2.9215097}
-  - {x: 0.0058561326, y: -0.034999967}
-  - {x: 1.6548556, y: 2.920214}
-  - {x: -1.6543257, y: 2.9214458}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1001 &6363007927301418729
 PrefabInstance:
   m_ObjectHideFlags: 0
