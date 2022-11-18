@@ -22,6 +22,7 @@ public class IStateBotIdle : IStateBot
         if (timer >= randomTime)
         {
             bot.ChangeState(new IStateBotFindEnemy());
+            Debug.Log($"Change to state find enmy");
         }
 
         // if (GameManager.Ins.isPlayGame)

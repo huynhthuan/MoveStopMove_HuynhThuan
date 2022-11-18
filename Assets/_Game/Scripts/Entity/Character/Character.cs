@@ -31,6 +31,7 @@ public class Character : GameUnit
     private int level = 0;
     internal bool isCanAtk = true;
     internal Coroutine waitAfterAtkCoroutine;
+    internal bool isAttackAnimEnd = false;
     internal Coroutine waitAfterDeathCoroutine;
     internal Stage currentStage;
     internal float attackRadius;
@@ -95,6 +96,7 @@ public class Character : GameUnit
 
     public void Attack()
     {
+        isAttackAnimEnd = false;
 
         if (delayAttack >= 0.01f)
         {
@@ -122,6 +124,7 @@ public class Character : GameUnit
         waitAfterAtkCoroutine = StartCoroutine(WaitAnimEnd(animLength, () =>
         {
             StopCoroutine(waitAfterAtkCoroutine);
+            isAttackAnimEnd = true;
             characterEquipment.ShowWeapon();
             Debug.Log("Show weapon");
         }));
