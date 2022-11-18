@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class IStateBotAttack : IStateBot
 {
-    private bool isHasAttack = false;
     public void OnEnter(Bot bot)
     {
-        isHasAttack = true;
-        bot.Attack();
-    }
+        bot.navMeshAgent.isStopped = true;
 
+    }
 
     public void OnExecute(Bot bot)
     {
-        if (isHasAttack && bot.isAttackAnimEnd)
-        {
-            isHasAttack = false;
-            bot.ChangeState(new IStateBotFindEnemy());
-        }
+        // bot.Attack();
+        Debug.Log("Attack");
     }
 
     public void OnExit(Bot bot) { }

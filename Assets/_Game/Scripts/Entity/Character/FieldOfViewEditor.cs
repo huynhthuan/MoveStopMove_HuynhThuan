@@ -21,6 +21,7 @@ public class FieldOfViewEditor : Editor
         {
             Handles.color = Color.green;
             Handles.DrawLine(fov.TF.position, fov.targetCanSee[i].position);
+            Debug.Log("Draw line to target in view");
         }
     }
 

@@ -10,10 +10,12 @@ public class IStateBotIdle : IStateBot
     public void OnEnter(Bot bot)
     {
         randomTime = Random.Range(1f, 3);
+        bot.isStartCheckView = false;
     }
 
     public void OnExecute(Bot bot)
     {
+        bot.navMeshAgent.isStopped = true;
         bot.rb.velocity = Vector3.zero;
         bot.ChangeAnim(ConstString.ANIM_IDLE);
 
@@ -22,6 +24,7 @@ public class IStateBotIdle : IStateBot
         if (timer >= randomTime)
         {
             bot.ChangeState(new IStateBotFindEnemy());
+
             Debug.Log($"Change to state find enmy");
         }
 

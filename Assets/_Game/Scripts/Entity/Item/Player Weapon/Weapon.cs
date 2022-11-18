@@ -62,7 +62,7 @@ public class Weapon : GameUnit
 
     public virtual void Move()
     {
-        rb.velocity = dirToTarget * 6f;
+        rb.velocity = dirToTarget * 8.5f;
     }
 
     public override void OnInit()

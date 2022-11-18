@@ -7,14 +7,35 @@ public class IStateBotFindEnemy : IStateBot
 {
     private Vector3 target;
 
+
     public void OnEnter(Bot bot)
     {
+        bot.navMeshAgent.isStopped = false;
+        bot.isStartCheckView = true;
         GoToNextTarget(bot);
     }
 
     public void OnExecute(Bot bot)
     {
         bot.ChangeAnim(ConstString.ANIM_RUN);
+        // Debug.Log($"{bot.name} velocity {bot.rb.velocity}");
+
+        if (bot.attackTarget != null)
+        {
+            if (Vector3.Distance(bot.TF.position, bot.attackTarget.position) <= 4f)
+            {
+                bot.navMeshAgent.isStopped = true;
+                bot.ChangeState(new IStateBotAttack());
+
+            }
+            else
+            {
+                if (bot.navMeshAgent.remainingDistance <= 0.01f)
+                {
+                    bot.ChangeState(new IStateBotIdle());
+                }
+            }
+        }
 
         if (bot.navMeshAgent.remainingDistance <= 0.01f)
         {
@@ -28,11 +49,11 @@ public class IStateBotFindEnemy : IStateBot
     {
         NavMeshHit hit;
 
-        if (Random.Range(1, 100) > 50 && bot.targetCanSee.Count > 0)
+        if (Random.Range(1, 100) > 5 && bot.targetCanSee.Count > 0)
         {
             // Get random target in view
             target = bot.GetRandomTargetInVision();
-            Debug.Log($"{bot.name} Get next target in target in view - point: {target}");
+            // Debug.Log($"{bot.name} Get next target in target in view - point: {target}");
         }
         else
         {
@@ -48,10 +69,10 @@ public class IStateBotFindEnemy : IStateBot
                 }
             }
 
-            Debug.Log($"{bot.name} Get next target in navmesh - point: {target}");
+            // Debug.Log($"{bot.name} Get next target in navmesh - point: {target}");
         }
 
-        Debug.Log($"{bot.name} Go to target: {target}");
+        // Debug.Log($"{bot.name} Go to target: {target}");
         // Move to next target
         bot.navMeshAgent.SetDestination(target);
     }

@@ -40,4 +40,78 @@ public class Player : Character, IHit
         Debug.Log("currentPantsData " + JsonUtility.ToJson(currentPantsData));
         characterEquipment.WearPants(currentPantsData);
     }
+
+    private void Move(Vector3 direction)
+    {
+        // Rotation when move
+        if (Vector3.Distance(direction, Vector3.zero) > 0.01f)
+        {
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            rb.transform.rotation = rotation;
+        }
+
+        rb.velocity = direction.normalized * speed * Time.fixedDeltaTime;
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (isCoolDownAttack)
+        {
+            delayAttack -= Time.fixedDeltaTime;
+        }
+
+        if (joystick != null)
+        {
+            Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
+        }
+
+        // Check character stop
+        if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
+        {
+            // Check has target
+            if (targets.Count > 0)
+            {
+                // Check can attack
+                if (isCanAtk)
+                {
+                    // Disable can attack
+                    isCanAtk = false;
+                    if (currentTarget != null && !currentTarget.isDead)
+                    {
+                        RotationToTarget();
+                        Attack();
+                    }
+
+                }
+            }
+            else
+            {
+                // Not has tartget, change idle anim
+                ChangeAnim(ConstString.ANIM_IDLE);
+            }
+        }
+        else
+        {
+            isCanAtk = true;
+            characterEquipment.ShowWeapon();
+            ChangeAnim(ConstString.ANIM_RUN);
+        }
+    }
+
+    public override void LevelUp()
+    {
+        base.LevelUp();
+        attackRange.transform.localScale += characterScaleRatio * 5f;
+        anim.transform.localScale += characterScaleRatio;
+        anim.transform.localPosition = new Vector3(anim.transform.localPosition.x, anim.transform.localPosition.y - characterScaleRatio.y, anim.transform.localPosition.z);
+        attackRange.transform.localPosition = new Vector3(attackRange.transform.localPosition.x, attackRange.transform.localPosition.y - characterScaleRatio.y, attackRange.transform.localPosition.z);
+        capsuleCollider.transform.localScale += characterScaleRatio;
+        Vector3 cameraFollowOffset = GameManager.Ins.cameraFollow.offset;
+        GameManager.Ins.cameraFollow.offset = cameraFollowOffset * cameraFollowScaleRatio;
+        if (targetIndicator != null)
+        {
+            targetIndicator.transform.localScale += characterScaleRatio;
+        }
+    }
 }

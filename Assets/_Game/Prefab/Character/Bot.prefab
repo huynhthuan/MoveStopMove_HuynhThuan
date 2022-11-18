@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94426715c2f4b574c8f5bf1781cd8b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
+  poolType: 2
   rb: {fileID: 7809795814854072463}
   anim: {fileID: 1966113604146135583}
   attackRange: {fileID: 6532697871922894327}
