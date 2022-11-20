@@ -291,10 +291,12 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 128
+  bodyRenderer: {fileID: 4035041467658048149}
   radius: 35
   angle: 56
   targetInVision: []
   targetCanSee: []
+  isStartCheckView: 0
 --- !u!195 &423014546105355591
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1280,5 +1282,10 @@ Transform:
 --- !u!95 &1966113604146135583 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4829257485547875574, guid: d0a16684b100c86489982faf1e4b7726, type: 3}
+  m_PrefabInstance: {fileID: 6363007927301418729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4035041467658048149 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8048681479174175868, guid: d0a16684b100c86489982faf1e4b7726, type: 3}
   m_PrefabInstance: {fileID: 6363007927301418729}
   m_PrefabAsset: {fileID: 0}

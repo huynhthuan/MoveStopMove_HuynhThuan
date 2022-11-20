@@ -10,6 +10,8 @@ public class LevelManager : Singleton<LevelManager>
 
     [SerializeField]
     internal Bot botPrefab;
+    [SerializeField]
+    internal WayPointIndicator wayPointIndicator;
 
     [SerializeField]
     private List<StageConfig> stages;

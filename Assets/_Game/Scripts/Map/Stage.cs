@@ -3,21 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum CharacterColor
+{
+    COLOR_1,
+    COLOR_2,
+    COLOR_3,
+    COLOR_4,
+    COLOR_5,
+    COLOR_6,
+    COLOR_7,
+    COLOR_8,
+    COLOR_9,
+    COLOR_10,
+}
+
 public class Stage : MonoBehaviour
 {
     [SerializeField]
     private StageConfig levelConfig;
     [SerializeField]
     internal List<Character> characterInStage = new List<Character>();
+    [SerializeField]
+    internal Color[] botColors;
     private int playerAlive;
     private int maxBot;
     private Vector3 startPoint;
 
     private NavMeshHit hit;
+    internal List<Color> characterColorAvaible = new List<Color>();
 
     public void OnInit()
     {
         Debug.Log("Oninit stage...");
+        characterColorAvaible.AddRange(botColors);
         // Set player alive
         playerAlive = levelConfig.numberOfPlayer;
         maxBot = levelConfig.maxBot;
@@ -40,17 +58,28 @@ public class Stage : MonoBehaviour
 
     public void SpawnBot(int numberBot)
     {
-        // Debug.Log("Start spawn bot...");
+        Debug.Log($"Start spawn {numberBot} bot...");
         for (int i = 1; i <= numberBot; i++)
         {
             // Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
             Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, Vector3.zero, Quaternion.identity);
+            WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(LevelManager.Ins.wayPointIndicator, Vector3.zero, Quaternion.identity);
+
+            // Init bot
             botOjb.name = $"Bot - {i}";
             botOjb.currentStage = this;
             characterInStage.Add(botOjb);
             botOjb.OnInit();
+            Color newColor = characterColorAvaible[0];
+            characterColorAvaible.Remove(newColor);
+            botOjb.ChangeColorBody(newColor);
             botOjb.TF.position = pointToSpawn;
+
+            // Init waypoint indicator
+            waypointObj.targetFowllow = botOjb;
+            waypointObj.currentColor = botOjb.currentColor;
+            waypointObj.OnInit();
         }
     }
 

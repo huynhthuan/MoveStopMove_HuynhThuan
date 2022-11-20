@@ -8,6 +8,8 @@ public class GameManager : Singleton<GameManager>
     internal DynamicJoystick joystick;
     [SerializeField]
     internal CameraFollow cameraFollow;
+     [SerializeField]
+    internal Camera mainCamera;
     [SerializeField]
     internal Vector3 characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
     [SerializeField]

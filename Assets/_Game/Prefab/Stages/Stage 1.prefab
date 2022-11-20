@@ -158,6 +158,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelConfig: {fileID: 11400000, guid: c946c846863aaa54b8abf9dc763b3ae7, type: 2}
   characterInStage: []
+  botColors:
+  - {r: 0.50308025, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 0, b: 0.8064232, a: 0}
+  - {r: 0, g: 0.015482426, b: 1, a: 0}
+  - {r: 0, g: 1, b: 0.96191955, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0}
+  - {r: 0.45866606, g: 0, b: 0.5283019, a: 0}
+  - {r: 1, g: 0.6458118, b: 0, a: 0}
 --- !u!1 &8820432103446813948
 GameObject:
   m_ObjectHideFlags: 0

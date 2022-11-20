@@ -360,5 +360,6 @@ public enum PoolType
     Knife_Bullet,
     Hammer_Bullet,
     Bot,
-    Player
+    Player,
+    Waypoint
 }

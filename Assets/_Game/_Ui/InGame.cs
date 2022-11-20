@@ -5,7 +5,7 @@ using UnityEngine;
 public class InGame : UICanvas
 {
     [SerializeField]
-    private Transform aliveBox;
+    private Transform aliveNumber;
 
     [SerializeField]
     private Transform settingButton;
@@ -25,4 +25,6 @@ public class InGame : UICanvas
         UIManager.Ins.OpenUI<Settings>();
         Close();
     }
+
+
 }

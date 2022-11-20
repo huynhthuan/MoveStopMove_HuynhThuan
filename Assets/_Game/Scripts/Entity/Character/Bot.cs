@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+
 public class Bot : Character, IHit
 {
     [SerializeField]
@@ -11,10 +13,10 @@ public class Bot : Character, IHit
     private LayerMask targetMask;
     [SerializeField]
     private LayerMask obstructionMask;
-
+    [SerializeField]
+    internal SkinnedMeshRenderer bodyRenderer;
     internal NavMeshAgent navMeshAgent;
     private float rangeSearchPoint = 10.0f;
-
     private IStateBot currentState;
     private List<Transform> enemyInVision = new List<Transform>();
     public float radius;
@@ -24,11 +26,13 @@ public class Bot : Character, IHit
     public List<Transform> targetCanSee;
     public bool isStartCheckView = false;
     internal Transform attackTarget;
+    internal Color currentColor;
 
     public override void OnDespawn()
     {
         base.OnDespawn();
         isStartCheckView = false;
+        currentStage.characterColorAvaible.Add(currentColor);
     }
 
     public override void OnInit()
@@ -47,6 +51,12 @@ public class Bot : Character, IHit
 
         ChangeState(new IStateBotIdle());
 
+    }
+
+    public void ChangeColorBody(Color newColor)
+    {
+        currentColor = newColor;
+        bodyRenderer.material.SetColor("_Color", newColor);
     }
 
     public void ChangeState(IStateBot newState)
