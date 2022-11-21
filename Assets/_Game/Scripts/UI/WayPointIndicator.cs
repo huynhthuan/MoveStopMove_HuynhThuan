@@ -16,6 +16,8 @@ public class WayPointIndicator : GameUnit
     internal Transform arrowObj;
     [SerializeField]
     internal GameObject waypoint;
+    [SerializeField]
+    private RectTransform rectTransform;
     internal Camera cameraMain;
     internal Bot targetFowllow;
     internal Color currentColor;
@@ -32,6 +34,7 @@ public class WayPointIndicator : GameUnit
     {
         ChangeColor(currentColor);
         cameraMain = GameManager.Ins.mainCamera;
+        // Debug.Log($"Target {targetFowllow.name}");
         isStartFollow = true;
     }
 
@@ -46,44 +49,39 @@ public class WayPointIndicator : GameUnit
 
         Vector3 viewPos = cameraMain.WorldToViewportPoint(point);
 
-        // Debug.Log($"View point {viewPos}");
+        viewPos.x = Mathf.Clamp(viewPos.x, 0.06f, 0.9f);
+        viewPos.y = Mathf.Clamp(viewPos.y, 0.06f, 0.9f);
+
+        if ((viewPos.x > 0.06f && viewPos.x < 0.9f) && (viewPos.y > 0.06f && viewPos.y < 0.9f))
+        {
+            waypoint.SetActive(false);
+        }
+        else
+        {
+            waypoint.SetActive(true);
+        }
 
         Vector3 screenPos = cameraMain.ViewportToScreenPoint(viewPos);
 
-        // Debug.Log($"Screen point {screenPos}");
+        if (screenPos.z < 0f)
+        {
+            screenPos *= -1f;
+        }
 
         Vector3 canvasPos = screenPos - new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
-        // Debug.Log($"{targetFowllow.name} | Canvas point {canvasPos}");
-
-        float canvasPosXFix = Mathf.Clamp(canvasPos.x, (-Screen.width / 2) + padding, Screen.width / 2 - padding);
-        float canvasPosYFix = Mathf.Clamp(canvasPos.y, (-Screen.height / 2) + padding, Screen.height / 2 - padding);
-
-        // Debug.Log($"Canvas point fix {new Vector3(canvasPosXFix, canvasPosYFix, canvasPos.z)}");
-
-        // Debug.Log($"canvasPos point fix {screenPos.x} [{(-Screen.width / 2) + padding} | {Screen.width / 2 - padding}]");
-
-        return new Vector3(canvasPosXFix, canvasPosYFix, canvasPos.z);
+        return canvasPos;
     }
+
 
     private void FixedUpdate()
     {
         if (isStartFollow)
         {
-            TF.localPosition = ConvertWPtoCP(targetFowllow.TF.position);
+            rectTransform.anchoredPosition = ConvertWPtoCP(targetFowllow.TF.position);
             RotationToTarget();
 
             // Debug.Log($"check {targetFowllow.name} in view {TargetInView()}");
-
-            if (TargetInView())
-            {
-                waypoint.SetActive(false);
-            }
-            else
-            {
-                waypoint.SetActive(true);
-            }
-
         }
 
     }
@@ -94,10 +92,5 @@ public class WayPointIndicator : GameUnit
         float angleToTarget = TF.localPosition.x > 0 ? -Vector3.Angle(TF.forward, directionToTarget) : Vector3.Angle(TF.forward, directionToTarget);
         // Debug.Log($"{targetFowllow.name} angleToTarget = {angleToTarget}");
         arrowObj.localRotation = Quaternion.Euler(0f, 0f, angleToTarget);
-    }
-
-    private bool TargetInView()
-    {
-        return (TF.localPosition.x < (Screen.width / 2) - padding && TF.localPosition.x > (-Screen.width / 2) + padding) && (TF.localPosition.y < (Screen.height / 2) - padding && TF.localPosition.y > (-Screen.height / 2) + padding);
     }
 }

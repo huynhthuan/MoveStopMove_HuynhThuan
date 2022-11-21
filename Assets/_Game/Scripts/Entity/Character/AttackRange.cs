@@ -42,8 +42,8 @@ public class AttackRange : MonoBehaviour
     private void GetTargetInRange()
     {
         float radius = radiusRatio * character.attackRange.TF.localScale.x;
-        int enemyFound = Physics.OverlapSphereNonAlloc(TF.position, radius, hitColliders, layerMask);
-        for (int i = 0; i < enemyFound; i++)
+        hitColliders= Physics.OverlapSphere(TF.position, radius, layerMask);
+        for (int i = 0; i < hitColliders.Length; i++)
         {
             Collider other = hitColliders[i];
             Character enemy = ColliderCache.GetCharacter(other);

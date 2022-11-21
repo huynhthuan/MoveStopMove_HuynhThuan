@@ -54,7 +54,7 @@ public class Weapon : GameUnit
                 return;
             }
 
-            Debug.Log("Run hit");
+            // Debug.Log("Run hit");
             colliderHit.OnHit(owner.TF);
             OnDespawn();
         }

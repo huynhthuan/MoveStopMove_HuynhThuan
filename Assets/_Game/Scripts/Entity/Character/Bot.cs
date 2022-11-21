@@ -103,14 +103,15 @@ public class Bot : Character, IHit
             return;
         }
 
-        Debug.Log("Character on hit " + gameObject.name);
-        Debug.Log("Attacker make hit " + attacker.name);
+        // Debug.Log("Character on hit " + gameObject.name);
+        // Debug.Log("Attacker make hit " + attacker.name);
         navMeshAgent.isStopped = true;
         isDead = true;
-        currentStage.OnCharacterDie(this);
+        int characterIndex = currentStage.characterInStage.IndexOf(this);
+        currentStage.OnCharacterDie(characterIndex);
         wayPoint.OnDespawn();
         rb.detectCollisions = false;
-        attacker.GetComponent<Character>().LevelUp();
+        // attacker.GetComponent<Character>().LevelUp();
         ChangeState(new IStateBotDie());
         waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
               {

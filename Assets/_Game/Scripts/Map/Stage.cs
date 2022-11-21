@@ -86,14 +86,13 @@ public class Stage : MonoBehaviour
 
     public bool IsCanSpawnBot()
     {
-        return playerAlive > 2 && characterInStage.Count < maxBot;
+        return (playerAlive > 2 && characterInStage.Count - 1 < maxBot);
     }
 
-    public void OnCharacterDie(Character character)
+    public void OnCharacterDie(int characterIndex)
     {
-        characterInStage.Remove(character);
+        characterInStage.RemoveAt(characterIndex);
         playerAlive--;
-
         if (IsCanSpawnBot())
         {
             SpawnBot(1);

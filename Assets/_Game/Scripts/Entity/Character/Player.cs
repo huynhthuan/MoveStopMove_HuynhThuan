@@ -16,7 +16,8 @@ public class Player : Character, IHit
         Debug.Log("Character on hit " + gameObject.name);
         Debug.Log("Attacker make hit " + attacker.name);
         isDead = true;
-        currentStage.OnCharacterDie(this);
+        int characterIndex = currentStage.characterInStage.IndexOf(this);
+        currentStage.OnCharacterDie(characterIndex);
         rb.detectCollisions = false;
         attacker.GetComponent<Character>().LevelUp();
         ChangeAnim(ConstString.ANIM_DEAD);

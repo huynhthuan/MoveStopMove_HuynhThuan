@@ -262,6 +262,7 @@ MonoBehaviour:
   imageArrow: {fileID: 132356709626519607}
   arrowObj: {fileID: 132356708325800963}
   waypoint: {fileID: 3597551814302121633}
+  rectTransform: {fileID: 132356708792453059}
 --- !u!1 &132356709626519601
 GameObject:
   m_ObjectHideFlags: 0

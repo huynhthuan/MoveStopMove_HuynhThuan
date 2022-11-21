@@ -24,6 +24,7 @@ public class CharacterEquipment : MonoBehaviour
     {
         UnEquipWeapon();
         GameObject newWeaponObj = Instantiate(weapon.weaponPrefab.gameObject, currentEquipementTransform[(int)EquipmentSlot.WEAPON]);
+        currentEquipment[(int)EquipmentSlot.WEAPON] = weapon;
         currentEquipmentObj[(int)EquipmentSlot.WEAPON] = newWeaponObj;
     }
 

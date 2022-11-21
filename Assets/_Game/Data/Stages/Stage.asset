@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2102f9604b885364a83f7852257cb2ff, type: 3}
-  m_Name: Stage0
+  m_Script: {fileID: 11500000, guid: 3db946dc56be8354da68ba4ea49e5c3c, type: 3}
+  m_Name: Stage
   m_EditorClassIdentifier: 
   numberOfPlayer: 100
   maxBot: 9
   stagePrefab: {fileID: 8820432103365778401, guid: 0a9492eb61207da43aff87bb3432a19f, type: 3}
-  startPoint: {x: 0, y: 1.083333, z: 0}
+  startPoint: {x: 0, y: 0.9, z: 0}

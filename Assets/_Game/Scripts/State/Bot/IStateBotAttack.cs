@@ -13,7 +13,7 @@ public class IStateBotAttack : IStateBot
     public void OnExecute(Bot bot)
     {
         // bot.Attack();
-        Debug.Log("Attack");
+        // Debug.Log("Attack");
     }
 
     public void OnExit(Bot bot) { }

@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480f91bed0d155446b7766e3ac77f279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelConfig: {fileID: 11400000, guid: c946c846863aaa54b8abf9dc763b3ae7, type: 2}
+  levelConfig: {fileID: 11400000, guid: 42af9fe69ab867d48adf6599f1d70ede, type: 2}
   characterInStage: []
   botColors:
   - {r: 0.50308025, g: 1, b: 0, a: 0}

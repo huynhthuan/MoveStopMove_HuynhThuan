@@ -12,7 +12,7 @@ public enum SkinType
     SHIELD
 }
 
-public class ItemSkinConfig : ItemConfig
+public class ItemSkinConfig
 {
     public Vector3 positionOnHand;
 }

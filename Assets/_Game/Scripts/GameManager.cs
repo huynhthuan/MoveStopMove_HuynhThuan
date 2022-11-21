@@ -14,6 +14,9 @@ public class GameManager : Singleton<GameManager>
     internal Vector3 characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
     [SerializeField]
     internal float cameraFollowScaleRatio = 2.5f;
+    [SerializeField]
+    internal Transform itemForCamera;
+    internal Camera cameraItem;
     internal bool isPlayGame;
 
     protected void Awake()
@@ -65,8 +68,6 @@ public class GameManager : Singleton<GameManager>
         LevelManager.Ins.LoadStage();
         UIManager.Ins.OpenUI<InGame>();
     }
-
-
 
     // Update is called once per frame
     void Update() { }
