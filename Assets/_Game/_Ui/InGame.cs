@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class InGame : UICanvas
 {
     [SerializeField]
-    private Transform aliveNumber;
+    private TMP_Text aliveNumber;
 
     [SerializeField]
     private Transform settingButton;
@@ -26,5 +27,8 @@ public class InGame : UICanvas
         Close();
     }
 
-
+    private void Update()
+    {
+        aliveNumber.SetText(LevelManager.Ins.currentStage.playerAlive.ToString());
+    }
 }

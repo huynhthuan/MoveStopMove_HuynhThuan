@@ -16,6 +16,7 @@ public class Player : Character, IHit
         Debug.Log("Character on hit " + gameObject.name);
         Debug.Log("Attacker make hit " + attacker.name);
         isDead = true;
+        currentStage.OnCharacterDie(this);
         rb.detectCollisions = false;
         attacker.GetComponent<Character>().LevelUp();
         ChangeAnim(ConstString.ANIM_DEAD);
@@ -33,8 +34,8 @@ public class Player : Character, IHit
         base.OnInit();
         CameraFollow.Ins.target = TF;
 
-        WeaponConfig currentWeaponData = DataManager.Ins.GetWeaponConfig(DataManager.Ins.playerData.weaponId);
-        PantsConfig currentPantsData = DataManager.Ins.GetPantsConfig(DataManager.Ins.playerData.pantsId);
+        WeaponEquipment currentWeaponData = DataManager.Ins.listWeaponEquipment.weapons[DataManager.Ins.playerData.weaponId];
+        PantEquipment currentPantsData = DataManager.Ins.listPantEquipment.pants[DataManager.Ins.playerData.pantsId];
 
         characterEquipment.EquipWeapon(currentWeaponData);
         Debug.Log("currentPantsData " + JsonUtility.ToJson(currentPantsData));

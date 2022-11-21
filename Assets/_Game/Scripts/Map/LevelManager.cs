@@ -20,7 +20,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private Transform TF;
 
-    private Stage currentStage;
+    internal Stage currentStage;
 
     private NavMeshSurface navMeshSurface;
 

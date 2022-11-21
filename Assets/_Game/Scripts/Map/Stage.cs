@@ -25,10 +25,9 @@ public class Stage : MonoBehaviour
     internal List<Character> characterInStage = new List<Character>();
     [SerializeField]
     internal Color[] botColors;
-    private int playerAlive;
+    internal int playerAlive;
     private int maxBot;
     private Vector3 startPoint;
-
     private NavMeshHit hit;
     internal List<Color> characterColorAvaible = new List<Color>();
 
@@ -80,17 +79,20 @@ public class Stage : MonoBehaviour
             waypointObj.targetFowllow = botOjb;
             waypointObj.currentColor = botOjb.currentColor;
             waypointObj.OnInit();
+
+            botOjb.wayPoint = waypointObj;
         }
     }
 
     public bool IsCanSpawnBot()
     {
-        return playerAlive > 1 && characterInStage.Count < maxBot;
+        return playerAlive > 2 && characterInStage.Count < maxBot;
     }
 
     public void OnCharacterDie(Character character)
     {
         characterInStage.Remove(character);
+        playerAlive--;
 
         if (IsCanSpawnBot())
         {

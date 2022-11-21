@@ -25,6 +25,7 @@ public class WayPointIndicator : GameUnit
     public override void OnDespawn()
     {
         isStartFollow = false;
+        SimplePool.Despawn(this);
     }
 
     public override void OnInit()
@@ -72,7 +73,7 @@ public class WayPointIndicator : GameUnit
             TF.localPosition = ConvertWPtoCP(targetFowllow.TF.position);
             RotationToTarget();
 
-            Debug.Log($"check {targetFowllow.name} in view {TargetInView()}");
+            // Debug.Log($"check {targetFowllow.name} in view {TargetInView()}");
 
             if (TargetInView())
             {

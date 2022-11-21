@@ -11,17 +11,17 @@ public class WeaponConfig : ItemConfig
     public List<MaterialItem> materialItems;
 }
 
-[System.Serializable]
-public class MaterialItem
-{
-    public int materialIndex;
-    public List<materialAvaibleItem> materialAvaibleItems;
-}
+// [System.Serializable]
+// public class MaterialItem
+// {
+//     public int materialIndex;
+//     public List<materialAvaibleItem> materialAvaibleItems;
+// }
 
-[System.Serializable]
-public class materialAvaibleItem
-{
-    public Material material;
-    public Sprite icon;
-    public int price;
-}
+// [System.Serializable]
+// public class materialAvaibleItem
+// {
+//     public Material material;
+//     public Sprite icon;
+//     public int price;
+// }

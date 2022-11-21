@@ -27,6 +27,7 @@ public class Bot : Character, IHit
     public bool isStartCheckView = false;
     internal Transform attackTarget;
     internal Color currentColor;
+    internal WayPointIndicator wayPoint;
 
     public override void OnDespawn()
     {
@@ -43,8 +44,8 @@ public class Bot : Character, IHit
         navMeshAgent.enabled = true;
 
         // Equip random weapon
-        WeaponConfig weaponRandom = characterEquipment.RandomWeapon();
-        PantsConfig pantsRandom = characterEquipment.RandomPants();
+        WeaponEquipment weaponRandom = characterEquipment.RandomWeapon();
+        PantEquipment pantsRandom = characterEquipment.RandomPants();
 
         characterEquipment.EquipWeapon(weaponRandom);
         characterEquipment.WearPants(pantsRandom);
@@ -106,6 +107,8 @@ public class Bot : Character, IHit
         Debug.Log("Attacker make hit " + attacker.name);
         navMeshAgent.isStopped = true;
         isDead = true;
+        currentStage.OnCharacterDie(this);
+        wayPoint.OnDespawn();
         rb.detectCollisions = false;
         attacker.GetComponent<Character>().LevelUp();
         ChangeState(new IStateBotDie());
@@ -119,7 +122,6 @@ public class Bot : Character, IHit
 
     private void FieldOfViewCheck()
     {
-        Debug.Log("Check target in view");
         targetInVision = null;
         targetInVision = Physics.OverlapSphere(TF.position, radius, targetMask);
 

@@ -17,10 +17,10 @@ public enum DataKey
 public class DataManager : Singleton<DataManager>
 {
     [SerializeField]
-    internal DataWeaponConfig dataWeapon;
+    internal ListWeaponEquipment listWeaponEquipment;
 
     [SerializeField]
-    internal DataPantsConfig dataPants;
+    internal ListPantEquipment listPantEquipment;
 
     [SerializeField]
     public PlayerData playerData;
@@ -45,10 +45,11 @@ public class DataManager : Singleton<DataManager>
         playerData.currentStage = PlayerPrefs.GetInt(GetKey(DataKey.CURRENT_STAGE), 0);
         playerData.gold = PlayerPrefs.GetInt(GetKey(DataKey.GOLD), 100);
         playerData.userName = PlayerPrefs.GetString(GetKey(DataKey.CURRENT_STAGE), ConstString.DEFAULT_USER_NAME);
-        playerData.weaponId = PlayerPrefs.GetString(GetKey(DataKey.WEAPON_ID), ConstString.DEFAULT_WEAPON_ID);
+        playerData.weaponId = PlayerPrefs.GetInt(GetKey(DataKey.WEAPON_ID), 0);
         playerData.weaponMaterial1 = PlayerPrefs.GetInt(GetKey(DataKey.CURRENT_STAGE), 0);
         playerData.weaponMaterial2 = PlayerPrefs.GetInt(GetKey(DataKey.CURRENT_STAGE), 0);
-        playerData.pantsId = PlayerPrefs.GetString(GetKey(DataKey.PANTS_ID), ConstString.DEFAULT_PANTS_ID);
+        playerData.pantsId = PlayerPrefs.GetInt(GetKey(DataKey.PANTS_ID), 0);
+        Debug.Log($"Player data {JsonUtility.ToJson(playerData)}");
     }
 
     public void SaveData()
@@ -57,27 +58,14 @@ public class DataManager : Singleton<DataManager>
         PlayerPrefs.SetInt(GetKey(DataKey.CURRENT_STAGE), playerData.currentStage);
         PlayerPrefs.SetInt(GetKey(DataKey.GOLD), playerData.gold);
         PlayerPrefs.SetString(GetKey(DataKey.USER_NAME), playerData.userName);
-        PlayerPrefs.SetString(GetKey(DataKey.WEAPON_ID), playerData.weaponId);
+        PlayerPrefs.SetInt(GetKey(DataKey.WEAPON_ID), playerData.weaponId);
         PlayerPrefs.SetInt(GetKey(DataKey.WEAPON_MATERIAL_1), playerData.weaponMaterial1);
         PlayerPrefs.SetInt(GetKey(DataKey.WEAPON_MATERIAL_2), playerData.weaponMaterial2);
-        PlayerPrefs.SetString(GetKey(DataKey.PANTS_ID), playerData.pantsId);
+        PlayerPrefs.SetInt(GetKey(DataKey.PANTS_ID), playerData.pantsId);
     }
 
     public string GetKey(DataKey key)
     {
         return DataKeyString[(int)key];
     }
-
-    public WeaponConfig GetWeaponConfig(string weaponId)
-    {
-        Debug.Log("[~] Get weapon config. Weapon: " + weaponId);
-        return dataWeapon.FindById(weaponId);
-    }
-
-    public PantsConfig GetPantsConfig(string pantsId)
-    {
-        Debug.Log("[~] Get pants config. Pants: " + pantsId);
-        return dataPants.FindById(pantsId);
-    }
-
 }

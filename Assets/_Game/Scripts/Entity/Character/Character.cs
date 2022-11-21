@@ -29,7 +29,7 @@ public class Character : GameUnit
     internal float delayAttack = 0f;
     internal bool isCoolDownAttack = false;
     private string currentAnimName;
-    private int level = 0;
+    internal int level = 0;
     internal bool isCanAtk = true;
     internal Coroutine waitAfterAtkCoroutine;
     internal bool isAttackAnimEnd = false;
@@ -134,7 +134,7 @@ public class Character : GameUnit
     public void SpawnWeaponBullet(Vector3 dir)
     {
         Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
-        Weapon weaponPrefab = characterEquipment.currentWeaponBullet;
+        Weapon weaponPrefab = characterEquipment.GetCurrentWeapon().weaponBullet;
         Weapon weaponBulletUnit = SimplePool.Spawn<Weapon>(weaponPrefab, TF.position, rotation);
         weaponBulletUnit.TF.localScale += level * characterScaleRatio * 20f;
         weaponBulletUnit.SetDir(dir);
@@ -190,11 +190,14 @@ public class Character : GameUnit
 
     public void UnSelectTarget(Character target)
     {
+        currentTarget = null;
         if (this is Player)
         {
             TargetIndicator enemyIndicator = target.targetIndicator;
             enemyIndicator.DisableIndicator();
         }
+
+        RemoveTarget(target);
     }
 
     public override void OnDespawn()

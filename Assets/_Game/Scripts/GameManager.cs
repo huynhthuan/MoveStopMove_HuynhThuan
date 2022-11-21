@@ -8,7 +8,7 @@ public class GameManager : Singleton<GameManager>
     internal DynamicJoystick joystick;
     [SerializeField]
     internal CameraFollow cameraFollow;
-     [SerializeField]
+    [SerializeField]
     internal Camera mainCamera;
     [SerializeField]
     internal Vector3 characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
     {
         // Load stage
         LevelManager.Ins.LoadStage();
+        UIManager.Ins.OpenUI<InGame>();
     }
 
 

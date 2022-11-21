@@ -120,7 +120,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6136475393729493019}
   - component: {fileID: 6136475393729493016}
-  - component: {fileID: 6136475393729493017}
   - component: {fileID: 6136475393729493022}
   m_Layer: 0
   m_Name: Attack Range
@@ -194,19 +193,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!135 &6136475393729493017
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6136475393729493018}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.2344615
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6136475393729493022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3a48c39c4f42a4d931c0d491d0e585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &6136475394184533435
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c9a6dcc29dbba4cb1e702525811ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
+  poolType: 3
   rb: {fileID: 6136475394438716185}
   anim: {fileID: 9140500559274157260}
   attackRange: {fileID: 6136475393729493022}
