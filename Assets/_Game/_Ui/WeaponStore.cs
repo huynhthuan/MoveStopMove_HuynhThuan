@@ -62,8 +62,8 @@ public class WeaponStore : UICanvas
 
         if (currentItemIndex < 0)
         {
-            currentItemIndex = 0;
-            ShowItem(0);
+            currentItemIndex = listWeapon.Count - 1;
+            ShowItem(listWeapon.Count - 1);
         }
         else
         {

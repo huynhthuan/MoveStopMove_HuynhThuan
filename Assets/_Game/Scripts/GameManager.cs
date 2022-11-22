@@ -66,7 +66,7 @@ public class GameManager : Singleton<GameManager>
     {
         // Load stage
         LevelManager.Ins.LoadStage();
-        UIManager.Ins.OpenUI<InGame>();
+        UIManager.Ins.OpenUI<WeaponStore>();
     }
 
     // Update is called once per frame
