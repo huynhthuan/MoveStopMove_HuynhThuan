@@ -62,7 +62,7 @@ public class Stage : MonoBehaviour
         {
             Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
-            Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, Vector3.zero, Quaternion.identity);
+            Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, pointToSpawn, Quaternion.identity);
             WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(LevelManager.Ins.wayPointIndicator, Vector3.zero, Quaternion.identity);
 
             // Init bot
@@ -73,7 +73,6 @@ public class Stage : MonoBehaviour
             Color newColor = characterColorAvaible[0];
             characterColorAvaible.Remove(newColor);
             botOjb.ChangeColorBody(newColor);
-            botOjb.TF.position = pointToSpawn;
 
             // Init waypoint indicator
             waypointObj.targetFowllow = botOjb;
@@ -102,6 +101,7 @@ public class Stage : MonoBehaviour
     public Vector3 GetPointToSpawn()
     {
         Debug.Log("Get point to spawn.");
+
         bool isContinueSearch = true;
 
         while (isContinueSearch)

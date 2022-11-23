@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Character : GameUnit
 {
     [SerializeField]
@@ -14,8 +12,6 @@ public class Character : GameUnit
     internal AttackRange attackRange;
     [SerializeField]
     public Character currentTarget;
-    [SerializeField]
-    internal List<Character> targets = new List<Character>();
     [SerializeField]
     internal TargetIndicator targetIndicator;
     [SerializeField]
@@ -46,8 +42,6 @@ public class Character : GameUnit
 
     public override void OnInit()
     {
-        attackRange.OnInit(this);
-        attackRange.character = this;
         characterEquipment = anim.GetComponent<CharacterEquipment>();
         characterEquipment.Oninit();
         colliderTF = capsuleCollider.transform;
@@ -64,11 +58,6 @@ public class Character : GameUnit
             currentAnimName = animName;
             anim.SetTrigger(currentAnimName);
         }
-    }
-
-    public float GetDistanceFromTarget(Vector3 targetPosition)
-    {
-        return Vector3.Distance(TF.position, targetPosition);
     }
 
     public Vector3 GetDirToTarget()
@@ -88,11 +77,6 @@ public class Character : GameUnit
         Vector3 direction = GetDirToTarget();
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
         rb.transform.rotation = rotation;
-    }
-
-    public void AddTagert(Character target)
-    {
-        targets.Add(target);
     }
 
     public void Attack()
@@ -151,55 +135,6 @@ public class Character : GameUnit
         }
     }
 
-    public Character FindNearestEnemy()
-    {
-        Character nearestEnemy = targets[0];
-        float minDistance = GetDistanceFromTarget(nearestEnemy.TF.position);
-
-        for (int i = 0; i < targets.Count; i++)
-        {
-            if (Vector3.Distance(TF.position, targets[i].TF.position) < minDistance)
-            {
-                nearestEnemy = targets[i];
-                break;
-            }
-        }
-
-        return nearestEnemy;
-    }
-
-    public void RemoveTarget(Character target)
-    {
-        targets.Remove(target);
-    }
-
-    public void SelectTarget(Character target)
-    {
-        if (currentTarget != null)
-        {
-            UnSelectTarget(currentTarget);
-        }
-
-        currentTarget = target;
-        if (this is Player)
-        {
-            TargetIndicator enemyIndicator = target.targetIndicator;
-            enemyIndicator.EnableIndicator();
-        }
-    }
-
-    public void UnSelectTarget(Character target)
-    {
-        currentTarget = null;
-        if (this is Player)
-        {
-            TargetIndicator enemyIndicator = target.targetIndicator;
-            enemyIndicator.DisableIndicator();
-        }
-
-        RemoveTarget(target);
-    }
-
     public override void OnDespawn()
     {
         SimplePool.Despawn(this);
@@ -208,5 +143,16 @@ public class Character : GameUnit
     public virtual void LevelUp()
     {
         level++;
+    }
+
+    public void OnSelect()
+    {
+        targetIndicator.EnableIndicator();
+    }
+
+
+    public void OnDeSelect()
+    {
+        targetIndicator.DisableIndicator();
     }
 }

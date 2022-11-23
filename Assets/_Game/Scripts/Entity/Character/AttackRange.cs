@@ -6,20 +6,17 @@ public class AttackRange : MonoBehaviour
 {
     [SerializeField]
     private LayerMask layerMask;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField]
     internal Character character;
+    private SpriteRenderer spriteRenderer;
     private Transform TF;
-    private Collider[] hitColliders;
+    internal Collider[] colliderInRange;
     private float radiusRatio = 1.23f;
+    private float radiusDebug;
     private void Start()
     {
         TF = GetComponent<Transform>();
-    }
-    public void OnInit(Character character)
-    {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        this.character = character;
-
     }
 
     private bool IsCanTrigger(Collider other)
@@ -29,48 +26,85 @@ public class AttackRange : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log($"Target count {character.targets.Count}");
-        if (character.targets.Count > 0)
-        {
-            spriteRenderer.color = Color.red;
-            Character nearestEnemy = character.FindNearestEnemy();
-            character.SelectTarget(nearestEnemy);
-        }
-
         GetTargetInRange();
+
+        if (colliderInRange.Length > 0)
+        {
+            Character nearestEnemy = FindNearestEnemy();
+            character.currentTarget = nearestEnemy;
+            nearestEnemy.OnSelect();
+        }
+        else
+        {
+            spriteRenderer.color = Color.white;
+        }
     }
 
     private void GetTargetInRange()
     {
-        float radius = radiusRatio * character.attackRange.TF.localScale.x;
-        hitColliders = Physics.OverlapSphere(TF.position, radius, layerMask);
-        Debug.Log($"Collider hit length {hitColliders.Length}");
-        for (int i = 0; i < hitColliders.Length; i++)
+        radiusDebug = radiusRatio * character.attackRange.TF.localScale.x;
+        colliderInRange = Physics.OverlapSphere(TF.position, radiusDebug, layerMask);
+
+
+        for (int i = 0; i < colliderInRange.Length; i++)
         {
-            Collider other = hitColliders[i];
+            Collider other = colliderInRange[i];
             Character enemy = ColliderCache.GetCharacter(other);
 
-            if (enemy != this.character)
+            if (enemy != character && Vector3.Distance(character.TF.position, enemy.TF.position) <= radiusDebug && !enemy.isDead)
             {
-
-                character.AddTagert(enemy);
-
-                // bool isCharacterDead = enemy.isDead;
-                // bool iSCharacterOutRange = Vector3.Distance(character.TF.position, enemy.TF.position) > radius ? true : false;
-
-                // // Debug.Log($"Range from {character.name} to {enemy.name} - {Vector3.Distance(character.TF.position, enemy.TF.position)}");
-
-                // if (!character.targets.Contains(enemy))
-                // {
-                //     character.AddTagert(enemy);
-                // }
-
-                // if (iSCharacterOutRange || isCharacterDead)
-                // {
-                //     character.UnSelectTarget(enemy);
-                //     spriteRenderer.color = Color.white;
-                // }
+                spriteRenderer.color = Color.red;
             }
         }
     }
+
+    public Character FindNearestEnemy()
+    {
+        Character nearestEnemy = ColliderCache.GetCharacter(colliderInRange[0]);
+        float minDistance = GetDistanceFromTarget(nearestEnemy.TF.position);
+
+        for (int i = 0; i < colliderInRange.Length; i++)
+        {
+            Character characterInRange = ColliderCache.GetCharacter(colliderInRange[i]);
+
+            if (Vector3.Distance(TF.position, characterInRange.TF.position) < minDistance)
+            {
+                nearestEnemy = characterInRange;
+            }
+        }
+
+        return nearestEnemy;
+    }
+
+    public float GetDistanceFromTarget(Vector3 targetPosition)
+    {
+        return Vector3.Distance(character.TF.position, targetPosition);
+    }
+
+    // public void SelectTarget(Character target)
+    // {
+    //     if (character.currentTarget != null)
+    //     {
+    //         target.OnDeSelect();
+    //     }
+
+    //     character.currentTarget = target;
+    //     if (character is Player)
+    //     {
+    //         target.OnSelect();
+    //     }
+    // }
+
+    // public void UnSelectTarget()
+    // {
+
+    //     if (character is Player)
+    //     {
+    //         TargetIndicator enemyIndicator = character.currentTarget.targetIndicator;
+    //         enemyIndicator.DisableIndicator();
+    //         character.currentTarget = null;
+    //     }
+
+    //     RemoveTarget(character.currentTarget);
+    // }
 }

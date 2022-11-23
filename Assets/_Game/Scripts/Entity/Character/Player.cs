@@ -72,7 +72,7 @@ public class Player : Character, IHit
         if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
         {
             // Check has target
-            if (targets.Count > 0)
+            if (attackRange.colliderInRange.Length > 0)
             {
                 // Check can attack
                 if (isCanAtk)

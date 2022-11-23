@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 
 
-public class Bot : Character, IHit
+public class Bot : Character, IHit, ISelectable
 {
     [SerializeField]
     private LayerMask layerMask;
@@ -130,8 +130,6 @@ public class Bot : Character, IHit
         {
             for (int i = 0; i < targetInVision.Length; i++)
             {
-
-
                 Character targetCharacter = ColliderCache.GetCharacter(targetInVision[i]);
                 Transform targetTF = targetCharacter.TF;
 
@@ -198,4 +196,5 @@ public class Bot : Character, IHit
         attackTarget = randomTF;
         return new Vector3(randomTF.position.x, TF.position.y, randomTF.position.z);
     }
+
 }

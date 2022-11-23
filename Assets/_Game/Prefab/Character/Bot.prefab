@@ -431,6 +431,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 72
+  character: {fileID: 2771069936727214626}
 --- !u!1 &5449773968331842740
 GameObject:
   m_ObjectHideFlags: 0

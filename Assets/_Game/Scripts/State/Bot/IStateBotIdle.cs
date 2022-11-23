@@ -15,24 +15,27 @@ public class IStateBotIdle : IStateBot
 
     public void OnExecute(Bot bot)
     {
-        bot.navMeshAgent.isStopped = true;
-        bot.rb.velocity = Vector3.zero;
-        bot.ChangeAnim(ConstString.ANIM_IDLE);
-
-        timer += Time.deltaTime;
-
-        if (timer >= randomTime)
+        if (bot.navMeshAgent.enabled)
         {
-            bot.ChangeState(new IStateBotFindEnemy());
+            bot.navMeshAgent.isStopped = true;
+            bot.rb.velocity = Vector3.zero;
+            bot.ChangeAnim(ConstString.ANIM_IDLE);
 
-            Debug.Log($"Change to state find enmy");
+            timer += Time.deltaTime;
+
+            if (timer >= randomTime)
+            {
+                bot.ChangeState(new IStateBotFindEnemy());
+
+                Debug.Log($"Change to state find enmy");
+            }
+
+            // if (GameManager.Ins.isPlayGame)
+            // {
+
+
+            // }
         }
-
-        // if (GameManager.Ins.isPlayGame)
-        // {
-
-
-        // }
 
     }
 
