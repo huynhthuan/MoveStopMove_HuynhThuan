@@ -9,7 +9,7 @@ public class AttackRange : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     internal Character character;
     private Transform TF;
-    private Collider[] hitColliders = new Collider[10];
+    private Collider[] hitColliders;
     private float radiusRatio = 1.23f;
     private void Start()
     {
@@ -29,6 +29,7 @@ public class AttackRange : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log($"Target count {character.targets.Count}");
         if (character.targets.Count > 0)
         {
             spriteRenderer.color = Color.red;
@@ -42,7 +43,8 @@ public class AttackRange : MonoBehaviour
     private void GetTargetInRange()
     {
         float radius = radiusRatio * character.attackRange.TF.localScale.x;
-        hitColliders= Physics.OverlapSphere(TF.position, radius, layerMask);
+        hitColliders = Physics.OverlapSphere(TF.position, radius, layerMask);
+        Debug.Log($"Collider hit length {hitColliders.Length}");
         for (int i = 0; i < hitColliders.Length; i++)
         {
             Collider other = hitColliders[i];
@@ -50,21 +52,24 @@ public class AttackRange : MonoBehaviour
 
             if (enemy != this.character)
             {
-                bool isCharacterDead = enemy.isDead;
-                bool iSCharacterOutRange = Vector3.Distance(character.TF.position, enemy.TF.position) > radius ? true : false;
 
-                // Debug.Log($"Range from {character.name} to {enemy.name} - {Vector3.Distance(character.TF.position, enemy.TF.position)}");
+                character.AddTagert(enemy);
 
-                if (!character.targets.Contains(enemy))
-                {
-                    character.AddTagert(enemy);
-                }
+                // bool isCharacterDead = enemy.isDead;
+                // bool iSCharacterOutRange = Vector3.Distance(character.TF.position, enemy.TF.position) > radius ? true : false;
 
-                if (iSCharacterOutRange || isCharacterDead)
-                {
-                    character.UnSelectTarget(enemy);
-                    spriteRenderer.color = Color.white;
-                }
+                // // Debug.Log($"Range from {character.name} to {enemy.name} - {Vector3.Distance(character.TF.position, enemy.TF.position)}");
+
+                // if (!character.targets.Contains(enemy))
+                // {
+                //     character.AddTagert(enemy);
+                // }
+
+                // if (iSCharacterOutRange || isCharacterDead)
+                // {
+                //     character.UnSelectTarget(enemy);
+                //     spriteRenderer.color = Color.white;
+                // }
             }
         }
     }

@@ -60,7 +60,7 @@ public class Stage : MonoBehaviour
         Debug.Log($"Start spawn {numberBot} bot...");
         for (int i = 1; i <= numberBot; i++)
         {
-            // Debug.Log("Start spawn bot index [" + i + "]...");
+            Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
             Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, Vector3.zero, Quaternion.identity);
             WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(LevelManager.Ins.wayPointIndicator, Vector3.zero, Quaternion.identity);
@@ -93,10 +93,10 @@ public class Stage : MonoBehaviour
     {
         characterInStage.RemoveAt(characterIndex);
         playerAlive--;
-        if (IsCanSpawnBot())
-        {
-            SpawnBot(1);
-        }
+        // if (IsCanSpawnBot())
+        // {
+        //     SpawnBot(1);
+        // }
     }
 
     public Vector3 GetPointToSpawn()
