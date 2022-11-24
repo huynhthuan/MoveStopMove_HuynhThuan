@@ -479,7 +479,7 @@ MonoBehaviour:
     clamp: 0
   - root: {fileID: 1047194011}
     prefab: {fileID: 6136475394438716190, guid: b402ea0a9c41e44449902f25c563ce9d, type: 3}
-    amount: 20
+    amount: 1
     collect: 1
     clamp: 0
   - root: {fileID: 1365316435}

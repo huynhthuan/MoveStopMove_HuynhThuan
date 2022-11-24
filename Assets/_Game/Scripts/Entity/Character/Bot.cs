@@ -39,7 +39,6 @@ public class Bot : Character, IHit, ISelectable
     public override void OnInit()
     {
         base.OnInit();
-        targetIndicator.OnInit();
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.enabled = true;
 

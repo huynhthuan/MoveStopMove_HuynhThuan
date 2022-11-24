@@ -214,9 +214,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5398081492385629654}
-  - component: {fileID: 7809795814854072463}
   - component: {fileID: 2771069936727214626}
   - component: {fileID: 423014546105355591}
+  - component: {fileID: 9147388052786982673}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -243,22 +243,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &7809795814854072463
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3163901421772608209}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &2771069936727214626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,11 +256,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 2
-  rb: {fileID: 7809795814854072463}
+  rb: {fileID: 9147388052786982673}
   anim: {fileID: 1966113604146135583}
   attackRange: {fileID: 6532697871922894327}
   currentTarget: {fileID: 0}
-  targets: []
   targetIndicator: {fileID: 3499200513935981064}
   characterEquipment: {fileID: 0}
   capsuleCollider: {fileID: 4385818693316814532}
@@ -319,6 +302,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &9147388052786982673
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163901421772608209}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &4544860466958677841
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +328,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3980381063337539890}
   - component: {fileID: 6728887889021212704}
-  - component: {fileID: 1788299907617332747}
   - component: {fileID: 6532697871922894327}
   m_Layer: 0
   m_Name: Attack Range
@@ -403,19 +401,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!135 &1788299907617332747
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4544860466958677841}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.2344615
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6532697871922894327
 MonoBehaviour:
   m_ObjectHideFlags: 0

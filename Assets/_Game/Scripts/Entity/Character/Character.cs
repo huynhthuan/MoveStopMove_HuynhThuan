@@ -48,6 +48,7 @@ public class Character : GameUnit
         cameraFollowScaleRatio = GameManager.Ins.cameraFollowScaleRatio;
         characterScaleRatio = GameManager.Ins.characterScaleRatio;
         joystick = GameManager.Ins.joystick;
+        targetIndicator.OnInit();
     }
 
     public void ChangeAnim(string animName)

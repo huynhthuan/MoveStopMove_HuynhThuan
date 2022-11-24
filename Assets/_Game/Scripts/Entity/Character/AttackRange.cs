@@ -10,9 +10,11 @@ public class AttackRange : MonoBehaviour
     internal Character character;
     private SpriteRenderer spriteRenderer;
     private Transform TF;
-    internal Collider[] colliderInRange;
     private float radiusRatio = 1.23f;
-    private float radiusDebug;
+    private float attackRadius;
+    [SerializeField]
+    internal List<Character> targetsInRange;
+
     private void Start()
     {
         TF = GetComponent<Transform>();
@@ -26,46 +28,80 @@ public class AttackRange : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetTargetInRange();
-
-        if (colliderInRange.Length > 0)
+        if (character.currentStage.characterInStage.Count > 0)
         {
+            GetTargetsInRange();
+
+        }
+
+        if (targetsInRange.Count > 0)
+        {
+            spriteRenderer.color = Color.red;
             Character nearestEnemy = FindNearestEnemy();
-            character.currentTarget = nearestEnemy;
-            nearestEnemy.OnSelect();
+            if (nearestEnemy != null)
+            {
+
+                if (character is Player)
+                {
+                    if (character.currentTarget != null)
+                    {
+                        character.currentTarget.OnDeSelect();
+                    }
+
+                    character.currentTarget = nearestEnemy;
+                    character.currentTarget.OnSelect();
+                }
+            }
+
         }
         else
         {
             spriteRenderer.color = Color.white;
+            if (character.currentTarget != null)
+            {
+                character.currentTarget.OnDeSelect();
+            }
         }
     }
 
-    private void GetTargetInRange()
+    private void GetTargetsInRange()
     {
-        radiusDebug = radiusRatio * character.attackRange.TF.localScale.x;
-        colliderInRange = Physics.OverlapSphere(TF.position, radiusDebug, layerMask);
+        Debug.Log("Get target in range");
+        attackRadius = radiusRatio * character.attackRange.TF.localScale.x;
 
-
-        for (int i = 0; i < colliderInRange.Length; i++)
+        for (int i = 0; i < character.currentStage.characterInStage.Count; i++)
         {
-            Collider other = colliderInRange[i];
-            Character enemy = ColliderCache.GetCharacter(other);
+            Character enemy = character.currentStage.characterInStage[i];
 
-            if (enemy != character && Vector3.Distance(character.TF.position, enemy.TF.position) <= radiusDebug && !enemy.isDead)
+            if (enemy != character && !enemy.isDead)
             {
-                spriteRenderer.color = Color.red;
+                if (Vector3.Distance(character.TF.position, enemy.TF.position) <= attackRadius)
+                {
+                    if (!targetsInRange.Contains(enemy))
+                    {
+                        targetsInRange.Add(enemy);
+                    }
+
+                }
+                else
+                {
+                    targetsInRange.Remove(enemy);
+                }
+
             }
+
         }
     }
 
     public Character FindNearestEnemy()
     {
-        Character nearestEnemy = ColliderCache.GetCharacter(colliderInRange[0]);
+        Character nearestEnemy = targetsInRange[0];
+
         float minDistance = GetDistanceFromTarget(nearestEnemy.TF.position);
 
-        for (int i = 0; i < colliderInRange.Length; i++)
+        for (int i = 0; i < targetsInRange.Count; i++)
         {
-            Character characterInRange = ColliderCache.GetCharacter(colliderInRange[i]);
+            Character characterInRange = targetsInRange[i];
 
             if (Vector3.Distance(TF.position, characterInRange.TF.position) < minDistance)
             {
@@ -80,31 +116,4 @@ public class AttackRange : MonoBehaviour
     {
         return Vector3.Distance(character.TF.position, targetPosition);
     }
-
-    // public void SelectTarget(Character target)
-    // {
-    //     if (character.currentTarget != null)
-    //     {
-    //         target.OnDeSelect();
-    //     }
-
-    //     character.currentTarget = target;
-    //     if (character is Player)
-    //     {
-    //         target.OnSelect();
-    //     }
-    // }
-
-    // public void UnSelectTarget()
-    // {
-
-    //     if (character is Player)
-    //     {
-    //         TargetIndicator enemyIndicator = character.currentTarget.targetIndicator;
-    //         enemyIndicator.DisableIndicator();
-    //         character.currentTarget = null;
-    //     }
-
-    //     RemoveTarget(character.currentTarget);
-    // }
 }

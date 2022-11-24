@@ -71,20 +71,15 @@ public class Player : Character, IHit
         // Check character stop
         if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
         {
-            // Check has target
-            if (attackRange.colliderInRange.Length > 0)
+            if (attackRange.targetsInRange.Count > 0)
             {
                 // Check can attack
-                if (isCanAtk)
+                if (currentTarget != null && !currentTarget.isDead)
                 {
                     // Disable can attack
                     isCanAtk = false;
-                    if (currentTarget != null && !currentTarget.isDead)
-                    {
-                        RotationToTarget();
-                        Attack();
-                    }
-
+                    RotationToTarget();
+                    Attack();
                 }
             }
             else
