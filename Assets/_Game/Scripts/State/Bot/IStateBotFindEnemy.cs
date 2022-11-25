@@ -20,25 +20,28 @@ public class IStateBotFindEnemy : IStateBot
         bot.ChangeAnim(ConstString.ANIM_RUN);
         // Debug.Log($"{bot.name} velocity {bot.rb.velocity}");
 
-        if (bot.attackTarget != null)
-        {
-            if (Vector3.Distance(bot.TF.position, bot.attackTarget.position) <= 4f)
-            {
-                bot.navMeshAgent.isStopped = true;
-                bot.ChangeState(new IStateBotAttack());
+        // if (bot.attackTarget != null)
+        // {
+        //     if (Vector3.Distance(bot.TF.position, bot.attackTarget.position) <= 4f)
+        //     {
+        //         bot.navMeshAgent.isStopped = true;
+        //         bot.ChangeState(new IStateBotAttack());
 
-            }
-            else
-            {
-                if (bot.navMeshAgent.remainingDistance <= 0.01f)
-                {
-                    bot.ChangeState(new IStateBotIdle());
-                }
-            }
-        }
+        //     }
+        //     else
+        //     {
+        //         if (bot.navMeshAgent.remainingDistance <= 0.01f)
+        //         {
+        //             bot.ChangeState(new IStateBotIdle());
+        //         }
+        //     }
+        // }
 
-        if (bot.navMeshAgent.remainingDistance <= 0.01f)
+        Debug.Log($"{bot.name} remain {bot.navMeshAgent.remainingDistance} - {bot.attackRadius}");
+
+        if (bot.navMeshAgent.remainingDistance <= bot.attackRadius)
         {
+
             bot.ChangeState(new IStateBotIdle());
         }
     }
@@ -58,13 +61,14 @@ public class IStateBotFindEnemy : IStateBot
         else
         {
             // Get random next point in navmesh when no target in view
+            bot.attackTarget = null;
             bool isContinueSearch = true;
             while (isContinueSearch)
             {
                 if (NavMesh.SamplePosition(bot.TF.position + Random.insideUnitSphere * 20F, out hit, 4.0f, NavMesh.AllAreas))
                 {
                     isContinueSearch = false;
-                    target = new Vector3(hit.position.x, bot.TF.position.y, hit.position.z);
+                    target = new Vector3(hit.position.x, 0f, hit.position.z);
                     break;
                 }
             }

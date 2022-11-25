@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-
 public class Bot : Character, IHit, ISelectable
 {
     [SerializeField]
@@ -22,9 +20,9 @@ public class Bot : Character, IHit, ISelectable
     public float radius;
     [Range(0, 360)]
     public float angle;
-    public Collider[] targetInVision;
     public List<Transform> targetCanSee;
     public bool isStartCheckView = false;
+    [SerializeField]
     internal Transform attackTarget;
     internal Color currentColor;
     internal WayPointIndicator wayPoint;
@@ -33,7 +31,6 @@ public class Bot : Character, IHit, ISelectable
     {
         base.OnDespawn();
         isStartCheckView = false;
-        currentStage.characterColorAvaible.Add(currentColor);
     }
 
     public override void OnInit()
@@ -107,8 +104,9 @@ public class Bot : Character, IHit, ISelectable
         navMeshAgent.isStopped = true;
         isDead = true;
         int characterIndex = currentStage.characterInStage.IndexOf(this);
-        currentStage.OnCharacterDie(characterIndex);
         wayPoint.OnDespawn();
+        currentStage.characterColorAvaible.Add(currentColor);
+        currentStage.OnCharacterDie(characterIndex);
         rb.detectCollisions = false;
         // attacker.GetComponent<Character>().LevelUp();
         ChangeState(new IStateBotDie());
@@ -122,8 +120,8 @@ public class Bot : Character, IHit, ISelectable
 
     private void FieldOfViewCheck()
     {
-        targetInVision = null;
-        targetInVision = Physics.OverlapSphere(TF.position, radius, targetMask);
+
+        Collider[] targetInVision = Physics.OverlapSphere(TF.position, radius, targetMask);
 
         if (targetInVision.Length > 0)
         {
@@ -193,7 +191,7 @@ public class Bot : Character, IHit, ISelectable
     {
         Transform randomTF = targetCanSee[Random.Range(0, targetCanSee.Count)];
         attackTarget = randomTF;
-        return new Vector3(randomTF.position.x, TF.position.y, randomTF.position.z);
+        return new Vector3(randomTF.position.x, 0f, randomTF.position.z);
     }
 
 }

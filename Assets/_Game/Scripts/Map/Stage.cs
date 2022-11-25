@@ -66,7 +66,7 @@ public class Stage : MonoBehaviour
             WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(LevelManager.Ins.wayPointIndicator, Vector3.zero, Quaternion.identity);
 
             // Init bot
-            botOjb.name = $"Bot - {i}";
+            botOjb.name = $"Bot {i}";
             botOjb.currentStage = this;
             characterInStage.Add(botOjb);
             botOjb.OnInit();
@@ -92,10 +92,10 @@ public class Stage : MonoBehaviour
     {
         characterInStage.RemoveAt(characterIndex);
         playerAlive--;
-        // if (IsCanSpawnBot())
-        // {
-        //     SpawnBot(1);
-        // }
+        if (IsCanSpawnBot())
+        {
+            SpawnBot(1);
+        }
     }
 
     public Vector3 GetPointToSpawn()
@@ -108,14 +108,12 @@ public class Stage : MonoBehaviour
         {
             NavMesh.SamplePosition(LevelManager.Ins.RandomPointInStage(), out hit, 1.0f, NavMesh.AllAreas);
 
-            if (!IsHasTargetInRange() && (Vector3.Distance(hit.position, LevelManager.Ins.player.TF.position) >= 4f))
+            if (!IsHasTargetInRange() && (Vector3.Distance(hit.position, LevelManager.Ins.player.TF.position) >= LevelManager.Ins.player.attackRadius))
             {
                 isContinueSearch = false;
                 break;
             }
         }
-
-        // Debug.Log("Spawn bot to point: " + hit.position);
 
         return hit.position;
     }
@@ -127,10 +125,8 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < numberCharacterInStage; i++)
         {
-            // Debug.Log("In target: " + hit.position + " - " + characterInStage[i].TF.position + " Distance: " + Vector3.Distance(hit.position, characterInStage[i].TF.position));
-            if (Vector3.Distance(hit.position, characterInStage[i].TF.position) <= 5f)
+            if (Vector3.Distance(hit.position, characterInStage[i].TF.position) <= LevelManager.Ins.player.attackRadius)
             {
-
                 isInTarget = true;
                 break;
             }

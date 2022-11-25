@@ -60,14 +60,15 @@ public class AttackRange : MonoBehaviour
             if (character.currentTarget != null)
             {
                 character.currentTarget.OnDeSelect();
+                character.currentTarget = null;
             }
         }
     }
 
     private void GetTargetsInRange()
     {
-        Debug.Log("Get target in range");
-        attackRadius = radiusRatio * character.attackRange.TF.localScale.x;
+        // Debug.Log("Get target in range");
+        attackRadius = GetAttackRadius();
 
         for (int i = 0; i < character.currentStage.characterInStage.Count; i++)
         {
@@ -89,7 +90,6 @@ public class AttackRange : MonoBehaviour
                 }
 
             }
-
         }
     }
 
@@ -103,6 +103,11 @@ public class AttackRange : MonoBehaviour
         {
             Character characterInRange = targetsInRange[i];
 
+            if (characterInRange.isDead)
+            {
+                targetsInRange.Remove(characterInRange);
+            }
+
             if (Vector3.Distance(TF.position, characterInRange.TF.position) < minDistance)
             {
                 nearestEnemy = characterInRange;
@@ -115,5 +120,10 @@ public class AttackRange : MonoBehaviour
     public float GetDistanceFromTarget(Vector3 targetPosition)
     {
         return Vector3.Distance(character.TF.position, targetPosition);
+    }
+
+    public float GetAttackRadius()
+    {
+        return radiusRatio * character.attackRange.TF.localScale.x;
     }
 }

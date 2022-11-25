@@ -82,6 +82,11 @@ public class Character : GameUnit
 
     public void Attack()
     {
+        if (currentTarget.isDead)
+        {
+            return;
+        }
+
         isAttackAnimEnd = false;
 
         if (delayAttack >= 0.01f)
@@ -93,13 +98,8 @@ public class Character : GameUnit
         isCoolDownAttack = true;
         delayAttack = 2f;
 
-
-        if (currentTarget.isDead)
-        {
-            return;
-        }
-
         ChangeAnim(ConstString.ANIM_ATTACK);
+
         Vector3 direction = GetDirToFireWeapon();
         characterEquipment.HiddenWeapon();
 

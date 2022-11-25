@@ -6,7 +6,7 @@ public class IStateBotDie : IStateBot
 {
     public void OnEnter(Bot bot)
     {
-
+        bot.navMeshAgent.isStopped = true;
     }
 
     public void OnExecute(Bot bot)

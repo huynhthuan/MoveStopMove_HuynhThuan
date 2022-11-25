@@ -71,21 +71,24 @@ public class Player : Character, IHit
         // Check character stop
         if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
         {
-            if (attackRange.targetsInRange.Count > 0)
+            // Check can attack
+            if (currentTarget != null)
             {
-                // Check can attack
-                if (currentTarget != null && !currentTarget.isDead)
+                if (!currentTarget.isDead && isCanAtk)
                 {
                     // Disable can attack
                     isCanAtk = false;
-                    RotationToTarget();
-                    Attack();
+                    // RotationToTarget();
+                    // Attack();
                 }
             }
             else
             {
-                // Not has tartget, change idle anim
-                ChangeAnim(ConstString.ANIM_IDLE);
+                if (isAttackAnimEnd || isCanAtk)
+                {
+                    // Not has tartget, change idle anim
+                    ChangeAnim(ConstString.ANIM_IDLE);
+                }
             }
         }
         else
