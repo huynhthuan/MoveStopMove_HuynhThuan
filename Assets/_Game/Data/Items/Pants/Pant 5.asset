@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd55bf7a8e94a648b16c9e514834289, type: 3}
   m_Name: Pant 5
   m_EditorClassIdentifier: 
-  equipSlot: 5
+  itemId: 10
   itemName: Pant 1
   description: This is pant 1
   price: 0
   isShowOnStore: 1
-  itemId: 4
   material: {fileID: 2100000, guid: a04df510841d52a459f955e440c7f75d, type: 2}

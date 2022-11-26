@@ -13,11 +13,25 @@ public class Skin : UICanvas
     private string currentItemSelect;
     private string currentTabSelect;
 
-    private void LoadData(){
+    public override void Open()
+    {
+        base.Open();
+        GameManager.Ins.cameraFollow.SetCameraSkin();
+    }
+
+    public void CloseButton()
+    {
+        UIManager.Ins.OpenUI<Lobby>();
+        Close();
+    }
+
+    private void LoadData()
+    {
 
     }
 
-    private void ChangeTab(){
+    private void ChangeTab()
+    {
 
     }
 

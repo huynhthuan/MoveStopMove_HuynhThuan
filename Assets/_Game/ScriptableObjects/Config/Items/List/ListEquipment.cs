@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New list item", menuName = "Items/List item")]
 public class ListEquipment : ScriptableObject
 {
-    public ListEquipmentSlot listEquipmentSlot;
+    public List<Item> items;
+
+
 }
-
-
-public enum ListEquipmentSlot { HEAD, WEAPON, SHIELD, WING, TAIL, PANT }

@@ -49,6 +49,7 @@ public class Character : GameUnit
         characterScaleRatio = GameManager.Ins.characterScaleRatio;
         joystick = GameManager.Ins.joystick;
         targetIndicator.OnInit();
+        attackRange.OnInit();
     }
 
     public void ChangeAnim(string animName)
@@ -82,6 +83,11 @@ public class Character : GameUnit
 
     public void Attack()
     {
+        if (currentTarget == null)
+        {
+            return;
+        }
+
         if (currentTarget.isDead)
         {
             return;
@@ -98,12 +104,17 @@ public class Character : GameUnit
         isCoolDownAttack = true;
         delayAttack = 2f;
 
-        ChangeAnim(ConstString.ANIM_ATTACK);
-
         Vector3 direction = GetDirToFireWeapon();
         characterEquipment.HiddenWeapon();
 
         SpawnWeaponBullet(direction);
+
+        StartCoroutineAttack();
+    }
+
+    public void StartCoroutineAttack()
+    {
+        ChangeAnim(ConstString.ANIM_ATTACK);
 
         float animLength = anim.GetCurrentAnimatorStateInfo(0).length;
 

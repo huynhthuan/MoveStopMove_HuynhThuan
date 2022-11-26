@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91826b512555d29459bd3d0469812d64, type: 3}
-  m_Name: Pants
+  m_Script: {fileID: 11500000, guid: 0009ff348f502fc4787673668b2578b0, type: 3}
+  m_Name: Item all
   m_EditorClassIdentifier: 
-  listEquipmentSlot: 5
-  pants:
+  items:
+  - {fileID: 11400000, guid: 1d5d8a14647ad0e489f89ea3fa9ba385, type: 2}
+  - {fileID: 11400000, guid: dd8a74d221e52644a902a1081a23bea3, type: 2}
   - {fileID: 11400000, guid: 1427941d37f98864e853559806520c61, type: 2}
   - {fileID: 11400000, guid: 4ebd189b3969fe842a7cbec5570924bb, type: 2}
   - {fileID: 11400000, guid: 16fbdb40114839449a3be2ecf5e76e8b, type: 2}

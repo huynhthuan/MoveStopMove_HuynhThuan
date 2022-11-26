@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Hammer : Weapon
 {
-    // Start is called before the first frame update
-    void Start()
+    private float speedRotation = 540f;
+    public override void Move()
     {
+        base.Move();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        Quaternion animRotLocal = animTF.localRotation;
+        animTF.Rotate(0f, 0f, speedRotation * Time.fixedDeltaTime);
     }
 }

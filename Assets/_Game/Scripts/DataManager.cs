@@ -17,10 +17,7 @@ public enum DataKey
 public class DataManager : Singleton<DataManager>
 {
     [SerializeField]
-    internal ListWeaponEquipment listWeaponEquipment;
-
-    [SerializeField]
-    internal ListPantEquipment listPantEquipment;
+    internal ListEquipment listEquipment;
 
     [SerializeField]
     public PlayerData playerData;

@@ -61,15 +61,15 @@ public class CharacterEquipment : MonoBehaviour
         pantsMeshRenderer.materials = mats;
     }
 
-    public WeaponEquipment RandomWeapon()
-    {
-        int weaponIdRandom = Random.Range(0, dataManager.listWeaponEquipment.weapons.Count);
-        return dataManager.listWeaponEquipment.weapons[weaponIdRandom];
-    }
+    // public WeaponEquipment RandomWeapon()
+    // {
+    //     int weaponIdRandom = Random.Range(0, dataManager.listWeaponEquipment.weapons.Count);
+    //     return dataManager.listWeaponEquipment.weapons[weaponIdRandom];
+    // }
 
-    public PantEquipment RandomPants()
-    {
-        int pantIdRandom = Random.Range(0, dataManager.listPantEquipment.pants.Count);
-        return dataManager.listPantEquipment.pants[pantIdRandom];
-    }
+    // public PantEquipment RandomPants()
+    // {
+    //     int pantIdRandom = Random.Range(0, dataManager.listPantEquipment.pants.Count);
+    //     return dataManager.listPantEquipment.pants[pantIdRandom];
+    // }
 }

@@ -20,10 +20,11 @@ public class Bot : Character, IHit, ISelectable
     public float radius;
     [Range(0, 360)]
     public float angle;
-    public List<Transform> targetCanSee;
+    public List<Character> targetCanSee;
     public bool isStartCheckView = false;
     [SerializeField]
-    internal Transform attackTarget;
+    internal Character attackTarget;
+    internal Vector3 moveTarget;
     internal Color currentColor;
     internal WayPointIndicator wayPoint;
 
@@ -40,11 +41,11 @@ public class Bot : Character, IHit, ISelectable
         navMeshAgent.enabled = true;
 
         // Equip random weapon
-        WeaponEquipment weaponRandom = characterEquipment.RandomWeapon();
-        PantEquipment pantsRandom = characterEquipment.RandomPants();
+        // WeaponEquipment weaponRandom = characterEquipment.RandomWeapon();
+        // PantEquipment pantsRandom = characterEquipment.RandomPants();
 
-        characterEquipment.EquipWeapon(weaponRandom);
-        characterEquipment.WearPants(pantsRandom);
+        // characterEquipment.EquipWeapon(weaponRandom);
+        // characterEquipment.WearPants(pantsRandom);
 
         ChangeState(new IStateBotIdle());
 
@@ -86,6 +87,11 @@ public class Bot : Character, IHit, ISelectable
 
     private void FixedUpdate()
     {
+        if (isCoolDownAttack)
+        {
+            delayAttack -= Time.fixedDeltaTime;
+        }
+
         if (isStartCheckView)
         {
             FieldOfViewCheck();
@@ -128,47 +134,35 @@ public class Bot : Character, IHit, ISelectable
             for (int i = 0; i < targetInVision.Length; i++)
             {
                 Character targetCharacter = ColliderCache.GetCharacter(targetInVision[i]);
-                Transform targetTF = targetCharacter.TF;
 
-                if (targetCharacter.isDead)
+                if (targetCharacter.isDead || targetCharacter == this || !CheckCanSeeTarget(targetCharacter))
                 {
-                    if (targetCanSee.Contains(targetTF))
+                    if (targetCanSee.Contains(targetCharacter))
                     {
-                        targetCanSee.Remove(targetTF);
-                    }
-                    continue;
-                }
-
-                if (targetTF == this.TF)
-                {
-                    continue;
-                }
-
-                if (CheckCanSeeTarget(targetTF))
-                {
-                    if (!targetCanSee.Contains(targetTF))
-                    {
-                        targetCanSee.Add(targetTF);
+                        targetCanSee.Remove(targetCharacter);
                     }
                 }
                 else
                 {
-                    targetCanSee.Remove(targetTF);
+                    if (!targetCanSee.Contains(targetCharacter))
+                    {
+                        targetCanSee.Add(targetCharacter);
+                    }
                 }
             }
         }
     }
 
-    private bool CheckCanSeeTarget(Transform target)
+    private bool CheckCanSeeTarget(Character target)
     {
         bool canSeePlayer = false;
-        Vector3 directionToTarget = (target.position - TF.position).normalized;
+        Vector3 directionToTarget = (target.TF.position - TF.position).normalized;
 
         // Debug.Log($"Angle between {TF.name} - {target.name} -> {Vector3.Angle(TF.forward, directionToTarget)} | <{angle / 2}>");
 
         if (Vector3.Angle(TF.forward, directionToTarget) < angle / 2)
         {
-            float distanceToTarget = Vector3.Distance(TF.position, target.position);
+            float distanceToTarget = Vector3.Distance(TF.position, target.TF.position);
 
             if (!Physics.Raycast(TF.position, directionToTarget, distanceToTarget, obstructionMask))
             {
@@ -187,11 +181,11 @@ public class Bot : Character, IHit, ISelectable
         return canSeePlayer;
     }
 
-    internal Vector3 GetRandomTargetInVision()
+    internal Character GetRandomTargetInVision()
     {
-        Transform randomTF = targetCanSee[Random.Range(0, targetCanSee.Count)];
-        attackTarget = randomTF;
-        return new Vector3(randomTF.position.x, 0f, randomTF.position.z);
+        Character randomTarget = targetCanSee[Random.Range(0, targetCanSee.Count)];
+
+        return randomTarget;
     }
 
 }

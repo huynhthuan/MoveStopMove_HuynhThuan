@@ -9,21 +9,16 @@ public class AttackRange : MonoBehaviour
     [SerializeField]
     internal Character character;
     private SpriteRenderer spriteRenderer;
-    private Transform TF;
-    private float radiusRatio = 1.23f;
+    internal Transform TF;
+    internal float radiusRatio = 1.23f;
     private float attackRadius;
     [SerializeField]
     internal List<Character> targetsInRange;
 
-    private void Start()
+    public void OnInit()
     {
         TF = GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private bool IsCanTrigger(Collider other)
-    {
-        return other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER);
     }
 
     private void FixedUpdate()
@@ -46,11 +41,13 @@ public class AttackRange : MonoBehaviour
                     if (character.currentTarget != null)
                     {
                         character.currentTarget.OnDeSelect();
+                        character.currentTarget.OnSelect();
                     }
 
-                    character.currentTarget = nearestEnemy;
-                    character.currentTarget.OnSelect();
+
                 }
+
+                character.currentTarget = nearestEnemy;
             }
 
         }
@@ -124,6 +121,6 @@ public class AttackRange : MonoBehaviour
 
     public float GetAttackRadius()
     {
-        return radiusRatio * character.attackRange.TF.localScale.x;
+        return radiusRatio * TF.localScale.x;
     }
 }

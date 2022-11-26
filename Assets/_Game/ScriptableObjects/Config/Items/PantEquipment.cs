@@ -6,6 +6,6 @@ using System;
 [CreateAssetMenu(fileName = "New Pant", menuName = "Items/Pant Equipment")]
 public class PantEquipment : Item
 {
-    public PantId itemId;
     public Material material;
+
 }

@@ -6,41 +6,18 @@ public class Player : Character, IHit
 {
     private DataManager dataManager;
 
-    public void OnHit(Transform attacker)
-    {
-        if (isDead)
-        {
-            return;
-        }
-
-        Debug.Log("Character on hit " + gameObject.name);
-        Debug.Log("Attacker make hit " + attacker.name);
-        isDead = true;
-        int characterIndex = currentStage.characterInStage.IndexOf(this);
-        currentStage.OnCharacterDie(characterIndex);
-        rb.detectCollisions = false;
-        attacker.GetComponent<Character>().LevelUp();
-        ChangeAnim(ConstString.ANIM_DEAD);
-        waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
-              {
-                  StopCoroutine(waitAfterDeathCoroutine);
-                  Debug.Log("Anim dead end");
-                  OnDespawn();
-              }));
-    }
-
     public override void OnInit()
     {
         Debug.Log("Oninit player manager...");
         base.OnInit();
         CameraFollow.Ins.target = TF;
 
-        WeaponEquipment currentWeaponData = DataManager.Ins.listWeaponEquipment.weapons[DataManager.Ins.playerData.weaponId];
-        PantEquipment currentPantsData = DataManager.Ins.listPantEquipment.pants[DataManager.Ins.playerData.pantsId];
+        // WeaponEquipment currentWeaponData = DataManager.Ins.listWeaponEquipment.weapons[DataManager.Ins.playerData.weaponId];
+        // PantEquipment currentPantsData = DataManager.Ins.listPantEquipment.pants[DataManager.Ins.playerData.pantsId];
 
-        characterEquipment.EquipWeapon(currentWeaponData);
-        Debug.Log("currentPantsData " + JsonUtility.ToJson(currentPantsData));
-        characterEquipment.WearPants(currentPantsData);
+        // characterEquipment.EquipWeapon(currentWeaponData);
+        // Debug.Log("currentPantsData " + JsonUtility.ToJson(currentPantsData));
+        // characterEquipment.WearPants(currentPantsData);
     }
 
     private void Move(Vector3 direction)
@@ -78,8 +55,8 @@ public class Player : Character, IHit
                 {
                     // Disable can attack
                     isCanAtk = false;
-                    // RotationToTarget();
-                    // Attack();
+                    RotationToTarget();
+                    Attack();
                 }
             }
             else
@@ -97,6 +74,31 @@ public class Player : Character, IHit
             characterEquipment.ShowWeapon();
             ChangeAnim(ConstString.ANIM_RUN);
         }
+    }
+
+    public void OnHit(Transform attacker)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        Debug.Log("End game");
+
+        // Debug.Log("Character on hit " + gameObject.name);
+        // Debug.Log("Attacker make hit " + attacker.name);
+        // isDead = true;
+        // int characterIndex = currentStage.characterInStage.IndexOf(this);
+        // currentStage.OnCharacterDie(characterIndex);
+        // rb.detectCollisions = false;
+        // attacker.GetComponent<Character>().LevelUp();
+        // ChangeAnim(ConstString.ANIM_DEAD);
+        // waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
+        //       {
+        //           StopCoroutine(waitAfterDeathCoroutine);
+        //           Debug.Log("Anim dead end");
+        //           OnDespawn();
+        //       }));
     }
 
     public override void LevelUp()

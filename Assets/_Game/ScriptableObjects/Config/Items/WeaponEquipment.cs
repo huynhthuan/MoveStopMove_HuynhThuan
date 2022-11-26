@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Items/Weapon Equipment")]
 public class WeaponEquipment : Item
 {
-    public WeaponId itemId;
     public Weapon weaponPrefab;
     public Weapon weaponBullet;
     public List<MaterialItem> materialItems;

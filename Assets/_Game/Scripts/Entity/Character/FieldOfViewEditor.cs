@@ -20,13 +20,20 @@ public class FieldOfViewEditor : Editor
         for (int i = 0; i < fov.targetCanSee.Count; i++)
         {
             Handles.color = Color.green;
-            Handles.DrawLine(fov.TF.position, fov.targetCanSee[i].position);
+            Handles.DrawLine(fov.TF.position, fov.targetCanSee[i].TF.position);
             // Debug.Log("Draw line to target in view");
         }
 
         if (fov.attackTarget != null)
         {
-            Handles.DrawWireCube(fov.attackTarget.position, new Vector3(1f, 1f, 1f));
+            Handles.DrawWireCube(fov.attackTarget.TF.position, new Vector3(1f, 1f, 1f));
+        }
+        else
+        {
+            if (fov.moveTarget != null)
+            {
+                Handles.DrawWireCube(fov.moveTarget, new Vector3(0.5f, 0.5f, 0.5f));
+            }
         }
     }
 

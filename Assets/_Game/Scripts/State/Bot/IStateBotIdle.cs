@@ -9,8 +9,8 @@ public class IStateBotIdle : IStateBot
 
     public void OnEnter(Bot bot)
     {
-        bot.navMeshAgent.isStopped = true;
-        randomTime = Random.Range(1f, 3);
+        bot.navMeshAgent.velocity = Vector3.zero;
+        randomTime = Random.Range(1f, 3f);
         bot.isStartCheckView = false;
     }
 
@@ -18,7 +18,6 @@ public class IStateBotIdle : IStateBot
     {
         if (bot.navMeshAgent.enabled)
         {
-            bot.navMeshAgent.isStopped = true;
 
             bot.ChangeAnim(ConstString.ANIM_IDLE);
 
@@ -27,8 +26,6 @@ public class IStateBotIdle : IStateBot
             if (timer >= randomTime)
             {
                 bot.ChangeState(new IStateBotFindEnemy());
-
-                // Debug.Log($"Change to state find enmy");
             }
         }
 
