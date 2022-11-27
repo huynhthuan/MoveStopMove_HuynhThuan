@@ -83,7 +83,6 @@ public class WayPointIndicator : GameUnit
 
             // Debug.Log($"check {targetFowllow.name} in view {TargetInView()}");
         }
-
     }
 
     private void RotationToTarget()

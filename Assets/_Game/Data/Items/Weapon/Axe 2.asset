@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cbe30c2c951e834590e622929c116c5, type: 3}
+  m_Name: Axe 2
+  m_EditorClassIdentifier: 
+  equipmentSlot: 1
+  itemId: 8
+  itemName: "R\xECu 2"
+  description: 
+  price: 0
+  isShowOnStore: 1
+  prefab: {fileID: -6166475496293372349, guid: bf750c5a9b0e5d1429417005afda958a, type: 3}
+  materialAvaibleItem:
+  - materialId: 0
+    icon: {fileID: 0}
+  - materialId: 1
+    icon: {fileID: 0}
+  - materialId: 2
+    icon: {fileID: 0}
+  - materialId: 3
+    icon: {fileID: 0}
+  weaponBullet: {fileID: 0}

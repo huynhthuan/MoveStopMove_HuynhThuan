@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd55bf7a8e94a648b16c9e514834289, type: 3}
+  m_Script: {fileID: 11500000, guid: 30c795b1bc0f3db45891ebcb14489d31, type: 3}
   m_Name: Pant 6
   m_EditorClassIdentifier: 
-  itemId: 11
-  itemName: Pant 1
+  equipmentSlot: 5
+  itemId: 29
+  itemName: Pant 6
   description: This is pant 1
   price: 0
   isShowOnStore: 1
-  material: {fileID: 2100000, guid: a9b20b035c9dd6e43b6a0338b784e8e4, type: 2}
+  materialId: 23

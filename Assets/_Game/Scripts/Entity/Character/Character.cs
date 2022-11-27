@@ -130,7 +130,7 @@ public class Character : GameUnit
     public void SpawnWeaponBullet(Vector3 dir)
     {
         Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
-        Weapon weaponPrefab = characterEquipment.GetCurrentWeapon().weaponBullet;
+        Weapon weaponPrefab = characterEquipment.GetCurrentWeaponBullet();
         Weapon weaponBulletUnit = SimplePool.Spawn<Weapon>(weaponPrefab, TF.position, rotation);
         weaponBulletUnit.TF.localScale += level * characterScaleRatio * 20f;
         weaponBulletUnit.SetDir(dir);

@@ -53,7 +53,7 @@ public class Stage : MonoBehaviour
         // Spawn bot of stage
         if (IsCanSpawnBot())
         {
-            // SpawnBot(9);
+            SpawnBot(9);
         }
     }
 

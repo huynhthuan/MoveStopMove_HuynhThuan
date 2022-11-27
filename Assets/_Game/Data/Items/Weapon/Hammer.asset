@@ -9,30 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3915684b34cdf5f4d9b358adb09a5362, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cbe30c2c951e834590e622929c116c5, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  itemId: 2
-  itemName: Weapon 1
+  equipmentSlot: 1
+  itemId: 5
+  itemName: Hammer Of Thor
   description: This is weapon 1
   price: 0
   isShowOnStore: 1
-  weaponPrefab: {fileID: 2733613864299508693, guid: ebffcf20ceb57f84eb8c3eda24550edd, type: 3}
+  prefab: {fileID: 2733613864299508693, guid: ebffcf20ceb57f84eb8c3eda24550edd, type: 3}
+  materialAvaibleItem:
+  - materialId: 0
+    icon: {fileID: 0}
+  - materialId: 1
+    icon: {fileID: 0}
+  - materialId: 2
+    icon: {fileID: 0}
+  - materialId: 3
+    icon: {fileID: 0}
   weaponBullet: {fileID: 839939892677345380, guid: d5dc62dc18528f84084e7f2cb5949a22, type: 3}
-  materialItems:
-  - materialIndex: 0
-    materialAvaibleItems:
-    - material: {fileID: 2100000, guid: a04df510841d52a459f955e440c7f75d, type: 2}
-      icon: {fileID: 0}
-      price: 0
-    - material: {fileID: 2100000, guid: cbd3cd336b5d80a488badbefb4cd61c2, type: 2}
-      icon: {fileID: 0}
-      price: 0
-  - materialIndex: 1
-    materialAvaibleItems:
-    - material: {fileID: 2100000, guid: a9b20b035c9dd6e43b6a0338b784e8e4, type: 2}
-      icon: {fileID: 0}
-      price: 0
-    - material: {fileID: 2100000, guid: 90b61aaac909e01448d59e92fa4cf1fd, type: 2}
-      icon: {fileID: 0}
-      price: 0

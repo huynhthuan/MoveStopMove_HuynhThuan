@@ -41,13 +41,13 @@ public class Bot : Character, IHit, ISelectable
         navMeshAgent.enabled = true;
 
         // Equip random weapon
-        // WeaponEquipment weaponRandom = characterEquipment.RandomWeapon();
-        // PantEquipment pantsRandom = characterEquipment.RandomPants();
+        WeaponEquipment weaponRandom = (WeaponEquipment)characterEquipment.RandomItem<WeaponEquipment>(EquipmentSlot.WEAPON);
+        MeshEquipment pantsRandom = characterEquipment.RandomItem<MeshEquipment>(EquipmentSlot.PANT);
 
-        // characterEquipment.EquipWeapon(weaponRandom);
-        // characterEquipment.WearPants(pantsRandom);
+        weaponRandom.Use(this);
+        pantsRandom.Use(this);
 
-        ChangeState(new IStateBotIdle());
+        // ChangeState(new IStateBotIdle());
 
     }
 

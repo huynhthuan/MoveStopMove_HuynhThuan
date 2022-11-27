@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cbe30c2c951e834590e622929c116c5, type: 3}
+  m_Name: Gun Uzi
+  m_EditorClassIdentifier: 
+  equipmentSlot: 1
+  itemId: 12
+  itemName: "S\xFAng uzi"
+  description: 
+  price: 110
+  isShowOnStore: 1
+  prefab: {fileID: 4214917952736291258, guid: f082284da8bc42d4c975921a12b2bdaa, type: 3}
+  materialAvaibleItem:
+  - materialId: 0
+    icon: {fileID: 0}
+  - materialId: 1
+    icon: {fileID: 0}
+  - materialId: 2
+    icon: {fileID: 0}
+  - materialId: 3
+    icon: {fileID: 0}
+  weaponBullet: {fileID: 0}

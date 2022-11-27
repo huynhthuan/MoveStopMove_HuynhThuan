@@ -11,6 +11,8 @@ public class CharacterEquipment : MonoBehaviour
     internal Item[] currentEquipment;
     internal GameObject[] currentEquipmentObj;
     private DataManager dataManager;
+    private ListEquipment allItem;
+    private ListMaterial allMaterial;
 
     public void Oninit()
     {
@@ -18,30 +20,38 @@ public class CharacterEquipment : MonoBehaviour
         currentEquipment = new Item[numSlots];
         currentEquipmentObj = new GameObject[numSlots];
         dataManager = DataManager.Ins;
+        allItem = dataManager.listEquipment;
+        allMaterial = dataManager.listMaterial;
     }
 
-    public void EquipWeapon(WeaponEquipment weapon)
+    public void EquipItem(ItemId itemId, EquipmentSlot equipmentSlot)
     {
-        UnEquipWeapon();
-        GameObject newWeaponObj = Instantiate(weapon.weaponPrefab.gameObject, currentEquipementTransform[(int)EquipmentSlot.WEAPON]);
-        currentEquipment[(int)EquipmentSlot.WEAPON] = weapon;
-        currentEquipmentObj[(int)EquipmentSlot.WEAPON] = newWeaponObj;
-    }
+        UnEquipItem(equipmentSlot);
 
-    public WeaponEquipment GetCurrentWeapon()
-    {
-        return (WeaponEquipment)currentEquipment[(int)EquipmentSlot.WEAPON];
-    }
-
-    public void UnEquipWeapon()
-    {
-        if (currentEquipment[(int)EquipmentSlot.WEAPON] != null)
+        if (equipmentSlot == EquipmentSlot.WEAPON)
         {
-            currentEquipment[(int)EquipmentSlot.WEAPON] = null;
-            Destroy(currentEquipmentObj[(int)EquipmentSlot.WEAPON].gameObject);
+            WeaponEquipment weapon = dataManager.listEquipment.GetItem<WeaponEquipment>(itemId);
+            GameObject newWeaponObj = Instantiate(weapon.prefab.gameObject, currentEquipementTransform[(int)equipmentSlot]);
+            currentEquipment[(int)equipmentSlot] = weapon;
+            currentEquipmentObj[(int)equipmentSlot] = newWeaponObj;
+        }
+
+    }
+
+    public void UnEquipItem(EquipmentSlot equipmentSlot)
+    {
+        if (currentEquipment[(int)equipmentSlot] != null)
+        {
+            currentEquipment[(int)equipmentSlot] = null;
+            Destroy(currentEquipmentObj[(int)equipmentSlot].gameObject);
         }
     }
 
+    public Weapon GetCurrentWeaponBullet()
+    {
+        WeaponEquipment weaponEquipment = (WeaponEquipment)currentEquipment[(int)EquipmentSlot.WEAPON];
+        return weaponEquipment.weaponBullet;
+    }
 
     public void HiddenWeapon()
     {
@@ -54,22 +64,18 @@ public class CharacterEquipment : MonoBehaviour
     }
 
 
-    public void WearPants(PantEquipment pant)
+    public void WearItem(ItemId itemId, EquipmentSlot equipmentSlot)
     {
-        SkinnedMeshRenderer pantsMeshRenderer = currentEquipementTransform[(int)EquipmentSlot.PANT].GetComponent<SkinnedMeshRenderer>();
-        Material[] mats = new Material[] { pant.material };
-        pantsMeshRenderer.materials = mats;
+        MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
+        SkinnedMeshRenderer slotMeshRenderer = currentEquipementTransform[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
+        Material[] mats = new Material[] { allMaterial.GetMaterial(item.materialId).material };
+        slotMeshRenderer.materials = mats;
     }
 
-    // public WeaponEquipment RandomWeapon()
-    // {
-    //     int weaponIdRandom = Random.Range(0, dataManager.listWeaponEquipment.weapons.Count);
-    //     return dataManager.listWeaponEquipment.weapons[weaponIdRandom];
-    // }
-
-    // public PantEquipment RandomPants()
-    // {
-    //     int pantIdRandom = Random.Range(0, dataManager.listPantEquipment.pants.Count);
-    //     return dataManager.listPantEquipment.pants[pantIdRandom];
-    // }
+    public T RandomItem<T>(EquipmentSlot slot) where T : Item
+    {
+        List<Item> itemsBySlot = allItem.GetItemsBySlot<Item>(slot);
+        int itemIdRandom = Random.Range(0, maxExclusive: itemsBySlot.Count);
+        return allItem.GetItem<T>(itemsBySlot[itemIdRandom].itemId);
+    }
 }

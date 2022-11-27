@@ -9,31 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3915684b34cdf5f4d9b358adb09a5362, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cbe30c2c951e834590e622929c116c5, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
-  equipSlot: 1
-  itemName: Weapon 2
+  equipmentSlot: 1
+  itemId: 4
+  itemName: Kinife Of Loki
   description: This is weapon 2
   price: 0
   isShowOnStore: 1
-  itemId: 1
-  weaponPrefab: {fileID: 5684111917946155276, guid: f254dc076c329c1499c4e4e2eeaa6c7c, type: 3}
+  prefab: {fileID: 5684111917946155276, guid: f254dc076c329c1499c4e4e2eeaa6c7c, type: 3}
+  materialAvaibleItem:
+  - materialId: 0
+    icon: {fileID: 0}
+  - materialId: 1
+    icon: {fileID: 0}
+  - materialId: 2
+    icon: {fileID: 0}
+  - materialId: 3
+    icon: {fileID: 0}
   weaponBullet: {fileID: -9169036785341963480, guid: dd6e56a4160a0ed4c8efd9bf271db9eb, type: 3}
-  materialItems:
-  - materialIndex: 0
-    materialAvaibleItems:
-    - material: {fileID: 2100000, guid: a04df510841d52a459f955e440c7f75d, type: 2}
-      icon: {fileID: 0}
-      price: 0
-    - material: {fileID: 2100000, guid: cbd3cd336b5d80a488badbefb4cd61c2, type: 2}
-      icon: {fileID: 0}
-      price: 0
-  - materialIndex: 1
-    materialAvaibleItems:
-    - material: {fileID: 2100000, guid: a9b20b035c9dd6e43b6a0338b784e8e4, type: 2}
-      icon: {fileID: 0}
-      price: 0
-    - material: {fileID: 2100000, guid: 90b61aaac909e01448d59e92fa4cf1fd, type: 2}
-      icon: {fileID: 0}
-      price: 0

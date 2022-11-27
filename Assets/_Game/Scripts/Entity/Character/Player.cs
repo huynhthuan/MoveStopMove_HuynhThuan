@@ -12,12 +12,10 @@ public class Player : Character, IHit
         base.OnInit();
         CameraFollow.Ins.target = TF;
 
-        // WeaponEquipment currentWeaponData = DataManager.Ins.listWeaponEquipment.weapons[DataManager.Ins.playerData.weaponId];
-        // PantEquipment currentPantsData = DataManager.Ins.listPantEquipment.pants[DataManager.Ins.playerData.pantsId];
-
-        // characterEquipment.EquipWeapon(currentWeaponData);
-        // Debug.Log("currentPantsData " + JsonUtility.ToJson(currentPantsData));
-        // characterEquipment.WearPants(currentPantsData);
+        WeaponEquipment currentWeapon = DataManager.Ins.listEquipment.GetItem<WeaponEquipment>((ItemId)DataManager.Ins.playerData.weaponId);
+        MeshEquipment currentPants = DataManager.Ins.listEquipment.GetItem<MeshEquipment>((ItemId)DataManager.Ins.playerData.pantsId);
+        currentWeapon.Use(this);
+        currentPants.Use(this);
     }
 
     private void Move(Vector3 direction)

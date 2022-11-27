@@ -56,7 +56,7 @@ public class GameManager : Singleton<GameManager>
         LevelManager.Ins.OnInit();
 
         // UI init
-        // UIManager.Ins.OpenUI<Lobby>();
+        UIManager.Ins.OpenUI<Lobby>();
 
         // Load new game
         NewGame();
