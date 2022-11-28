@@ -12,12 +12,27 @@ public enum WeaponType
 public class Weapon : ItemEquip
 {
     [SerializeField]
+    internal Rigidbody rb;
+    [SerializeField]
+    internal Transform anim;
+    internal Transform animTF;
+
+    [SerializeField]
     private WeaponType weaponType;
 
     internal bool isHasFire;
     private Transform target;
     private Vector3 dirToTarget;
     internal Character owner;
+
+    private void Start()
+    {
+        if (anim != null)
+        {
+            animTF = anim.transform;
+        }
+
+    }
 
     public void SetDir(Vector3 dir)
     {

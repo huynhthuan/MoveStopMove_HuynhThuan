@@ -115,11 +115,6 @@ public class Skin : UICanvas
         }
     }
 
-    public void GetItemsOfTab()
-    {
-
-    }
-
     public void ActiveTab(TabName tabName)
     {
         tabBtns[(int)tabName].isActive = true;
@@ -244,6 +239,8 @@ public class Skin : UICanvas
             playerInventory.Add(new InventorySlot((ItemId)currentItemSelect.itemId));
             playerData.gold -= currentItemSelect.price;
 
+            UnlockItem(currentItemSelect.itemId);
+
             PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.GOLD), playerData.gold);
             PlayerPrefs.SetString(DataManager.Ins.GetKey(DataKey.INVENTORY), JsonUtility.ToJson(playerData.playerInventory));
 
@@ -251,9 +248,16 @@ public class Skin : UICanvas
         }
     }
 
+
     public void OnClickSelectBtn()
     {
 
+    }
+
+    public void UnlockItem(ItemId itemId)
+    {
+        ButtonSkinItem itemUnlock = listItemTab.Find((button) => button.itemData.itemId == itemId);
+        itemUnlock.isLock = false;
     }
 
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8057438408490339148}
   - component: {fileID: 1336094875349217658}
   - component: {fileID: 4735053828022537603}
+  - component: {fileID: -3200023229815960960}
   m_Layer: 0
   m_Name: Head Hat Cap
   m_TagString: Untagged
@@ -83,3 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-3200023229815960960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6452141293072103775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d0bd27997a46a4f9cf9a6e4dbc71b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 0
+  rb: {fileID: 0}
+  anim: {fileID: 0}

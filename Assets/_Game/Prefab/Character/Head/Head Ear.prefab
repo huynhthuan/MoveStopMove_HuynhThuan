@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 954305360059332174}
   - component: {fileID: 8098977448124304504}
   - component: {fileID: 2547296309804707969}
+  - component: {fileID: 315733161615333080}
   m_Layer: 0
   m_Name: Head Ear
   m_TagString: Untagged
@@ -82,3 +83,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &315733161615333080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279834115466888285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d0bd27997a46a4f9cf9a6e4dbc71b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 0
+  rb: {fileID: 0}
+  anim: {fileID: 0}

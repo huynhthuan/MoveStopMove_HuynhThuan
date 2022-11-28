@@ -31,7 +31,7 @@ public class CharacterEquipment : MonoBehaviour
         GameObject newItemEquipmentObject = Instantiate(item.prefab, equipmentSlots[(int)equipmentSlot]);
         ItemEquip newItem = newItemEquipmentObject.GetComponent<ItemEquip>();
         newItem.itemData = item;
-        // currentEquipments[(int)equipmentSlot] = newItem;
+        currentEquipments[(int)equipmentSlot] = newItem;
     }
 
     public void UnEquipItem(EquipmentSlot equipmentSlot)
