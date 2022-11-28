@@ -541,13 +541,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ed68a307420724c86ff016bfd4ac7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEquipementTransform:
+  equipmentSlots:
   - {fileID: 6101144156948096811}
   - {fileID: 1324508454015640182}
   - {fileID: 4354243616055087594}
   - {fileID: 2556932397580816868}
   - {fileID: 2196706164166204685}
   - {fileID: 7291781731125561770}
+  currentEquipments:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &2012005975017474042
 GameObject:
   m_ObjectHideFlags: 0

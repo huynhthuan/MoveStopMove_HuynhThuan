@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cbe30c2c951e834590e622929c116c5, type: 3}
   m_Name: Candy 2
   m_EditorClassIdentifier: 
-  equipmentSlot: 0
+  equipmentSlot: 1
   itemId: 10
+  isShowOnStore: 1
+  thumbnail: {fileID: 0}
+  prefab: {fileID: 8895083810915365938, guid: 2497337807286c14ea1954748097a982, type: 3}
   itemName: "C\xE2y k\u1EB9o 2"
   description: 
   price: 0
-  isShowOnStore: 1
-  prefab: {fileID: -2164534641573707734, guid: 2497337807286c14ea1954748097a982, type: 3}
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}
@@ -29,3 +30,4 @@ MonoBehaviour:
   - materialId: 3
     icon: {fileID: 0}
   weaponBullet: {fileID: 0}
+  itemSkins: []

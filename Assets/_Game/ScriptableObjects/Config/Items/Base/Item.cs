@@ -8,19 +8,15 @@ public class Item : ScriptableObject
 {
     public EquipmentSlot equipmentSlot;
     public ItemId itemId;
-    public string itemName;
-    [TextArea]
-    public string description;
-    public int price;
     public bool isShowOnStore = true;
+    public Sprite thumbnail;
 
     public virtual void Use(Character owner)
     {
-        Debug.Log(message: $"Use item {itemName}");
+
     }
 }
 
-public enum EquipmentSlot { HEAD, WEAPON, SHIELD, WING, TAIL, PANT }
 public enum ItemId
 {
     HEAD_1,
@@ -56,4 +52,13 @@ public enum ItemId
     PANT_7,
     PANT_8,
     PANT_9,
+    HEAD_5,
+    HEAD_6,
+    HEAD_7,
+    HEAD_8,
+    HEAD_9,
+    HEAD_10,
+    HEAD_11,
+    HEAD_12,
+    HEAD_13,
 }

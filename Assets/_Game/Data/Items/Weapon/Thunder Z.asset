@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSlot: 1
   itemId: 13
+  isShowOnStore: 1
+  thumbnail: {fileID: 0}
+  prefab: {fileID: 8570058431476652751, guid: ea6f25af91b37de4e9651959202b0b58, type: 3}
   itemName: "Tia ch\u1EDBp"
   description: 
   price: 500
-  isShowOnStore: 1
-  prefab: {fileID: 59787023623329550, guid: ea6f25af91b37de4e9651959202b0b58, type: 3}
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}
@@ -29,3 +30,4 @@ MonoBehaviour:
   - materialId: 3
     icon: {fileID: 0}
   weaponBullet: {fileID: 0}
+  itemSkins: []

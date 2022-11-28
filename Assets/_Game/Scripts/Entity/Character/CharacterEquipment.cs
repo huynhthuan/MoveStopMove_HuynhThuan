@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+
+public enum EquipmentSlot { HEAD, WEAPON, SHIELD, WING, TAIL, PANT }
+
 public class CharacterEquipment : MonoBehaviour
 {
     [SerializeField]
-    public Transform[] currentEquipementTransform;
-
-    internal Item[] currentEquipment;
-    internal GameObject[] currentEquipmentObj;
+    public List<Transform> equipmentSlots = new List<Transform>();
+    [SerializeField]
+    internal List<ItemEquip> currentEquipments = new List<ItemEquip>();
     private DataManager dataManager;
     private ListEquipment allItem;
     private ListMaterial allMaterial;
 
     public void Oninit()
     {
-        int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        currentEquipment = new Item[numSlots];
-        currentEquipmentObj = new GameObject[numSlots];
         dataManager = DataManager.Ins;
         allItem = dataManager.listEquipment;
         allMaterial = dataManager.listMaterial;
@@ -30,44 +29,45 @@ public class CharacterEquipment : MonoBehaviour
 
         if (equipmentSlot == EquipmentSlot.WEAPON)
         {
-            WeaponEquipment weapon = dataManager.listEquipment.GetItem<WeaponEquipment>(itemId);
-            GameObject newWeaponObj = Instantiate(weapon.prefab.gameObject, currentEquipementTransform[(int)equipmentSlot]);
-            currentEquipment[(int)equipmentSlot] = weapon;
-            currentEquipmentObj[(int)equipmentSlot] = newWeaponObj;
+            WeaponEquipment weapon = allItem.GetItem<WeaponEquipment>(itemId);
+            GameObject newWeaponObject = Instantiate(weapon.prefab, equipmentSlots[(int)equipmentSlot]);
+            Weapon newWeapon = newWeaponObject.GetComponent<Weapon>();
+            newWeapon.itemData = weapon;
+            currentEquipments[(int)equipmentSlot] = newWeapon;
         }
 
     }
 
     public void UnEquipItem(EquipmentSlot equipmentSlot)
     {
-        if (currentEquipment[(int)equipmentSlot] != null)
+        if (currentEquipments[(int)equipmentSlot] != null)
         {
-            currentEquipment[(int)equipmentSlot] = null;
-            Destroy(currentEquipmentObj[(int)equipmentSlot].gameObject);
+            Destroy(currentEquipments[(int)equipmentSlot].gameObject);
+            currentEquipments[(int)equipmentSlot] = null;
         }
     }
 
     public Weapon GetCurrentWeaponBullet()
     {
-        WeaponEquipment weaponEquipment = (WeaponEquipment)currentEquipment[(int)EquipmentSlot.WEAPON];
+        WeaponEquipment weaponEquipment = (WeaponEquipment)currentEquipments[(int)EquipmentSlot.WEAPON].itemData;
         return weaponEquipment.weaponBullet;
     }
 
     public void HiddenWeapon()
     {
-        currentEquipementTransform[(int)EquipmentSlot.WEAPON].gameObject.SetActive(false);
+        equipmentSlots[(int)EquipmentSlot.WEAPON].gameObject.SetActive(false);
     }
 
     public void ShowWeapon()
     {
-        currentEquipementTransform[(int)EquipmentSlot.WEAPON].gameObject.SetActive(true);
+        equipmentSlots[(int)EquipmentSlot.WEAPON].gameObject.SetActive(true);
     }
 
 
     public void WearItem(ItemId itemId, EquipmentSlot equipmentSlot)
     {
         MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
-        SkinnedMeshRenderer slotMeshRenderer = currentEquipementTransform[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
+        SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
         Material[] mats = new Material[] { allMaterial.GetMaterial(item.materialId).material };
         slotMeshRenderer.materials = mats;
     }
@@ -78,4 +78,8 @@ public class CharacterEquipment : MonoBehaviour
         int itemIdRandom = Random.Range(0, maxExclusive: itemsBySlot.Count);
         return allItem.GetItem<T>(itemsBySlot[itemIdRandom].itemId);
     }
+
+    // public void ApplySkin(SkinId skinId, ){
+    //     owner
+    // }
 }
