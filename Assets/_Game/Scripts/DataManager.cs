@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor;
 
 public enum DataKey
 {
@@ -90,3 +91,41 @@ public class DataManager : Singleton<DataManager>
         return DataKeyString[(int)key];
     }
 }
+
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(DataManager))]
+public class DataButton : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DataManager self = ((DataManager)target);
+
+        DrawDefaultInspector();
+
+        if (GUILayout.Button("Set 99999 gold"))
+        {
+            PlayerPrefs.SetInt(self.GetKey(DataKey.GOLD), 99999);
+            Debug.Log($"Gold after set {PlayerPrefs.GetInt(self.GetKey(DataKey.GOLD))}");
+        }
+
+        if (GUILayout.Button("Reset weapon"))
+        {
+            PlayerInventory inventoryDefault = new PlayerInventory();
+            inventoryDefault.Add(new InventorySlot(ItemId.KINIFE));
+            PlayerPrefs.SetString(self.GetKey(DataKey.INVENTORY), JsonUtility.ToJson(inventoryDefault));
+
+            PlayerPrefs.SetInt(self.GetKey(DataKey.WEAPON_ID), (int)ItemId.KINIFE);
+            PlayerPrefs.SetInt(self.GetKey(DataKey.WEAPON_MATERIAL_1), (int)MaterialId.MATERIAL_WEAPON_COLOR_1);
+            PlayerPrefs.SetInt(self.GetKey(DataKey.WEAPON_MATERIAL_2), (int)MaterialId.MATERIAL_WEAPON_COLOR_2);
+            PlayerPrefs.SetInt(self.GetKey(DataKey.WEAPON_MATERIAL_3), (int)MaterialId.MATERIAL_WEAPON_COLOR_3);
+
+            Debug.Log($"Inventory after reset {PlayerPrefs.GetString(self.GetKey(key: DataKey.INVENTORY))}");
+            Debug.Log($"Weapon after reset {PlayerPrefs.GetInt(self.GetKey(key: DataKey.WEAPON_ID))}");
+            Debug.Log($"Weapon material 1 after reset {PlayerPrefs.GetInt(self.GetKey(key: DataKey.WEAPON_MATERIAL_1))}");
+            Debug.Log($"Weapon material 2 after reset {PlayerPrefs.GetInt(self.GetKey(key: DataKey.WEAPON_MATERIAL_2))}");
+            Debug.Log($"Weapon material 3 after reset {PlayerPrefs.GetInt(self.GetKey(key: DataKey.WEAPON_MATERIAL_3))}");
+        }
+    }
+}
+#endif

@@ -8,7 +8,7 @@ public class SaveScreenshotToFile
     {
         Camera camera = Selection.activeGameObject.GetComponent<Camera>();
 
-        RenderTexture rt = new RenderTexture(500, 500, 24, RenderTextureFormat.BGRA32, RenderTextureReadWrite.sRGB);
+        RenderTexture rt = new RenderTexture(320, 224, 24, RenderTextureFormat.BGRA32, RenderTextureReadWrite.sRGB);
         RenderTexture oldRT = camera.targetTexture;
         camera.targetTexture = rt;
         camera.Render();

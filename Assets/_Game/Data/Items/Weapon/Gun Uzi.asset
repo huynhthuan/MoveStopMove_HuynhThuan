@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSlot: 1
   itemId: 12
+  isShowOnStore: 1
+  thumbnail: {fileID: 0}
+  prefab: {fileID: 4971805350728946806, guid: f082284da8bc42d4c975921a12b2bdaa, type: 3}
   itemName: "S\xFAng uzi"
   description: 
   price: 110
-  isShowOnStore: 1
-  prefab: {fileID: 4214917952736291258, guid: f082284da8bc42d4c975921a12b2bdaa, type: 3}
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}
@@ -29,3 +30,4 @@ MonoBehaviour:
   - materialId: 3
     icon: {fileID: 0}
   weaponBullet: {fileID: 0}
+  itemSkins: []

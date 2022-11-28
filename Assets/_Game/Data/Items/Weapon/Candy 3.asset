@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSlot: 1
   itemId: 11
+  isShowOnStore: 1
+  thumbnail: {fileID: 0}
+  prefab: {fileID: 6590208014869686507, guid: 223eec7a7b9f99648a0e24e216348934, type: 3}
   itemName: "C\xE2y k\u1EB9o 3"
   description: 
   price: 0
-  isShowOnStore: 1
-  prefab: {fileID: -3677622581745393751, guid: 223eec7a7b9f99648a0e24e216348934, type: 3}
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}
@@ -29,3 +30,4 @@ MonoBehaviour:
   - materialId: 3
     icon: {fileID: 0}
   weaponBullet: {fileID: 0}
+  itemSkins: []

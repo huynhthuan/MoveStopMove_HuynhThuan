@@ -9,36 +9,19 @@ public enum WeaponType
     BOOMERANG,
 }
 
-public class Weapon : GameUnit
+public class Weapon : ItemEquip
 {
     [SerializeField]
     private WeaponType weaponType;
-    [SerializeField]
-    private Rigidbody rb;
-    [SerializeField]
-    private Transform anim;
+
     internal bool isHasFire;
     private Transform target;
     private Vector3 dirToTarget;
     internal Character owner;
-    internal Transform animTF;
-    private void Start()
-    {
-        if (anim != null)
-        {
-            animTF = anim.transform;
-        }
-
-    }
 
     public void SetDir(Vector3 dir)
     {
         dirToTarget = dir;
-    }
-
-    public override void OnDespawn()
-    {
-        SimplePool.Despawn(this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,16 +48,17 @@ public class Weapon : GameUnit
         rb.velocity = dirToTarget * 8.5f;
     }
 
-    public override void OnInit()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         if (isHasFire && anim != null)
         {
             Move();
         }
+    }
+
+    public override void OnDespawn()
+    {
+        base.OnDespawn();
+        SimplePool.Despawn(this);
     }
 }

@@ -29,9 +29,15 @@ public class WeaponStore : UICanvas
     private List<Weapon> listWeaponObj = new List<Weapon>();
     private int currentItemIndex = 0;
     private WeaponEquipment currentWeapon;
+    private List<ItemEquip> currentEqipments;
+    private CharacterEquipment characterEquipment;
+    private Player player;
 
     private void Start()
     {
+        player = LevelManager.Ins.player;
+        characterEquipment = LevelManager.Ins.player.characterEquipment;
+        currentEqipments = characterEquipment.currentEquipments;
         playerData = DataManager.Ins.playerData;
         listEquipment = DataManager.Ins.listEquipment;
         playerInventory = playerData.playerInventory;
@@ -55,10 +61,11 @@ public class WeaponStore : UICanvas
 
         for (int i = 0; i < listWeapon.Count; i++)
         {
-            Weapon itemObject = Instantiate(listWeapon[i].prefab, GameManager.Ins.itemForCamera);
-            itemObject.gameObject.layer = 8;
-            itemObject.TF.localPosition = Vector3.zero;
-            listWeaponObj.Add(itemObject);
+            GameObject itemObject = Instantiate(listWeapon[i].prefab, GameManager.Ins.itemForCamera);
+            Weapon itemComp = itemObject.GetComponent<Weapon>();
+            itemComp.gameObject.layer = 8;
+            itemComp.TF.localPosition = Vector3.zero;
+            listWeaponObj.Add(itemComp);
         }
     }
 
@@ -74,7 +81,7 @@ public class WeaponStore : UICanvas
 
         if (playerInventory.CheckHasItem(currentWeapon.itemId))
         {
-            if (LevelManager.Ins.player.characterEquipment.currentEquipment[(int)EquipmentSlot.WEAPON].itemId == currentWeapon.itemId)
+            if (currentEqipments[(int)EquipmentSlot.WEAPON].itemData.itemId == currentWeapon.itemId)
             {
                 EnableEquipedBtn();
             }
@@ -118,7 +125,7 @@ public class WeaponStore : UICanvas
         EnableEquipedBtn();
         playerData.weaponId = (int)currentWeapon.itemId;
         PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.WEAPON_ID), playerData.weaponId);
-        LevelManager.Ins.player.characterEquipment.EquipItem(currentWeapon.itemId, EquipmentSlot.WEAPON);
+        characterEquipment.EquipItem(currentWeapon.itemId, EquipmentSlot.WEAPON);
     }
 
     private void DisableAllBtn()
@@ -188,7 +195,7 @@ public class WeaponStore : UICanvas
 
     public void CloseButton()
     {
-        LevelManager.Ins.player.gameObject.SetActive(true);
+        player.gameObject.SetActive(true);
         UIManager.Ins.OpenUI<Lobby>();
         Close();
     }

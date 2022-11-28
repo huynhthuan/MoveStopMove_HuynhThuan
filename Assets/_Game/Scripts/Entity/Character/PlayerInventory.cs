@@ -8,6 +8,11 @@ public class PlayerInventory
 {
     public List<InventorySlot> items = new List<InventorySlot>();
 
+    public PlayerInventory()
+    {
+        this.items = new List<InventorySlot>();
+    }
+
     public void Add(InventorySlot inventorySlot)
     {
         items.Add(inventorySlot);

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New list material", menuName = "Items/List material")]
+[CreateAssetMenu(fileName = "New list material", menuName = "Items/List/List material")]
 public class ListMaterial : ScriptableObject
 {
     public List<MaterialItem> materials;

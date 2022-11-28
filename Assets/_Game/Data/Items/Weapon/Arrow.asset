@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSlot: 1
   itemId: 6
+  isShowOnStore: 1
+  thumbnail: {fileID: 0}
+  prefab: {fileID: 8167351451205097170, guid: 470d0e37fd11cfb499492b631fb485a2, type: 3}
   itemName: "M\u0169i t\xEAn xanh"
   description: 
   price: 100
-  isShowOnStore: 1
-  prefab: {fileID: 2262349304315978309, guid: 470d0e37fd11cfb499492b631fb485a2, type: 3}
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}
@@ -29,3 +30,4 @@ MonoBehaviour:
   - materialId: 3
     icon: {fileID: 0}
   weaponBullet: {fileID: 0}
+  itemSkins: []

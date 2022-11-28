@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a94407c414064c540b7e136965780d74, type: 3}
+  m_Name: Head Cowboy
+  m_EditorClassIdentifier: 
+  equipmentSlot: 0
+  itemId: 2
+  isShowOnStore: 1
+  thumbnail: {fileID: 21300000, guid: de4d41bd46524124bbe3323cf62171ce, type: 3}
+  prefab: {fileID: 9178417400445711728, guid: 4c3648d7066bfa4488f0cccdb8f386ce, type: 3}
