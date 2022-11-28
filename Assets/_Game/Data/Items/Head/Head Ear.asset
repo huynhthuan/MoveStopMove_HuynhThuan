@@ -16,4 +16,5 @@ MonoBehaviour:
   itemId: 33
   isShowOnStore: 1
   thumbnail: {fileID: 21300000, guid: 31c712f4648f96d49a80a88b75973129, type: 3}
+  price: 500
   prefab: {fileID: 4279834115466888285, guid: c63da418951988343add182ca1878755, type: 3}

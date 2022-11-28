@@ -27,15 +27,11 @@ public class CharacterEquipment : MonoBehaviour
     {
         UnEquipItem(equipmentSlot);
 
-        if (equipmentSlot == EquipmentSlot.WEAPON)
-        {
-            WeaponEquipment weapon = allItem.GetItem<WeaponEquipment>(itemId);
-            GameObject newWeaponObject = Instantiate(weapon.prefab, equipmentSlots[(int)equipmentSlot]);
-            Weapon newWeapon = newWeaponObject.GetComponent<Weapon>();
-            newWeapon.itemData = weapon;
-            currentEquipments[(int)equipmentSlot] = newWeapon;
-        }
-
+        ItemEquipment item = allItem.GetItem<ItemEquipment>(itemId);
+        GameObject newItemEquipmentObject = Instantiate(item.prefab, equipmentSlots[(int)equipmentSlot]);
+        ItemEquip newItem = newItemEquipmentObject.GetComponent<ItemEquip>();
+        newItem.itemData = item;
+        // currentEquipments[(int)equipmentSlot] = newItem;
     }
 
     public void UnEquipItem(EquipmentSlot equipmentSlot)

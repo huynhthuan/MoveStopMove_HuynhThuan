@@ -11,16 +11,24 @@ public class PlayerData
     public string userName;
     public int currentStage;
     [Space(20)]
+    public int headId;
+    [Space(20)]
     public int weaponId;
     public int weaponMaterial1;
     public int weaponMaterial2;
     public int weaponMaterial3;
     [Space(20)]
+    public int shieldId;
+    [Space(20)]
+    public int wingId;
+    [Space(20)]
+    public int taildId;
+    [Space(20)]
     public int pantsId;
     [Space(20)]
     public PlayerInventory playerInventory;
 
-    public PlayerData(int gold, string userName, int currentStage, int weaponId, int weaponMaterial1, int weaponMaterial2, int weaponMaterial3, int pantsId, PlayerInventory playerInventory)
+    public PlayerData(int gold, string userName, int currentStage, int headId, int weaponId, int weaponMaterial1, int weaponMaterial2, int weaponMaterial3, int shieldId, int wingId, int taildId, int pantsId, PlayerInventory playerInventory)
     {
         this.gold = gold;
         this.currentStage = currentStage;

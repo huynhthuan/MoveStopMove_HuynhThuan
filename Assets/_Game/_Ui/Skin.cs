@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-
+using TMPro;
 public enum TabName
 {
     TAB_HEAD,
@@ -15,17 +15,32 @@ public enum TabName
 public class Skin : UICanvas
 {
     [SerializeField]
+    internal UiButton btnGold;
+    [SerializeField]
     private Transform contentList;
     [SerializeField]
     private List<UiTabSkin> tabBtns;
     [SerializeField]
     private ButtonSkinItem buttonSkinItemPrefab;
+    [SerializeField]
+    private Transform buyBtn;
+    [SerializeField]
+    private Transform selectBtn;
+    [SerializeField]
+    private Transform notEnoughBtn;
+    [SerializeField]
+    internal TextMeshProUGUI priceNotEnoughBtn;
+    [SerializeField]
+    internal TextMeshProUGUI priceBuyBtn;
 
-    private Item currentItemSelect;
+    internal Item currentItemSelect;
     private TabName currentTabSelect;
     private DataManager dataManager;
     private ListEquipment allItem;
     private List<ButtonSkinItem> listItemTab = new List<ButtonSkinItem>();
+    internal PlayerInventory playerInventory;
+    internal PlayerData playerData;
+    internal Player player;
 
     public override void Open()
     {
@@ -33,7 +48,16 @@ public class Skin : UICanvas
         GameManager.Ins.cameraFollow.SetCameraSkin();
         dataManager = DataManager.Ins;
         allItem = dataManager.listEquipment;
+        playerData = dataManager.playerData;
+        playerInventory = playerData.playerInventory;
+        player = LevelManager.Ins.player;
+
         ActiveTab(TabName.TAB_HEAD);
+        DiasableAllBtn();
+        DeSelectAllItem();
+
+        listItemTab[0].SelectItem();
+
     }
 
     public void CloseButton()
@@ -63,7 +87,7 @@ public class Skin : UICanvas
         {
             ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
             T itemConfig = itemsOfTab[i];
-            itemObj.OnInit(true, false, itemConfig);
+            itemObj.OnInit(this, !playerInventory.IsHasItem(itemConfig.itemId), false, itemConfig);
             listItemTab.Add(itemObj);
         }
     }
@@ -86,7 +110,7 @@ public class Skin : UICanvas
         {
             ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
             T itemConfig = itemsOfTab[i];
-            itemObj.OnInit(true, false, itemConfig);
+            itemObj.OnInit(this, true, false, itemConfig);
             listItemTab.Add(itemObj);
         }
     }
@@ -137,4 +161,99 @@ public class Skin : UICanvas
                 break;
         }
     }
+
+    public void DiasableAllBtn()
+    {
+        buyBtn.gameObject.SetActive(false);
+        selectBtn.gameObject.SetActive(value: false);
+        notEnoughBtn.gameObject.SetActive(false);
+    }
+
+    public void EnableBuyBtn()
+    {
+        buyBtn.gameObject.SetActive(true);
+        selectBtn.gameObject.SetActive(false);
+        notEnoughBtn.gameObject.SetActive(false);
+    }
+
+    public void EnableSelectBtn()
+    {
+        buyBtn.gameObject.SetActive(false);
+        selectBtn.gameObject.SetActive(true);
+        notEnoughBtn.gameObject.SetActive(false);
+    }
+
+    public void EnableNotEnoughBtn()
+    {
+        buyBtn.gameObject.SetActive(false);
+        selectBtn.gameObject.SetActive(false);
+        notEnoughBtn.gameObject.SetActive(true);
+    }
+
+    public void ShowButtonOnItemSelect()
+    {
+        if (currentItemSelect == null)
+        {
+            DiasableAllBtn();
+            return;
+        }
+
+        priceBuyBtn.text = currentItemSelect.price.ToString();
+        priceNotEnoughBtn.text = currentItemSelect.price.ToString();
+
+        if (playerInventory.IsHasItem(currentItemSelect.itemId))
+        {
+            EnableSelectBtn();
+        }
+        else
+        {
+            if (playerData.gold < currentItemSelect.price)
+            {
+                EnableNotEnoughBtn();
+            }
+            else
+            {
+                EnableBuyBtn();
+            }
+        }
+    }
+
+    public void DeSelectAllItem()
+    {
+        for (int i = 0; i < listItemTab.Count; i++)
+        {
+            listItemTab[i].DeselectItem();
+        }
+    }
+
+    public override void AnimationClose()
+    {
+        base.AnimationClose();
+        btnGold.Hide();
+    }
+
+    public override void AnimationOpen()
+    {
+        base.AnimationOpen();
+        btnGold.Show();
+    }
+    public void OnClickBuyBtn()
+    {
+        if (playerData.gold >= currentItemSelect.price)
+        {
+            playerInventory.Add(new InventorySlot((ItemId)currentItemSelect.itemId));
+            playerData.gold -= currentItemSelect.price;
+
+            PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.GOLD), playerData.gold);
+            PlayerPrefs.SetString(DataManager.Ins.GetKey(DataKey.INVENTORY), JsonUtility.ToJson(playerData.playerInventory));
+
+            EnableSelectBtn();
+        }
+    }
+
+    public void OnClickSelectBtn()
+    {
+
+    }
+
 }

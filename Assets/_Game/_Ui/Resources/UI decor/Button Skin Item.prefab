@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1319383351507781934
 RectTransform:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -185,8 +185,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.3, y: -0.7}
-  m_SizeDelta: {x: 15.0281, y: 19.9523}
+  m_AnchoredPosition: {x: -1, y: -0.6999998}
+  m_SizeDelta: {x: 9.6856, y: 12.8592}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3494497404626660518
 CanvasRenderer:
@@ -350,7 +350,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6750732229712650867}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8940549938568873337}
+        m_TargetAssemblyTypeName: ButtonSkinItem, Assembly-CSharp
+        m_MethodName: OnClickItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8940549938568873337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6535273507617983994
 RectTransform:
   m_ObjectHideFlags: 0

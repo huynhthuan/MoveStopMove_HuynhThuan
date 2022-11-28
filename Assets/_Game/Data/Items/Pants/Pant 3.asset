@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSlot: 5
   itemId: 26
-  itemName: Pant 3
-  description: This is pant 1
-  price: 0
   isShowOnStore: 1
   thumbnail: {fileID: 21300000, guid: d52e2d9b05271f0498cee49591469da6, type: 3}
+  price: 500
   materialId: 20

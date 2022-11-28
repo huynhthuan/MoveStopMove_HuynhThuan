@@ -79,7 +79,7 @@ public class WeaponStore : UICanvas
         currentWeapon = listWeapon[itemIndexShow];
         weaponName.text = currentWeapon.itemName;
 
-        if (playerInventory.CheckHasItem(currentWeapon.itemId))
+        if (playerInventory.IsHasItem(currentWeapon.itemId))
         {
             if (currentEqipments[(int)EquipmentSlot.WEAPON].itemData.itemId == currentWeapon.itemId)
             {
@@ -125,7 +125,7 @@ public class WeaponStore : UICanvas
         EnableEquipedBtn();
         playerData.weaponId = (int)currentWeapon.itemId;
         PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.WEAPON_ID), playerData.weaponId);
-        characterEquipment.EquipItem(currentWeapon.itemId, EquipmentSlot.WEAPON);
+        currentWeapon.Use(player);
     }
 
     private void DisableAllBtn()

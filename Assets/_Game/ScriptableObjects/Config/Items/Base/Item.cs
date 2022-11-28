@@ -10,6 +10,7 @@ public class Item : ScriptableObject
     public ItemId itemId;
     public bool isShowOnStore = true;
     public Sprite thumbnail;
+    public int price;
 
     public virtual void Use(Character owner)
     {

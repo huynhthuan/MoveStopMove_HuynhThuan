@@ -11,7 +11,6 @@ public class WeaponEquipment : ItemEquipment
     public string itemName;
     [TextArea]
     public string description;
-    public int price;
     public List<materialAvaibleItem> materialAvaibleItem;
     public Weapon weaponBullet;
     public List<ItemSkin> itemSkins = new List<ItemSkin>();

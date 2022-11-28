@@ -26,7 +26,7 @@ public class PlayerInventory
         }
     }
 
-    public bool CheckHasItem(ItemId itemId)
+    public bool IsHasItem(ItemId itemId)
     {
         return items.Exists(x => x.itemId == itemId);
     }
