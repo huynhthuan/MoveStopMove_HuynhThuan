@@ -40,7 +40,7 @@ public class Settings : UICanvas
 
     public void BackButton()
     {
-        UIManager.Ins.OpenUI<InGame>();
+        UIManager.Ins.OpenUI<Lobby>();
         Close();
     }
 }

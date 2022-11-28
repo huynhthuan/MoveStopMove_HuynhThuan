@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead8d14a8938ee74d88801f3b9c0cf20, type: 3}
+  m_Name: Material weapon color 12
+  m_EditorClassIdentifier: 
+  materialId: 11
+  material: {fileID: 2100000, guid: 0cbfed3f4822935488a4891fdf7c90cd, type: 2}

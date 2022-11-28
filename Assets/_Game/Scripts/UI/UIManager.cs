@@ -19,6 +19,9 @@ public class UIManager : Singleton<UIManager>
 
     public Transform CanvasParentTF;
 
+    public bool isEnableWaypoint = false;
+    public GameObject vfxGameobject;
+
     #region Canvas
 
     public T OpenUI<T>() where T : UICanvas
@@ -142,4 +145,16 @@ public class UIManager : Singleton<UIManager>
     }
 
     #endregion
+
+    private void FixedUpdate()
+    {
+        if (isEnableWaypoint)
+        {
+            vfxGameobject.SetActive(true);
+        }
+        else
+        {
+            vfxGameobject.SetActive(false);
+        }
+    }
 }

@@ -56,7 +56,7 @@ public class GameManager : Singleton<GameManager>
         LevelManager.Ins.OnInit();
 
         // UI init
-        // UIManager.Ins.OpenUI<Lobby>();
+        UIManager.Ins.OpenUI<Lobby>();
 
         // Load new game
         NewGame();
@@ -66,7 +66,7 @@ public class GameManager : Singleton<GameManager>
     {
         // Load stage
         LevelManager.Ins.LoadStage();
-        UIManager.Ins.OpenUI<InGame>();
+        UIManager.Ins.OpenUI<Lobby>();
     }
 
     // Update is called once per frame

@@ -22,7 +22,7 @@ public class LevelManager : Singleton<LevelManager>
 
     internal Stage currentStage;
 
-    private NavMeshSurface navMeshSurface;
+    internal NavMeshSurface navMeshSurface;
 
     internal Player player;
 
@@ -58,16 +58,7 @@ public class LevelManager : Singleton<LevelManager>
         currentStage.OnInit();
     }
 
-    public Vector3 RandomPointInStage()
-    {
-        // Get bounds current stage
-        Bounds stageBounds = GetComponent<NavMeshSurface>().navMeshData.sourceBounds;
-        // Random x
-        float rx = Random.Range(stageBounds.min.x, stageBounds.max.x);
-        // Random z
-        float rz = Random.Range(stageBounds.min.z, stageBounds.max.z);
-        // Return random poin in stage
-        return new Vector3(rx, 0.9f, rz);
-    }
+
+
 
 }

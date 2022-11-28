@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6160974522251736236}
+  - component: {fileID: 2305996158819212495}
   m_Layer: 5
   m_Name: Alive Box
   m_TagString: Untagged
@@ -35,9 +36,23 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140, y: -140}
+  m_AnchoredPosition: {x: 140, y: 100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2305996158819212495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6160974522251736239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: 140, y: -140}
+  hidePosition: {x: 140, y: 100}
 --- !u!1 &6160974522420440830
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,8 +219,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
+  aliveBtn: {fileID: 2305996158819212495}
   aliveNumber: {fileID: 6160974524103187025}
-  settingButton: {fileID: 6160974523916814017}
+  settingButton: {fileID: 988104476270062334}
 --- !u!1 &6160974523916814016
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +234,7 @@ GameObject:
   - component: {fileID: 6160974523916814028}
   - component: {fileID: 6160974523916814031}
   - component: {fileID: 6160974523916814030}
+  - component: {fileID: 988104476270062334}
   m_Layer: 5
   m_Name: Btn Settings
   m_TagString: Untagged
@@ -241,7 +258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -100}
+  m_AnchoredPosition: {x: -100, y: 80}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6160974523916814028
@@ -325,7 +342,33 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6160974523916814031}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6160974522825515459}
+        m_TargetAssemblyTypeName: InGame, Assembly-CSharp
+        m_MethodName: ButtonSetting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &988104476270062334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6160974523916814016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: -100, y: -100}
+  hidePosition: {x: -100, y: 80}
 --- !u!1 &6160974523960888956
 GameObject:
   m_ObjectHideFlags: 0

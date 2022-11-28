@@ -6,19 +6,33 @@ using TMPro;
 public class InGame : UICanvas
 {
     [SerializeField]
+    private UiButton aliveBtn;
+
+    [SerializeField]
     private TMP_Text aliveNumber;
 
     [SerializeField]
-    private Transform settingButton;
+    private UiButton settingButton;
+
+    public override void Open()
+    {
+        base.Open();
+        GameManager.Ins.cameraFollow.SetCameraFollow();
+    }
 
     public override void AnimationOpen()
     {
         base.AnimationOpen();
+        aliveBtn.Show();
+        settingButton.Show();
+
     }
 
     public override void AnimationClose()
     {
         base.AnimationClose();
+        aliveBtn.Hide();
+        settingButton.Hide();
     }
 
     public void ButtonSetting()

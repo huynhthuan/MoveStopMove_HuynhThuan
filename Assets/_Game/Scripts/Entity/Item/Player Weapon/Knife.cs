@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Knife : Weapon
 {
-    private float speedRotation = 440f;
+
     public override void Move()
     {
         base.Move();
-
-        // Hammer
-
-        // Quaternion animRotLocal = animTF.localRotation;
-        // animTF.Rotate(0f, 0f, speedRotation * Time.fixedDeltaTime);
     }
 
     // Boomerang

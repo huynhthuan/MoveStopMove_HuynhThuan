@@ -7,10 +7,9 @@ public class IStateBotFindEnemy : IStateBot
 {
     private Vector3 target;
 
-
     public void OnEnter(Bot bot)
     {
-        bot.navMeshAgent.isStopped = false;
+        Debug.Log("State find bot");
         bot.isStartCheckView = true;
         GoToNextTarget(bot);
     }
@@ -18,30 +17,14 @@ public class IStateBotFindEnemy : IStateBot
     public void OnExecute(Bot bot)
     {
         bot.ChangeAnim(ConstString.ANIM_RUN);
-        // Debug.Log($"{bot.name} velocity {bot.rb.velocity}");
 
-        // if (bot.attackTarget != null)
-        // {
-        //     if (Vector3.Distance(bot.TF.position, bot.attackTarget.position) <= 4f)
-        //     {
-        //         bot.navMeshAgent.isStopped = true;
-        //         bot.ChangeState(new IStateBotAttack());
-
-        //     }
-        //     else
-        //     {
-        //         if (bot.navMeshAgent.remainingDistance <= 0.01f)
-        //         {
-        //             bot.ChangeState(new IStateBotIdle());
-        //         }
-        //     }
-        // }
-
-        Debug.Log($"{bot.name} remain {bot.navMeshAgent.remainingDistance} - {bot.attackRadius}");
-
-        if (bot.navMeshAgent.remainingDistance <= bot.attackRadius)
+        if (bot.currentTarget != null)
         {
+            bot.ChangeState(new IStateBotAttack());
+        }
 
+        if (bot.navMeshAgent.remainingDistance <= 0f)
+        {
             bot.ChangeState(new IStateBotIdle());
         }
     }
@@ -52,16 +35,9 @@ public class IStateBotFindEnemy : IStateBot
     {
         NavMeshHit hit;
 
-        if (Random.Range(1, 100) > 5 && bot.targetCanSee.Count > 0)
+        if (bot.currentTarget != null)
         {
-            // Get random target in view
-            target = bot.GetRandomTargetInVision();
-            // Debug.Log($"{bot.name} Get next target in target in view - point: {target}");
-        }
-        else
-        {
-            // Get random next point in navmesh when no target in view
-            bot.attackTarget = null;
+            Debug.Log("Have bot and move next point nearest bot");
             bool isContinueSearch = true;
             while (isContinueSearch)
             {
@@ -69,15 +45,42 @@ public class IStateBotFindEnemy : IStateBot
                 {
                     isContinueSearch = false;
                     target = new Vector3(hit.position.x, 0f, hit.position.z);
+                    bot.moveTarget = target;
                     break;
                 }
             }
+        }
+        else
+        {
+            if (Random.Range(1, 100) > 5 && bot.targetCanSee.Count > 0)
+            {
+                // Get random target in view
+                bot.attackTarget = bot.GetRandomTargetInVision();
+                // Debug.Log($"{bot.name} Get next target in target in view - point: {target}");
+                bot.navMeshAgent.SetDestination(bot.attackTarget.TF.position);
+            }
+            else
+            {
+                // Get random next point in navmesh when no target in view
+                bot.attackTarget = null;
+                bool isContinueSearch = true;
+                while (isContinueSearch)
+                {
+                    if (NavMesh.SamplePosition(bot.TF.position + Random.insideUnitSphere * 20F, out hit, 4.0f, NavMesh.AllAreas))
+                    {
+                        isContinueSearch = false;
+                        target = new Vector3(hit.position.x, 0f, hit.position.z);
+                        bot.moveTarget = target;
+                        break;
+                    }
+                }
 
-            // Debug.Log($"{bot.name} Get next target in navmesh - point: {target}");
+                // Move to next target
+            }
         }
 
-        // Debug.Log($"{bot.name} Go to target: {target}");
-        // Move to next target
+        Debug.Log("Have bot and move next point nearest bot");
         bot.navMeshAgent.SetDestination(target);
+        bot.isCanAtk = true;
     }
 }
