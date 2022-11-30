@@ -22,7 +22,7 @@ public class WeaponStore : UICanvas
     [SerializeField]
     internal Transform equipedBtn;
     Camera cameraItem;
-    private PlayerData playerData;
+    private UserData playerData;
     private ListEquipment listEquipment;
     private PlayerInventory playerInventory;
     private List<WeaponEquipment> listWeapon = new List<WeaponEquipment>();
@@ -113,8 +113,8 @@ public class WeaponStore : UICanvas
             playerInventory.Add(new InventorySlot((ItemId)currentWeapon.itemId));
             playerData.gold -= currentWeapon.price;
 
-            PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.GOLD), playerData.gold);
-            PlayerPrefs.SetString(DataManager.Ins.GetKey(DataKey.INVENTORY), JsonUtility.ToJson(playerData.playerInventory));
+            playerData.SetIntData(UserData.Key_Gold, ref playerData.gold, playerData.gold);
+            playerData.SetClassData<PlayerInventory>(UserData.Key_Inventory, playerData.playerInventory);
 
             EnableSelectBtn();
         }
@@ -123,8 +123,8 @@ public class WeaponStore : UICanvas
     public void OnClickSelect()
     {
         EnableEquipedBtn();
-        playerData.weaponId = (int)currentWeapon.itemId;
-        PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.WEAPON_ID), playerData.weaponId);
+        playerData.currentItems[(int)currentWeapon.equipmentSlot] = new PlayerItem(currentWeapon.itemId);
+        playerData.SetClassData<List<PlayerItem>>(UserData.Key_Current_Items, playerData.currentItems);
         currentWeapon.Use(player);
     }
 

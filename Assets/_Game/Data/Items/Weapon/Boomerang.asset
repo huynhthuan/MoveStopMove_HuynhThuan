@@ -16,10 +16,10 @@ MonoBehaviour:
   itemId: 14
   isShowOnStore: 1
   thumbnail: {fileID: 0}
+  price: 500
   prefab: {fileID: 2697820640227513500, guid: 4dbc10f9e08408d49a2a58575eb02e6d, type: 3}
   itemName: "Bum m\xEA rang"
   description: 
-  price: 0
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}

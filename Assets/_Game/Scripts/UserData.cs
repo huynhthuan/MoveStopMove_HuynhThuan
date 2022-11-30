@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Numerics;
 using System.Globalization;
-// using Newtonsoft.Json;
+using Newtonsoft.Json;
 
 [CreateAssetMenu(fileName = "UserData", menuName = "ScriptableObjects/UserData", order = 1)]
 public class UserData : ScriptableObject
@@ -17,23 +17,11 @@ public class UserData : ScriptableObject
 
     [Header("----Data----")]
 
-    public int PlayingLevel = 0;
-
-    public string Cash;
-    public bool removeAds = false;
-
-    public bool musicIsOn = true;
-    public bool vibrationIsOn = true;
-    public bool fxIsOn = true;
-    public bool tutorialed = false;
-
-    public int maxLevelMeleeUnlock = 0;
-    public int maxLevelRangeUnlock = 0;
-
-    public int meleeHaveOwned = 0;
-    public int rangeHaveOwned = 0;
-
-    public string lastTimePlay;
+    public int gold = 0;
+    public string userName = "Unknowname";
+    public int currentStage = 0;
+    public List<PlayerItem> currentItems;
+    public PlayerInventory playerInventory;
 
     #region List
 
@@ -110,44 +98,53 @@ public class UserData : ScriptableObject
 
     #region Class
 
-    // public void SetClassData<T>(string key, T t) where T : class
-    // {
-    //     string s = JsonConvert.SerializeObject(t);
-    //     PlayerPrefs.SetString(key, s);
-    // }
+    public void SetClassData<T>(string key, T t) where T : class
+    {
+        string s = JsonConvert.SerializeObject(t);
+        PlayerPrefs.SetString(key, s);
+    }
 
-    // public T GetClassData<T>(string key) where T : class
-    // {
-    //     string s = PlayerPrefs.GetString(key);
-    //     return string.IsNullOrEmpty(s) ? null : JsonConvert.DeserializeObject<T>(s);
-    // }
+    public T GetClassData<T>(string key) where T : class
+    {
+        string s = PlayerPrefs.GetString(key);
+        return string.IsNullOrEmpty(s) ? null : JsonConvert.DeserializeObject<T>(s);
+    }
 
     #endregion
 
     public void OnInitData()
     {
+
 #if UNITY_EDITOR
         if (IsTestCheckData)
         {
             return;
         }
 #endif
+        Debug.Log("Init data...");
 
-        PlayingLevel = PlayerPrefs.GetInt(Key_PlayingLevel, 1);
-        Cash = PlayerPrefs.GetString(Key_Cash, "50");
-        musicIsOn = PlayerPrefs.GetInt(Key_MusicIsOn, 1) == 1;
-        vibrationIsOn = PlayerPrefs.GetInt(Key_VibrationIsOn, 1) == 1;
-        fxIsOn = PlayerPrefs.GetInt(Key_FxIsOn, 1) == 1;
-        removeAds = PlayerPrefs.GetInt(Key_RemoveAds, 0) == 1;
-        tutorialed = PlayerPrefs.GetInt(Key_Tutorial, 0) == 1;
-        lastTimePlay = PlayerPrefs.GetString(Key_Last_Time_Play, System.DateTime.Now.ToString(CultureInfo.InvariantCulture));
+        List<PlayerItem> initItems = new List<PlayerItem>(7);
+        PlayerInventory initInventory = new PlayerInventory();
 
-        maxLevelMeleeUnlock = PlayerPrefs.GetInt(Key_Max_Level_Melee_Unlock, 1);
-        maxLevelRangeUnlock = PlayerPrefs.GetInt(Key_Max_Level_Range_Unlock, 1);
+        PlayerItem[] itemsDefault = {
+            new PlayerItem(ItemId.EMPTY),
+            new PlayerItem(ItemId.KINIFE),
+            new PlayerItem(ItemId.EMPTY),
+            new PlayerItem(ItemId.EMPTY),
+            new PlayerItem(ItemId.EMPTY),
+            new PlayerItem(ItemId.EMPTY),
+            new PlayerItem(ItemId.EMPTY),
+        };
 
-        meleeHaveOwned = PlayerPrefs.GetInt(Key_Melee_Have_Owned, 0);
-        rangeHaveOwned = PlayerPrefs.GetInt(Key_Range_Have_Owned, 0);
+        initItems.AddRange(itemsDefault);
 
+        initInventory.Add(new InventorySlot(ItemId.KINIFE));
+
+        gold = PlayerPrefs.GetInt(Key_Gold, 1000);
+        currentStage = PlayerPrefs.GetInt(Key_Current_Stage, 0);
+        userName = PlayerPrefs.GetString(Key_UserName, "Unkown Name");
+        currentItems = JsonConvert.DeserializeObject<List<PlayerItem>>(PlayerPrefs.GetString(Key_Current_Items, JsonConvert.SerializeObject(initItems)));
+        playerInventory = JsonConvert.DeserializeObject<PlayerInventory>(PlayerPrefs.GetString(Key_Inventory, JsonConvert.SerializeObject(initInventory)));
     }
 
     public void OnResetData()
@@ -156,23 +153,11 @@ public class UserData : ScriptableObject
         OnInitData();
     }
 
-    public const string Key_PlayingLevel = "Level";
-    public const string Key_Cash = "Cash";
-    public const string Key_FxIsOn = "SoundIsOn";
-    public const string Key_MusicIsOn = "MusicIsOn";
-    public const string Key_VibrationIsOn = "VibrationIsOn";
-    public const string Key_RemoveAds = "RemoveAds";
-    public const string Key_Tutorial = "Tutorial";
-    public const string Key_Last_Time_Play = "Key_Last_Time_Play";
-
-    public const string Key_Slot_Type_ = "KeySlotType_";
-    public const string Key_Slot_Level_ = "KeySlotLevel_";
-
-    public const string Key_Max_Level_Melee_Unlock = "Key_Max_Level_Melee_Unlock";
-    public const string Key_Max_Level_Range_Unlock = "Key_Max_Level_Range_Unlock";
-
-    public const string Key_Melee_Have_Owned = "Key_Melee_Have_Owned";
-    public const string Key_Range_Have_Owned = "Key_Range_Have_Owned";
+    public const string Key_Gold = "Gold";
+    public const string Key_Current_Stage = "CurrentStage";
+    public const string Key_UserName = "UserName";
+    public const string Key_Current_Items = "CurrentItems";
+    public const string Key_Inventory = "Inventory";
 }
 
 

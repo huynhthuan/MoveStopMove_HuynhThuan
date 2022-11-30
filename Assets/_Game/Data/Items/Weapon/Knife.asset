@@ -16,10 +16,10 @@ MonoBehaviour:
   itemId: 4
   isShowOnStore: 1
   thumbnail: {fileID: 0}
+  price: 1000
   prefab: {fileID: 2054116970717944770, guid: f254dc076c329c1499c4e4e2eeaa6c7c, type: 3}
   itemName: Kinife Of Loki
   description: This is weapon 2
-  price: 0
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 
-public enum EquipmentSlot { HEAD, WEAPON, SHIELD, WING, TAIL, PANT }
+public enum EquipmentSlot { HEAD, WEAPON, SHIELD, WING, TAIL, PANT, SKIN, BODY }
 
 public class CharacterEquipment : MonoBehaviour
 {
@@ -75,7 +75,35 @@ public class CharacterEquipment : MonoBehaviour
         return allItem.GetItem<T>(itemsBySlot[itemIdRandom].itemId);
     }
 
-    // public void ApplySkin(SkinId skinId, ){
-    //     owner
-    // }
+    public List<ItemId> GetRandomAllItem()
+    {
+        List<ItemId> itemIdsRandom = new List<ItemId>();
+        for (int i = 0; i < System.Enum.GetNames(typeof(EquipmentSlot)).Length; i++)
+        {
+            Item itemRandom = RandomItem<Item>((EquipmentSlot)i);
+            itemIdsRandom.Add(itemRandom.itemId);
+        }
+        return itemIdsRandom;
+    }
+
+    public void ApplySkin(List<Item> items, Character owner)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].Use(owner);
+        }
+    }
+
+    public void LoadAllEquipments(Character owner, List<ItemId> items)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] == ItemId.EMPTY)
+            {
+                continue;
+            }
+            Item itemOnSlot = allItem.GetItem<Item>(items[i]);
+            itemOnSlot.Use(owner);
+        }
+    }
 }

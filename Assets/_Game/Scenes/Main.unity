@@ -1540,18 +1540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listEquipment: {fileID: 11400000, guid: f43771cd33bc71445976b2271f84063d, type: 2}
   listMaterial: {fileID: 11400000, guid: 134ca0706eadd54469f556282c8df14c, type: 2}
-  playerData:
-    gold: 0
-    userName: 
-    currentStage: 0
-    weaponId: 0
-    weaponMaterial1: 0
-    weaponMaterial2: 0
-    weaponMaterial3: 0
-    pantsId: 0
-    playerInventory:
-      items:
-      - itemId: 4
+  playerData: {fileID: 11400000, guid: eed6c98e5097ec844931c4b25133bdcf, type: 2}
 --- !u!4 &2140259226
 Transform:
   m_ObjectHideFlags: 0

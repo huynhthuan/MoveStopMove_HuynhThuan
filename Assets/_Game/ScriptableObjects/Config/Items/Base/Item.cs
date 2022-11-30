@@ -62,4 +62,6 @@ public enum ItemId
     HEAD_11,
     HEAD_12,
     HEAD_13,
+    SKIN_CHARACTER_DEVIL,
+    EMPTY
 }

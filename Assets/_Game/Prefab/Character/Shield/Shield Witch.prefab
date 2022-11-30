@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6215806400863238128}
   - component: {fileID: 3105790779298303430}
   - component: {fileID: 8657454679758319935}
+  - component: {fileID: -8885900332680025088}
   m_Layer: 0
   m_Name: Shield Witch
   m_TagString: Untagged
@@ -82,3 +83,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-8885900332680025088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6924745284783932899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d0bd27997a46a4f9cf9a6e4dbc71b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolType: 0

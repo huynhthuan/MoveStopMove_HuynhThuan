@@ -16,10 +16,10 @@ MonoBehaviour:
   itemId: 5
   isShowOnStore: 1
   thumbnail: {fileID: 0}
+  price: 785
   prefab: {fileID: 2633568407635036849, guid: ebffcf20ceb57f84eb8c3eda24550edd, type: 3}
   itemName: Hammer Of Thor
   description: This is weapon 1
-  price: 0
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}

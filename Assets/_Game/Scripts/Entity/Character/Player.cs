@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class Player : Character, IHit
 {
@@ -10,12 +11,19 @@ public class Player : Character, IHit
     {
         Debug.Log("Oninit player manager...");
         base.OnInit();
+        dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
 
-        WeaponEquipment currentWeapon = DataManager.Ins.listEquipment.GetItem<WeaponEquipment>((ItemId)DataManager.Ins.playerData.weaponId);
-        MeshEquipment currentPants = DataManager.Ins.listEquipment.GetItem<MeshEquipment>((ItemId)DataManager.Ins.playerData.pantsId);
-        currentWeapon.Use(this);
-        currentPants.Use(this);
+        List<PlayerItem> currentPlayerItem = dataManager.playerData.currentItems;
+
+        List<ItemId> playerItems = new List<ItemId>();
+
+        for (int i = 0; i < currentPlayerItem.Count; i++)
+        {
+            playerItems.Add(currentPlayerItem[i].itemId);
+        }
+
+        characterEquipment.LoadAllEquipments(this, playerItems);
     }
 
     private void Move(Vector3 direction)

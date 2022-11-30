@@ -39,7 +39,7 @@ public class Skin : UICanvas
     private ListEquipment allItem;
     private List<ButtonSkinItem> listItemTab = new List<ButtonSkinItem>();
     internal PlayerInventory playerInventory;
-    internal PlayerData playerData;
+    internal UserData playerData;
     internal Player player;
 
     public override void Open()
@@ -68,13 +68,7 @@ public class Skin : UICanvas
 
     private void LoadTabDataItemEquipment<T>(EquipmentSlot equipmentSlot) where T : ItemEquipment
     {
-        if (listItemTab.Count > 0)
-        {
-            for (int i = 0; i < listItemTab.Count; i++)
-            {
-                Destroy(listItemTab[i].gameObject);
-            }
-        }
+        ClearItemOfTab();
 
         listItemTab.Clear();
 
@@ -94,13 +88,26 @@ public class Skin : UICanvas
 
     private void LoadTabDataItemMeshEquipment<T>(EquipmentSlot equipmentSlot) where T : MeshEquipment
     {
-        if (listItemTab.Count > 0)
+        ClearItemOfTab();
+
+        listItemTab.Clear();
+
+        Debug.Log($"Load data slot {equipmentSlot}");
+        List<T> itemsOfTab = allItem.GetItemsBySlot<T>(equipmentSlot);
+
+        for (int i = 0; i < itemsOfTab.Count; i++)
         {
-            for (int i = 0; i < listItemTab.Count; i++)
-            {
-                Destroy(listItemTab[i].gameObject);
-            }
+            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
+            T itemConfig = itemsOfTab[i];
+            itemObj.OnInit(this, true, false, itemConfig);
+            listItemTab.Add(itemObj);
         }
+    }
+
+
+    private void LoadTabDataItemSkinEquipment<T>(EquipmentSlot equipmentSlot) where T : SkinEquipment
+    {
+        ClearItemOfTab();
 
         listItemTab.Clear();
 
@@ -113,6 +120,18 @@ public class Skin : UICanvas
             itemObj.OnInit(this, true, false, itemConfig);
             listItemTab.Add(itemObj);
         }
+    }
+
+    public void ClearItemOfTab()
+    {
+        if (listItemTab.Count > 0)
+        {
+            for (int i = 0; i < listItemTab.Count; i++)
+            {
+                Destroy(listItemTab[i].gameObject);
+            }
+        }
+
     }
 
     public void ActiveTab(TabName tabName)
@@ -136,7 +155,7 @@ public class Skin : UICanvas
 
         currentTabSelect = (TabName)tabName;
         ActiveTab(currentTabSelect);
-
+        listItemTab[0].SelectItem();
     }
 
     public void OnActiveTab(TabName tabName)
@@ -153,6 +172,7 @@ public class Skin : UICanvas
                 LoadTabDataItemEquipment<ShieldEquipment>(equipmentSlot: EquipmentSlot.SHIELD);
                 break;
             case TabName.TAB_SKIN:
+                LoadTabDataItemSkinEquipment<SkinEquipment>(equipmentSlot: EquipmentSlot.SKIN);
                 break;
         }
     }
@@ -241,8 +261,8 @@ public class Skin : UICanvas
 
             UnlockItem(currentItemSelect.itemId);
 
-            PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.GOLD), playerData.gold);
-            PlayerPrefs.SetString(DataManager.Ins.GetKey(DataKey.INVENTORY), JsonUtility.ToJson(playerData.playerInventory));
+            // PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.GOLD), playerData.gold);
+            // PlayerPrefs.SetString(DataManager.Ins.GetKey(DataKey.INVENTORY), JsonUtility.ToJson(playerData.playerInventory));
 
             EnableSelectBtn();
         }

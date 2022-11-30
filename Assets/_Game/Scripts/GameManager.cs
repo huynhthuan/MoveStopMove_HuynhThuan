@@ -47,7 +47,7 @@ public class GameManager : Singleton<GameManager>
     public void OnInit()
     {
         // Init data manager
-        DataManager.Ins.OnInit();
+        DataManager.Ins.playerData.OnInitData();
 
         // Init audio
         // AudioManager.Ins.OnInit();

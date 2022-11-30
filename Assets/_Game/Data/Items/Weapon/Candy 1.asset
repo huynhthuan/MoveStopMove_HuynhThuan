@@ -16,10 +16,10 @@ MonoBehaviour:
   itemId: 9
   isShowOnStore: 1
   thumbnail: {fileID: 0}
+  price: 425
   prefab: {fileID: 4023504475398200599, guid: 94d0897b4bb74154c92591c72b326dd7, type: 3}
   itemName: "C\xE2y k\u1EB9o 1"
   description: 
-  price: 120
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}

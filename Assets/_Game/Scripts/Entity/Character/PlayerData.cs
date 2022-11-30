@@ -11,35 +11,27 @@ public class PlayerData
     public string userName;
     public int currentStage;
     [Space(20)]
-    public int headId;
-    [Space(20)]
-    public int weaponId;
-    public int weaponMaterial1;
-    public int weaponMaterial2;
-    public int weaponMaterial3;
-    [Space(20)]
-    public int shieldId;
-    [Space(20)]
-    public int wingId;
-    [Space(20)]
-    public int taildId;
-    [Space(20)]
-    public int pantsId;
+    public List<PlayerItem> playerItems = new List<PlayerItem>();
     [Space(20)]
     public PlayerInventory playerInventory;
 
-    public PlayerData(int gold, string userName, int currentStage, int headId, int weaponId, int weaponMaterial1, int weaponMaterial2, int weaponMaterial3, int shieldId, int wingId, int taildId, int pantsId, PlayerInventory playerInventory)
+    public PlayerData(int gold, string userName, int currentStage, List<PlayerItem> playerItems, PlayerInventory playerInventory)
     {
         this.gold = gold;
         this.currentStage = currentStage;
         this.userName = userName;
-        this.weaponId = weaponId;
-        this.weaponMaterial1 = weaponMaterial1;
-        this.weaponMaterial2 = weaponMaterial2;
-        this.weaponMaterial3 = weaponMaterial3;
-        this.pantsId = pantsId;
+        this.playerItems = playerItems;
         this.playerInventory = playerInventory;
     }
 
 }
+[System.Serializable]
+public class PlayerItem
+{
+    public ItemId itemId;
 
+    public PlayerItem(ItemId itemId)
+    {
+        this.itemId = itemId;
+    }
+}
