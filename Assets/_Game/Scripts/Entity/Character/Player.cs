@@ -13,6 +13,12 @@ public class Player : Character, IHit
         base.OnInit();
         dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
+        EquipAllItems();
+    }
+
+    public void EquipAllItems()
+    {
+        Debug.Log("Equip all item with data saved");
 
         List<PlayerItem> currentPlayerItem = dataManager.playerData.currentItems;
 

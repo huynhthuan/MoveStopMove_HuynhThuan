@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "New item pant mesh", menuName = "Items/Item type/Pant Mesh Equipment")]
+[CreateAssetMenu(fileName = "New item pant mesh", menuName = "Items/Item Type/Pant Mesh Equipment")]
 public class PantMeshEquipment : MeshEquipment
 {
 

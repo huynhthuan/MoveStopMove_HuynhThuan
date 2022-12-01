@@ -13,4 +13,9 @@ public class MeshEquipment : Item
         base.Use(owner);
         owner.characterEquipment.WearItem(itemId, equipmentSlot);
     }
+
+    public override void UnUse(Character owner)
+    {
+        owner.characterEquipment.UnEquipItemMesh(itemId, equipmentSlot);
+    }
 }

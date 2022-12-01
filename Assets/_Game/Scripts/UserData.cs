@@ -133,14 +133,14 @@ public class UserData : ScriptableObject
             new PlayerItem(ItemId.EMPTY),
             new PlayerItem(ItemId.EMPTY),
             new PlayerItem(ItemId.EMPTY),
-            new PlayerItem(ItemId.EMPTY),
+            new PlayerItem(ItemId.PANT_0),
         };
 
         initItems.AddRange(itemsDefault);
 
-        initInventory.Add(new InventorySlot(ItemId.KINIFE));
+        initInventory.AddMany(new InventorySlot[] { new InventorySlot(ItemId.KINIFE), new InventorySlot(ItemId.PANT_0) });
 
-        gold = PlayerPrefs.GetInt(Key_Gold, 1000);
+        gold = PlayerPrefs.GetInt(Key_Gold, 44444);
         currentStage = PlayerPrefs.GetInt(Key_Current_Stage, 0);
         userName = PlayerPrefs.GetString(Key_UserName, "Unkown Name");
         currentItems = JsonConvert.DeserializeObject<List<PlayerItem>>(PlayerPrefs.GetString(Key_Current_Items, JsonConvert.SerializeObject(initItems)));

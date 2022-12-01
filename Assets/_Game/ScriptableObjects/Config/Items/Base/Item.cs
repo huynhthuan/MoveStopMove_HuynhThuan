@@ -16,6 +16,11 @@ public class Item : ScriptableObject
     {
 
     }
+
+    public virtual void UnUse(Character owner)
+    {
+
+    }
 }
 
 public enum ItemId
@@ -63,5 +68,21 @@ public enum ItemId
     HEAD_12,
     HEAD_13,
     SKIN_CHARACTER_DEVIL,
-    EMPTY
+    EMPTY,
+    PANT_0,
+    BODY_0,
+    BODY_1,
+    BODY_2,
+    BODY_3,
+    BODY_4,
+    BODY_5,
+    BODY_6,
+    BODY_7,
+    BODY_8,
+    BODY_9,
+    BODY_10,
+    BODY_ANGLE,
+    BODY_DEADPOOL,
+    BODY_THOR,
+    BODY_DEVIL,
 }

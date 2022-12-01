@@ -12,6 +12,11 @@ public class ItemEquipment : Item
         base.Use(owner);
         owner.characterEquipment.EquipItem(itemId, equipmentSlot);
     }
+
+    public override void UnUse(Character owner)
+    {
+        owner.characterEquipment.UnEquipItem(equipmentSlot);
+    }
 }
 
 

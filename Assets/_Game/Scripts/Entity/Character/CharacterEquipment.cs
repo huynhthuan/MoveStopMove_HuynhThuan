@@ -43,6 +43,16 @@ public class CharacterEquipment : MonoBehaviour
         }
     }
 
+    public void UnEquipItemMesh(ItemId itemId, EquipmentSlot equipmentSlot)
+    {
+        // if (currentEquipments[(int)equipmentSlot] != null)
+        // {
+        //     MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
+        //     SetMaterialSlot(item, equipmentSlot, true);
+        //     currentEquipments[(int)equipmentSlot] = null;
+        // }
+    }
+
     public Weapon GetCurrentWeaponBullet()
     {
         WeaponEquipment weaponEquipment = (WeaponEquipment)currentEquipments[(int)EquipmentSlot.WEAPON].itemData;
@@ -63,8 +73,29 @@ public class CharacterEquipment : MonoBehaviour
     public void WearItem(ItemId itemId, EquipmentSlot equipmentSlot)
     {
         MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
+        SetMaterialSlot(item, equipmentSlot);
+    }
+
+    public void SetMaterialSlot(MeshEquipment item, EquipmentSlot equipmentSlot)
+    {
         SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
         Material[] mats = new Material[] { allMaterial.GetMaterial(item.materialId).material };
+        slotMeshRenderer.materials = mats;
+    }
+
+    public void SetMaterialSlot(MeshEquipment item, EquipmentSlot equipmentSlot, bool isRemoveMat)
+    {
+        SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
+        Material[] mats;
+        if (isRemoveMat)
+        {
+            mats = new Material[] { };
+        }
+        else
+        {
+            mats = new Material[] { allMaterial.GetMaterial(item.materialId).material };
+        }
+
         slotMeshRenderer.materials = mats;
     }
 

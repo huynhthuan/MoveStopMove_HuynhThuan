@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using TMPro;
+using Newtonsoft.Json;
 public enum TabName
 {
     TAB_HEAD,
@@ -32,8 +33,8 @@ public class Skin : UICanvas
     internal TextMeshProUGUI priceNotEnoughBtn;
     [SerializeField]
     internal TextMeshProUGUI priceBuyBtn;
-
     internal Item currentItemSelect;
+    internal List<Item> currentItemSkinSelect = new List<Item>();
     private TabName currentTabSelect;
     private DataManager dataManager;
     private ListEquipment allItem;
@@ -79,8 +80,15 @@ public class Skin : UICanvas
 
         for (int i = 0; i < itemsOfTab.Count; i++)
         {
-            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
             T itemConfig = itemsOfTab[i];
+
+            if (!itemConfig.isShowOnStore)
+            {
+                continue;
+            }
+
+            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
+
             itemObj.OnInit(this, !playerInventory.IsHasItem(itemConfig.itemId), false, itemConfig);
             listItemTab.Add(itemObj);
         }
@@ -97,9 +105,13 @@ public class Skin : UICanvas
 
         for (int i = 0; i < itemsOfTab.Count; i++)
         {
-            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
             T itemConfig = itemsOfTab[i];
-            itemObj.OnInit(this, true, false, itemConfig);
+            if (!itemConfig.isShowOnStore)
+            {
+                continue;
+            }
+            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
+            itemObj.OnInit(this, !playerInventory.IsHasItem(itemConfig.itemId), false, itemConfig);
             listItemTab.Add(itemObj);
         }
     }
@@ -115,9 +127,14 @@ public class Skin : UICanvas
         List<T> itemsOfTab = allItem.GetItemsBySlot<T>(equipmentSlot);
         for (int i = 0; i < itemsOfTab.Count; i++)
         {
-            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
             T itemConfig = itemsOfTab[i];
-            itemObj.OnInit(this, true, false, itemConfig);
+            if (!itemConfig.isShowOnStore)
+            {
+                continue;
+            }
+
+            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
+            itemObj.OnInit<SkinEquipment>(this, true, false, itemConfig);
             listItemTab.Add(itemObj);
         }
     }
@@ -153,8 +170,24 @@ public class Skin : UICanvas
             DisableTab((TabName)i);
         }
 
+        if (currentItemSelect != null)
+        {
+            currentItemSelect.UnUse(player);
+
+            if (currentItemSkinSelect.Count > 0)
+            {
+                for (int i = 0; i < currentItemSkinSelect.Count; i++)
+                {
+                    currentItemSkinSelect[i].UnUse(player);
+                }
+            }
+
+            player.EquipAllItems();
+        }
+
         currentTabSelect = (TabName)tabName;
         ActiveTab(currentTabSelect);
+
         listItemTab[0].SelectItem();
     }
 

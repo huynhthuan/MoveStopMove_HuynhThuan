@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UserData
   m_EditorClassIdentifier: 
   IsTestCheckData: 0
-  gold: 1000
+  gold: 44444
   userName: Unkown Name
   currentStage: 0
   currentItems:
@@ -23,7 +23,8 @@ MonoBehaviour:
   - itemId: 43
   - itemId: 43
   - itemId: 43
-  - itemId: 43
+  - itemId: 44
   playerInventory:
     items:
     - itemId: 4
+    - itemId: 44

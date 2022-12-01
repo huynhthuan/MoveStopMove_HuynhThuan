@@ -13,6 +13,7 @@ public class ButtonSkinItem : MonoBehaviour
     private Image lockIcon;
 
     internal Item itemData;
+    internal List<Item> itemsOfSkin;
     internal bool isSelect = false;
     internal bool isLock = true;
     internal Transform TF;
@@ -30,6 +31,11 @@ public class ButtonSkinItem : MonoBehaviour
         this.isSelect = isSelect;
         this.itemData = itemData;
         this.uiSkin = uiSkin;
+        if (itemData.equipmentSlot == EquipmentSlot.SKIN)
+        {
+            SkinEquipment skinEquipment = itemData as SkinEquipment;
+            this.itemsOfSkin = skinEquipment.itemsOfSkin;
+        }
     }
 
     private void Update()
@@ -63,6 +69,10 @@ public class ButtonSkinItem : MonoBehaviour
     {
         isSelect = true;
         uiSkin.currentItemSelect = itemData;
+        if (itemData.equipmentSlot == EquipmentSlot.SKIN)
+        {
+            uiSkin.currentItemSkinSelect.AddRange(itemsOfSkin);
+        }
         uiSkin.ShowButtonOnItemSelect();
         itemData.Use(uiSkin.player);
     }
