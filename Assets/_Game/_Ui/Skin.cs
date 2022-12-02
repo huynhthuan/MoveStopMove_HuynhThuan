@@ -64,20 +64,20 @@ public class Skin : UICanvas
     public void CloseButton()
     {
         UIManager.Ins.OpenUI<Lobby>();
+        player.UnEquipAllItems();
+        player.EquipAllItems();
         Close();
+
     }
 
-    private void LoadTabDataItemEquipment<T>(EquipmentSlot equipmentSlot) where T : ItemEquipment
+    private void LoadTabDataItem<T>(EquipmentSlot equipmentSlot) where T : Item
     {
         ClearItemOfTab();
-
         listItemTab.Clear();
-
         List<T> itemsOfTab = allItem.GetItemsBySlot<T>(equipmentSlot);
 
         Debug.Log($"Init {equipmentSlot} - {itemsOfTab.Count}");
 
-
         for (int i = 0; i < itemsOfTab.Count; i++)
         {
             T itemConfig = itemsOfTab[i];
@@ -90,51 +90,6 @@ public class Skin : UICanvas
             ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
 
             itemObj.OnInit(this, !playerInventory.IsHasItem(itemConfig.itemId), false, itemConfig);
-            listItemTab.Add(itemObj);
-        }
-    }
-
-    private void LoadTabDataItemMeshEquipment<T>(EquipmentSlot equipmentSlot) where T : MeshEquipment
-    {
-        ClearItemOfTab();
-
-        listItemTab.Clear();
-
-        Debug.Log($"Load data slot {equipmentSlot}");
-        List<T> itemsOfTab = allItem.GetItemsBySlot<T>(equipmentSlot);
-
-        for (int i = 0; i < itemsOfTab.Count; i++)
-        {
-            T itemConfig = itemsOfTab[i];
-            if (!itemConfig.isShowOnStore)
-            {
-                continue;
-            }
-            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
-            itemObj.OnInit(this, !playerInventory.IsHasItem(itemConfig.itemId), false, itemConfig);
-            listItemTab.Add(itemObj);
-        }
-    }
-
-
-    private void LoadTabDataItemSkinEquipment<T>(EquipmentSlot equipmentSlot) where T : SkinEquipment
-    {
-        ClearItemOfTab();
-
-        listItemTab.Clear();
-
-        Debug.Log($"Load data slot {equipmentSlot}");
-        List<T> itemsOfTab = allItem.GetItemsBySlot<T>(equipmentSlot);
-        for (int i = 0; i < itemsOfTab.Count; i++)
-        {
-            T itemConfig = itemsOfTab[i];
-            if (!itemConfig.isShowOnStore)
-            {
-                continue;
-            }
-
-            ButtonSkinItem itemObj = Instantiate(buttonSkinItemPrefab, contentList);
-            itemObj.OnInit<SkinEquipment>(this, true, false, itemConfig);
             listItemTab.Add(itemObj);
         }
     }
@@ -173,16 +128,6 @@ public class Skin : UICanvas
         if (currentItemSelect != null)
         {
             currentItemSelect.UnUse(player);
-
-            if (currentItemSkinSelect.Count > 0)
-            {
-                for (int i = 0; i < currentItemSkinSelect.Count; i++)
-                {
-                    currentItemSkinSelect[i].UnUse(player);
-                }
-            }
-
-            player.EquipAllItems();
         }
 
         currentTabSelect = (TabName)tabName;
@@ -196,16 +141,16 @@ public class Skin : UICanvas
         switch (tabName)
         {
             case TabName.TAB_HEAD:
-                LoadTabDataItemEquipment<HeadEquipment>(equipmentSlot: EquipmentSlot.HEAD);
+                LoadTabDataItem<HeadEquipment>(equipmentSlot: EquipmentSlot.HEAD);
                 break;
             case TabName.TAB_PANT:
-                LoadTabDataItemMeshEquipment<PantMeshEquipment>(equipmentSlot: EquipmentSlot.PANT);
+                LoadTabDataItem<PantMeshEquipment>(equipmentSlot: EquipmentSlot.PANT);
                 break;
             case TabName.TAB_SHIELD:
-                LoadTabDataItemEquipment<ShieldEquipment>(equipmentSlot: EquipmentSlot.SHIELD);
+                LoadTabDataItem<ShieldEquipment>(equipmentSlot: EquipmentSlot.SHIELD);
                 break;
             case TabName.TAB_SKIN:
-                LoadTabDataItemSkinEquipment<SkinEquipment>(equipmentSlot: EquipmentSlot.SKIN);
+                LoadTabDataItem<SkinEquipment>(equipmentSlot: EquipmentSlot.SKIN);
                 break;
         }
     }
@@ -300,7 +245,6 @@ public class Skin : UICanvas
             EnableSelectBtn();
         }
     }
-
 
     public void OnClickSelectBtn()
     {

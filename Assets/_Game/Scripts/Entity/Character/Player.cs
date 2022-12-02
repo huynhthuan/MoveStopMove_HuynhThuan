@@ -13,6 +13,7 @@ public class Player : Character, IHit
         base.OnInit();
         dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
+
         EquipAllItems();
     }
 
@@ -21,7 +22,6 @@ public class Player : Character, IHit
         Debug.Log("Equip all item with data saved");
 
         List<PlayerItem> currentPlayerItem = dataManager.playerData.currentItems;
-
         List<ItemId> playerItems = new List<ItemId>();
 
         for (int i = 0; i < currentPlayerItem.Count; i++)
@@ -30,6 +30,24 @@ public class Player : Character, IHit
         }
 
         characterEquipment.LoadAllEquipments(this, playerItems);
+    }
+
+    public void UnEquipAllItems()
+    {
+        List<PlayerItem> currentPlayerItems = dataManager.playerData.currentItems;
+
+        for (int i = 0; i < currentPlayerItems.Count; i++)
+        {
+            if (currentPlayerItems[i] != null || currentPlayerItems[i].itemId != ItemId.EMPTY)
+            {
+                Item currentItemEquip = dataManager.listEquipment.GetItem<Item>(currentPlayerItems[i].itemId);
+                if (currentItemEquip != null)
+                {
+                    Debug.Log($"Uneqiup Item {currentItemEquip.equipmentSlot} - {currentItemEquip.itemId}");
+                    currentItemEquip.UnUse(this);
+                }
+            }
+        }
     }
 
     private void Move(Vector3 direction)

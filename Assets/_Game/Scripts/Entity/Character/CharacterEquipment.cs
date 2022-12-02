@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using Newtonsoft.Json;
 
 public enum EquipmentSlot { HEAD, WEAPON, SHIELD, WING, TAIL, PANT, SKIN, BODY }
 
@@ -45,12 +45,11 @@ public class CharacterEquipment : MonoBehaviour
 
     public void UnEquipItemMesh(ItemId itemId, EquipmentSlot equipmentSlot)
     {
-        // if (currentEquipments[(int)equipmentSlot] != null)
-        // {
-        //     MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
-        //     SetMaterialSlot(item, equipmentSlot, true);
-        //     currentEquipments[(int)equipmentSlot] = null;
-        // }
+        Debug.Log($"Uneqiup Item {equipmentSlot} - {itemId}");
+        MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
+        MeshEquipment itemMeshEmpty = dataManager.listEquipment.GetItem<MeshEquipment>(ItemId.EMPTY);
+        SetMaterialSlot(itemMeshEmpty, equipmentSlot);
+        currentEquipments[(int)equipmentSlot] = null;
     }
 
     public Weapon GetCurrentWeaponBullet()
@@ -85,11 +84,12 @@ public class CharacterEquipment : MonoBehaviour
 
     public void SetMaterialSlot(MeshEquipment item, EquipmentSlot equipmentSlot, bool isRemoveMat)
     {
+        Debug.Log($"Set mesh slot {equipmentSlot}");
         SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
         Material[] mats;
         if (isRemoveMat)
         {
-            mats = new Material[] { };
+            mats = null;
         }
         else
         {
@@ -97,6 +97,7 @@ public class CharacterEquipment : MonoBehaviour
         }
 
         slotMeshRenderer.materials = mats;
+        Debug.Log($"Material length {slotMeshRenderer.materials.Length}");
     }
 
     public T RandomItem<T>(EquipmentSlot slot) where T : Item
@@ -125,6 +126,14 @@ public class CharacterEquipment : MonoBehaviour
         }
     }
 
+    public void RemoveSkin(List<Item> items, Character owner)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].UnUse(owner);
+        }
+    }
+
     public void LoadAllEquipments(Character owner, List<ItemId> items)
     {
         for (int i = 0; i < items.Count; i++)
@@ -134,6 +143,7 @@ public class CharacterEquipment : MonoBehaviour
                 continue;
             }
             Item itemOnSlot = allItem.GetItem<Item>(items[i]);
+
             itemOnSlot.Use(owner);
         }
     }

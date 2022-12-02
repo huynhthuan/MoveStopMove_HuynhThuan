@@ -14,4 +14,10 @@ public class SkinEquipment : Item
         base.Use(owner);
         owner.characterEquipment.ApplySkin(itemsOfSkin, owner);
     }
+
+    public override void UnUse(Character owner)
+    {
+        base.UnUse(owner);
+        owner.characterEquipment.RemoveSkin(itemsOfSkin, owner);
+    }
 }

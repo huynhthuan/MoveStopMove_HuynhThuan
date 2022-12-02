@@ -19,8 +19,6 @@ public class ItemEquipment : Item
     }
 }
 
-
-
 [System.Serializable]
 public class materialAvaibleItem
 {

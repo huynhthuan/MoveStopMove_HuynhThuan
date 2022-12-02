@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Material pant 0
   m_EditorClassIdentifier: 
   materialId: 27
-  material: {fileID: 2100000, guid: 59e4faf24927edf4a82f463ad16f1c37, type: 2}
+  material: {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
