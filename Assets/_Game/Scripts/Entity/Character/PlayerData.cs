@@ -26,12 +26,24 @@ public class PlayerData
 
 }
 [System.Serializable]
-public class PlayerItem
+public class PlayerItem : IEquatable<PlayerItem>
 {
     public ItemId itemId;
 
     public PlayerItem(ItemId itemId)
     {
         this.itemId = itemId;
+    }
+
+    public bool Equals(PlayerItem other)
+    {
+        if (this.itemId == other.itemId)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

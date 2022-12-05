@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead8d14a8938ee74d88801f3b9c0cf20, type: 3}
-  m_Name: Material Body 0
+  m_Script: {fileID: 11500000, guid: 50feed9521548f94d8b5909ba3b1fecf, type: 3}
+  m_Name: Body Devil
   m_EditorClassIdentifier: 
-  materialId: 28
-  material: {fileID: -3620572297651811420, guid: d6a3b8e998299fc47b4e0180182a9f33, type: 3}
+  equipmentSlot: 7
+  itemId: 59
+  isShowOnStore: 1
+  thumbnail: {fileID: 0}
+  price: 0
+  materialId: 42

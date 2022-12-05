@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Material Body Skin Devil
   m_EditorClassIdentifier: 
   materialId: 42
-  material: {fileID: 2100000, guid: 28e4a3cbde833a344bcfca275152c603, type: 2}
+  material: {fileID: 2100000, guid: 340e2b9b92f04144a856ffe6da3968aa, type: 2}

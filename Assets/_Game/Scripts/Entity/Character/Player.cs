@@ -32,6 +32,8 @@ public class Player : Character, IHit
         characterEquipment.LoadAllEquipments(this, playerItems);
     }
 
+
+
     public void UnEquipAllItems()
     {
         List<PlayerItem> currentPlayerItems = dataManager.playerData.currentItems;
@@ -43,7 +45,7 @@ public class Player : Character, IHit
                 Item currentItemEquip = dataManager.listEquipment.GetItem<Item>(currentPlayerItems[i].itemId);
                 if (currentItemEquip != null)
                 {
-                    Debug.Log($"Uneqiup Item {currentItemEquip.equipmentSlot} - {currentItemEquip.itemId}");
+                    Debug.Log($"Unequip Item {currentItemEquip.equipmentSlot} - {currentItemEquip.itemId}");
                     currentItemEquip.UnUse(this);
                 }
             }

@@ -548,8 +548,10 @@ MonoBehaviour:
   - {fileID: 2556932397580816868}
   - {fileID: 2196706164166204685}
   - {fileID: 7291781731125561770}
+  - {fileID: 0}
   - {fileID: 4665981108923912156}
   currentEquipments:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

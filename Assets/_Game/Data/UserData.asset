@@ -22,8 +22,9 @@ MonoBehaviour:
   - itemId: 43
   - itemId: 43
   - itemId: 43
-  - itemId: 43
   - itemId: 44
+  - itemId: 43
+  - itemId: 45
   playerInventory:
     items:
     - itemId: 4

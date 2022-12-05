@@ -43,12 +43,9 @@ public class CharacterEquipment : MonoBehaviour
         }
     }
 
-    public void UnEquipItemMesh(ItemId itemId, EquipmentSlot equipmentSlot)
+    public void UnEquipItemMesh(EquipmentSlot equipmentSlot)
     {
-        Debug.Log($"Uneqiup Item {equipmentSlot} - {itemId}");
-        MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
-        MeshEquipment itemMeshEmpty = dataManager.listEquipment.GetItem<MeshEquipment>(ItemId.EMPTY);
-        SetMaterialSlot(itemMeshEmpty, equipmentSlot);
+        SetMaterialSlot(null, equipmentSlot, true);
         currentEquipments[(int)equipmentSlot] = null;
     }
 
@@ -86,10 +83,12 @@ public class CharacterEquipment : MonoBehaviour
     {
         Debug.Log($"Set mesh slot {equipmentSlot}");
         SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
+
         Material[] mats;
+
         if (isRemoveMat)
         {
-            mats = null;
+            mats = new Material[] { };
         }
         else
         {

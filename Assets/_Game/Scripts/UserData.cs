@@ -132,8 +132,10 @@ public class UserData : ScriptableObject
             new PlayerItem(ItemId.EMPTY),
             new PlayerItem(ItemId.EMPTY),
             new PlayerItem(ItemId.EMPTY),
-            new PlayerItem(ItemId.EMPTY),
             new PlayerItem(ItemId.PANT_0),
+            new PlayerItem(ItemId.EMPTY),
+            new PlayerItem(ItemId.BODY_0),
+
         };
 
         initItems.AddRange(itemsDefault);

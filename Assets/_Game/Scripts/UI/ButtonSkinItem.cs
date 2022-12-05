@@ -16,6 +16,7 @@ public class ButtonSkinItem : MonoBehaviour
     internal List<Item> itemsOfSkin;
     internal bool isSelect = false;
     internal bool isLock = true;
+    internal bool isEquip = true;
     internal Transform TF;
 
     private Skin uiSkin;
@@ -69,10 +70,6 @@ public class ButtonSkinItem : MonoBehaviour
     {
         isSelect = true;
         uiSkin.currentItemSelect = itemData;
-        if (itemData.equipmentSlot == EquipmentSlot.SKIN)
-        {
-            uiSkin.currentItemSkinSelect.AddRange(itemsOfSkin);
-        }
         uiSkin.ShowButtonOnItemSelect();
         itemData.Use(uiSkin.player);
     }

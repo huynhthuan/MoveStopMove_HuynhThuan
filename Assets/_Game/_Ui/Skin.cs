@@ -26,6 +26,8 @@ public class Skin : UICanvas
     [SerializeField]
     private Transform buyBtn;
     [SerializeField]
+    private Transform equipedBtn;
+    [SerializeField]
     private Transform selectBtn;
     [SerializeField]
     private Transform notEnoughBtn;
@@ -42,6 +44,7 @@ public class Skin : UICanvas
     internal PlayerInventory playerInventory;
     internal UserData playerData;
     internal Player player;
+    internal List<ItemEquip> currentEquipments = new List<ItemEquip>();
 
     public override void Open()
     {
@@ -52,9 +55,9 @@ public class Skin : UICanvas
         playerData = dataManager.playerData;
         playerInventory = playerData.playerInventory;
         player = LevelManager.Ins.player;
-
+        currentEquipments = player.characterEquipment.currentEquipments;
         ActiveTab(TabName.TAB_HEAD);
-        DiasableAllBtn();
+        DisableAllBtn();
         DeSelectAllItem();
 
         listItemTab[0].SelectItem();
@@ -64,7 +67,14 @@ public class Skin : UICanvas
     public void CloseButton()
     {
         UIManager.Ins.OpenUI<Lobby>();
-        player.UnEquipAllItems();
+        for (int i = 0; i < currentEquipments.Count; i++)
+        {
+            if (currentEquipments[i] != null)
+            {
+                Destroy(currentEquipments[i].gameObject);
+                currentEquipments[i] = null;
+            }
+        }
         player.EquipAllItems();
         Close();
 
@@ -130,6 +140,8 @@ public class Skin : UICanvas
             currentItemSelect.UnUse(player);
         }
 
+        player.EquipAllItems();
+
         currentTabSelect = (TabName)tabName;
         ActiveTab(currentTabSelect);
 
@@ -155,39 +167,43 @@ public class Skin : UICanvas
         }
     }
 
-    public void DiasableAllBtn()
+    public void DisableAllBtn()
     {
         buyBtn.gameObject.SetActive(false);
         selectBtn.gameObject.SetActive(value: false);
         notEnoughBtn.gameObject.SetActive(false);
+        equipedBtn.gameObject.SetActive(false);
     }
 
     public void EnableBuyBtn()
     {
+        DisableAllBtn();
         buyBtn.gameObject.SetActive(true);
-        selectBtn.gameObject.SetActive(false);
-        notEnoughBtn.gameObject.SetActive(false);
     }
 
     public void EnableSelectBtn()
     {
-        buyBtn.gameObject.SetActive(false);
+        DisableAllBtn();
         selectBtn.gameObject.SetActive(true);
-        notEnoughBtn.gameObject.SetActive(false);
     }
 
     public void EnableNotEnoughBtn()
     {
-        buyBtn.gameObject.SetActive(false);
-        selectBtn.gameObject.SetActive(false);
+        DisableAllBtn();
         notEnoughBtn.gameObject.SetActive(true);
+    }
+
+    public void EnableEquipedBtn()
+    {
+        DisableAllBtn();
+        equipedBtn.gameObject.SetActive(true);
     }
 
     public void ShowButtonOnItemSelect()
     {
         if (currentItemSelect == null)
         {
-            DiasableAllBtn();
+            DisableAllBtn();
             return;
         }
 
@@ -196,7 +212,17 @@ public class Skin : UICanvas
 
         if (playerInventory.IsHasItem(currentItemSelect.itemId))
         {
-            EnableSelectBtn();
+            List<PlayerItem> currentWeaponData = playerData.GetClassData<List<PlayerItem>>(UserData.Key_Current_Items);
+            Debug.Log(JsonConvert.SerializeObject(currentWeaponData));
+            Debug.Log(JsonConvert.SerializeObject(new PlayerItem(currentItemSelect.itemId)));
+            if (currentWeaponData.Contains(new PlayerItem(currentItemSelect.itemId)))
+            {
+                EnableEquipedBtn();
+            }
+            else
+            {
+                EnableSelectBtn();
+            }
         }
         else
         {
@@ -209,6 +235,7 @@ public class Skin : UICanvas
                 EnableBuyBtn();
             }
         }
+
     }
 
     public void DeSelectAllItem()
@@ -239,8 +266,8 @@ public class Skin : UICanvas
 
             UnlockItem(currentItemSelect.itemId);
 
-            // PlayerPrefs.SetInt(DataManager.Ins.GetKey(DataKey.GOLD), playerData.gold);
-            // PlayerPrefs.SetString(DataManager.Ins.GetKey(DataKey.INVENTORY), JsonUtility.ToJson(playerData.playerInventory));
+            playerData.SetIntData(UserData.Key_Gold, ref playerData.gold, playerData.gold);
+            playerData.SetClassData<PlayerInventory>(UserData.Key_Inventory, playerData.playerInventory);
 
             EnableSelectBtn();
         }
@@ -248,7 +275,10 @@ public class Skin : UICanvas
 
     public void OnClickSelectBtn()
     {
-
+        EnableEquipedBtn();
+        playerData.currentItems[(int)currentItemSelect.equipmentSlot] = new PlayerItem(currentItemSelect.itemId);
+        playerData.SetClassData<List<PlayerItem>>(UserData.Key_Current_Items, playerData.currentItems);
+        currentItemSelect.Use(player);
     }
 
     public void UnlockItem(ItemId itemId)
