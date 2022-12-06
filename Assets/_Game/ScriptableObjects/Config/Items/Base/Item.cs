@@ -14,12 +14,12 @@ public class Item : ScriptableObject
 
     public virtual void Use(Character owner)
     {
-
+        Debug.Log($"---- Use item {itemId}");
     }
 
     public virtual void UnUse(Character owner)
     {
-
+        Debug.Log($"---- Un use item {itemId}");
     }
 }
 
@@ -85,4 +85,7 @@ public enum ItemId
     BODY_DEADPOOL,
     BODY_THOR,
     BODY_DEVIL,
+    SKIN_CHARACTER_THOR,
+    SKIN_CHARACTER_DEADPOOL,
+    SKIN_CHARACTER_ANGLE,
 }

@@ -76,6 +76,10 @@ public class ButtonSkinItem : MonoBehaviour
 
     public void DeselectItem()
     {
+        if (uiSkin.currentItemSelect != null)
+        {
+            uiSkin.currentItemSelect.UnUse(uiSkin.player);
+        }
         uiSkin.currentItemSelect = null;
         isSelect = false;
         uiSkin.ShowButtonOnItemSelect();
