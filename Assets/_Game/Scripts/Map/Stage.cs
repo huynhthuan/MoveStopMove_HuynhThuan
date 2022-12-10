@@ -33,6 +33,9 @@ public class Stage : MonoBehaviour
 
     public void OnInit()
     {
+
+
+
         Debug.Log("Oninit stage...");
         characterColorAvaible.AddRange(botColors);
         // Set player alive

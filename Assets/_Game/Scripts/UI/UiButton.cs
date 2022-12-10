@@ -8,6 +8,8 @@ public class UiButton : MonoBehaviour
     internal Vector2 viewPosition;
     [SerializeField]
     internal Vector2 hidePosition;
+    [SerializeField]
+    private bool isEnableAnim = true;
     internal RectTransform R_TF;
     private bool isShow = false;
     private float time = 0;
@@ -29,22 +31,29 @@ public class UiButton : MonoBehaviour
         isShow = false;
     }
 
+    public void OnTap()
+    {
+        AudioManager.Ins.PlayAudio(AudioType.TAP);
+    }
+
 
     private void Update()
     {
-        if (time < duration)
+        if (isEnableAnim)
         {
-            if (isShow)
+            if (time < duration)
             {
-                R_TF.anchoredPosition = Vector2.Lerp(hidePosition, viewPosition, time / duration);
+                if (isShow)
+                {
+                    R_TF.anchoredPosition = Vector2.Lerp(hidePosition, viewPosition, time / duration);
 
+                }
+                else
+                {
+                    R_TF.anchoredPosition = Vector2.Lerp(viewPosition, hidePosition, time / duration);
+                }
+                time += Time.deltaTime;
             }
-            else
-            {
-                R_TF.anchoredPosition = Vector2.Lerp(viewPosition, hidePosition, time / duration);
-            }
-            time += Time.deltaTime;
         }
-
     }
 }

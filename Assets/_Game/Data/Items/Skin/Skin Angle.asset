@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb0dcb4841e45f2498b789d1a1b9962d, type: 3}
   m_Name: Skin Angle
   m_EditorClassIdentifier: 
-  equipmentSlot: 0
-  itemId: 0
+  equipmentSlot: 6
+  itemId: 62
   isShowOnStore: 1
-  thumbnail: {fileID: 0}
-  price: 0
-  itemsOfSkin: []
+  thumbnail: {fileID: 21300000, guid: 8a6e5039894b7ea43b8931c9f9d5b24f, type: 3}
+  price: 9999
+  itemsOfSkin:
+  - {fileID: 11400000, guid: ff4ed83e1cea4414c87c551fc56d9008, type: 2}
+  - {fileID: 11400000, guid: 26c823cea6debbb4e9a2911060195a1f, type: 2}
+  - {fileID: 11400000, guid: 068a8cb36dad5094dab1eb05ca59227e, type: 2}
+  - {fileID: 11400000, guid: 37e0eb5cb50a82e43b186f256317b49f, type: 2}

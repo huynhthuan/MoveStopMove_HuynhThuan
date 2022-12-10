@@ -22,6 +22,8 @@ public class UserData : ScriptableObject
     public int currentStage = 0;
     public List<PlayerItem> currentItems;
     public PlayerInventory playerInventory;
+    public bool isEnableAudio;
+    public bool isEnableVibration;
 
     #region List
 
@@ -147,6 +149,8 @@ public class UserData : ScriptableObject
         userName = PlayerPrefs.GetString(Key_UserName, "Unkown Name");
         currentItems = JsonConvert.DeserializeObject<List<PlayerItem>>(PlayerPrefs.GetString(Key_Current_Items, JsonConvert.SerializeObject(initItems)));
         playerInventory = JsonConvert.DeserializeObject<PlayerInventory>(PlayerPrefs.GetString(Key_Inventory, JsonConvert.SerializeObject(initInventory)));
+        isEnableAudio = PlayerPrefs.GetInt(Key_IsEnableSound, 1) == 1 ? true : false;
+        isEnableVibration = PlayerPrefs.GetInt(Key_IsEnableVibration, 1) == 1 ? true : false;
     }
 
     public void OnResetData()
@@ -160,6 +164,8 @@ public class UserData : ScriptableObject
     public const string Key_UserName = "UserName";
     public const string Key_Current_Items = "CurrentItems";
     public const string Key_Inventory = "Inventory";
+    public const string Key_IsEnableSound = "IsEnableSound";
+    public const string Key_IsEnableVibration = "IsEnableVibration";
 }
 
 

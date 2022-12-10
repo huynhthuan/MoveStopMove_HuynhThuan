@@ -16,8 +16,18 @@ public class Settings : UICanvas
     [SerializeField]
     private Transform listSetting;
 
+    [SerializeField]
+    private UiSoundButton uiSoundButton;
+
+    public override void Setup()
+    {
+        uiSoundButton.time = 0;
+        base.Setup();
+    }
+
     public override void AnimationOpen()
     {
+
         base.AnimationOpen();
     }
 
@@ -28,6 +38,7 @@ public class Settings : UICanvas
 
     public void HomeButton()
     {
+        GameManager.Ins.NewGame();
         UIManager.Ins.OpenUI<Lobby>();
         Close();
     }

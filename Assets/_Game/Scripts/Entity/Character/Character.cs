@@ -155,6 +155,7 @@ public class Character : GameUnit
     public virtual void LevelUp()
     {
         level++;
+        AudioManager.Ins.PlayAudio(AudioType.LEVEL_UP);
     }
 
     public void OnSelect()

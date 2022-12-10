@@ -8,6 +8,10 @@ public class WeaponStore : UICanvas
     [SerializeField]
     internal UiButton btnGold;
     [SerializeField]
+    internal UiButton btnNext;
+    [SerializeField]
+    internal UiButton btnPrev;
+    [SerializeField]
     internal TextMeshProUGUI weaponName;
     [SerializeField]
     internal Transform selectBtn;
@@ -204,11 +208,15 @@ public class WeaponStore : UICanvas
     {
         base.AnimationClose();
         btnGold.Hide();
+        btnNext.Hide();
+        btnPrev.Hide();
     }
 
     public override void AnimationOpen()
     {
         base.AnimationOpen();
         btnGold.Show();
+        btnNext.Show();
+        btnPrev.Show();
     }
 }

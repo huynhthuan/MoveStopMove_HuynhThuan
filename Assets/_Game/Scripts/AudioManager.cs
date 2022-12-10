@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using System;
 
 public enum AudioType
 {
@@ -9,35 +10,54 @@ public enum AudioType
     LEVEL_UP,
     DIE,
     WEAPON_FLY,
-    INTRO_ITEM,
-    REVIVE,
-    COMPLETE
+    LOSE,
+    WIN,
+    HIT,
+    BACKGROUND
 }
 
 public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField]
-    private AudioSource[] audioSources;
+    private List<AudioClipItem> audioClipItems = new List<AudioClipItem>();
+
+    [SerializeField]
+    private AudioSource audioSourceFX;
+
+
+    [SerializeField]
+    private AudioSource audioSourceBG;
 
     [SerializeField]
     private AudioMixer audioMixers;
 
     public void OnInit()
     {
+        Debug.Log("Init audio");
         InitAudioSourcesOutPut();
     }
 
     private void InitAudioSourcesOutPut()
     {
-        for (int i = 0; i < audioSources.Length; i++)
-        {
-            audioSources[i].outputAudioMixerGroup = audioMixers.outputAudioMixerGroup;
-        }
+
     }
 
-    public void PlayAudio(AudioType audioKey)
+    public void PlayAudio(AudioType audioType)
     {
-        audioSources[(int)audioKey].Play();
+        AudioClipItem audioTarget = audioClipItems.Find(audio => audio.audioType == audioType);
+        audioSourceFX.clip = audioTarget.audioClip;
+        audioSourceFX.Play();
+    }
+
+    public void PlayAudioBackground(AudioType audioType)
+    {
+        if (audioSourceBG.clip != null)
+        {
+            audioSourceBG.Pause();
+        }
+        AudioClipItem audioTarget = audioClipItems.Find(audio => audio.audioType == audioType);
+        audioSourceBG.clip = audioTarget.audioClip;
+        audioSourceBG.Play();
     }
 
     public void MuteAudio()
@@ -49,4 +69,18 @@ public class AudioManager : Singleton<AudioManager>
     {
         audioMixers.SetFloat("volume", 0f);
     }
+}
+
+[Serializable]
+public class AudioClipItem : IEquatable<AudioClipItem>
+{
+    public AudioType audioType;
+    public AudioClip audioClip;
+
+    public bool Equals(AudioClipItem other)
+    {
+        if (other == null) return false;
+        return (this.audioType.Equals(other.audioType));
+    }
+
 }

@@ -626,6 +626,7 @@ GameObject:
   - component: {fileID: 5053453873761181756}
   - component: {fileID: 5053453873761181757}
   - component: {fileID: 5053453873761181698}
+  - component: {fileID: 7575839752262603965}
   m_Layer: 5
   m_Name: Btn close
   m_TagString: Untagged
@@ -747,6 +748,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7575839752262603965}
+        m_TargetAssemblyTypeName: UiButton, Assembly-CSharp
+        m_MethodName: OnTap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7575839752262603965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053453873761181696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: 0, y: 0}
+  hidePosition: {x: 0, y: 0}
+  isEnableAnim: 0
 --- !u!1 &5053453874042764011
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +787,7 @@ GameObject:
   - component: {fileID: 5053453874042764007}
   - component: {fileID: 5053453874042764004}
   - component: {fileID: 5053453874042764005}
+  - component: {fileID: 3408330583449717568}
   m_Layer: 5
   m_Name: Btn select
   m_TagString: Untagged
@@ -880,6 +909,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3408330583449717568}
+        m_TargetAssemblyTypeName: UiButton, Assembly-CSharp
+        m_MethodName: OnTap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3408330583449717568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053453874042764011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: 0, y: 0}
+  hidePosition: {x: 0, y: 0}
+  isEnableAnim: 0
 --- !u!1 &5053453874706096567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,6 +1257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
   btnGold: {fileID: 961288968405489303}
+  btnNext: {fileID: 8749183676590563896}
+  btnPrev: {fileID: 7417417631229040222}
   weaponName: {fileID: 4518498850405321759}
   selectBtn: {fileID: 5053453874042764010}
   notEnoughBtn: {fileID: 3062582972918413903}
@@ -1220,6 +1278,7 @@ GameObject:
   - component: {fileID: 5053453875016688345}
   - component: {fileID: 5053453875016688350}
   - component: {fileID: 5053453875016688351}
+  - component: {fileID: 8749183676590563896}
   m_Layer: 5
   m_Name: Btn next
   m_TagString: Untagged
@@ -1244,7 +1303,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 464, y: 134}
+  m_AnchoredPosition: {x: 615, y: 134}
   m_SizeDelta: {x: 56, y: 92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5053453875016688345
@@ -1341,6 +1400,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8749183676590563896}
+        m_TargetAssemblyTypeName: UiButton, Assembly-CSharp
+        m_MethodName: OnTap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8749183676590563896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053453875016688349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: 464, y: 134}
+  hidePosition: {x: 615, y: 134}
+  isEnableAnim: 1
 --- !u!1 &5053453875262434456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1439,7 @@ GameObject:
   - component: {fileID: 5053453875262434452}
   - component: {fileID: 5053453875262434453}
   - component: {fileID: 5053453875262434458}
+  - component: {fileID: 7417417631229040222}
   m_Layer: 5
   m_Name: Btn prev
   m_TagString: Untagged
@@ -1377,7 +1464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -464.7, y: 133.7}
+  m_AnchoredPosition: {x: -660, y: 134}
   m_SizeDelta: {x: 56, y: 92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5053453875262434452
@@ -1474,6 +1561,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7417417631229040222}
+        m_TargetAssemblyTypeName: UiButton, Assembly-CSharp
+        m_MethodName: OnTap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7417417631229040222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5053453875262434456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: -464.7, y: 134}
+  hidePosition: {x: -660, y: 134}
+  isEnableAnim: 1
 --- !u!1 &5053453875449066938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,6 +1734,7 @@ GameObject:
   - component: {fileID: 7415290755852073465}
   - component: {fileID: 3557851331905928381}
   - component: {fileID: 294882943135088691}
+  - component: {fileID: 2655048012153670924}
   m_Layer: 5
   m_Name: Btn buy
   m_TagString: Untagged
@@ -1742,6 +1857,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2655048012153670924}
+        m_TargetAssemblyTypeName: UiButton, Assembly-CSharp
+        m_MethodName: OnTap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2655048012153670924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925924327124129987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: 0, y: 0}
+  hidePosition: {x: 0, y: 0}
+  isEnableAnim: 0
 --- !u!1 &6157553913354210918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2389,7 @@ GameObject:
   - component: {fileID: 623730595380842948}
   - component: {fileID: 6073388891255046016}
   - component: {fileID: 135675739509382228}
+  - component: {fileID: 6904592954970172832}
   m_Layer: 5
   m_Name: Btn not enough gold
   m_TagString: Untagged
@@ -2356,7 +2499,34 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6073388891255046016}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6904592954970172832}
+        m_TargetAssemblyTypeName: UiButton, Assembly-CSharp
+        m_MethodName: OnTap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6904592954970172832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9107613113400971809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43935ead6ce2a6b4ea403fac4dcfa930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewPosition: {x: 0, y: 0}
+  hidePosition: {x: 0, y: 0}
+  isEnableAnim: 0
 --- !u!1001 &5678363438020640608
 PrefabInstance:
   m_ObjectHideFlags: 0

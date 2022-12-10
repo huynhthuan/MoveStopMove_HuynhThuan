@@ -50,7 +50,8 @@ public class GameManager : Singleton<GameManager>
         DataManager.Ins.playerData.OnInitData();
 
         // Init audio
-        // AudioManager.Ins.OnInit();
+        AudioManager.Ins.OnInit();
+        // AudioManager.Ins.PlayAudioBackground(AudioType.BACKGROUND);
 
         // Init level manager
         LevelManager.Ins.OnInit();
@@ -64,6 +65,8 @@ public class GameManager : Singleton<GameManager>
 
     public void NewGame()
     {
+        SimplePool.CollectAll();
+
         // Load stage
         LevelManager.Ins.LoadStage();
         UIManager.Ins.OpenUI<Lobby>();
