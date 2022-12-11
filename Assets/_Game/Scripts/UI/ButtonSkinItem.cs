@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Newtonsoft.Json;
 public class ButtonSkinItem : MonoBehaviour
 {
     [SerializeField]
@@ -68,22 +68,51 @@ public class ButtonSkinItem : MonoBehaviour
 
     public void SelectItem()
     {
+
+        if (uiSkin.currentItemSelect != null)
+        {
+            Debug.Log($"currentItemSelect {uiSkin.currentItemSelect.itemId}");
+            uiSkin.currentItemSelect.UnUse(uiSkin.player);
+        }
+
         isSelect = true;
         uiSkin.currentItemSelect = itemData;
         uiSkin.ShowButtonOnItemSelect();
+
+        if (itemData.equipmentSlot == EquipmentSlot.SKIN)
+        {
+            uiSkin.player.characterEquipment.oldItemSkinEquip = new List<Item>();
+            PlayerItem currentSkinId = uiSkin.dataManager.playerData.currentItems[(int)EquipmentSlot.SKIN];
+
+            if (currentSkinId != null && currentSkinId.itemId != ItemId.EMPTY)
+            {
+                Debug.Log($"Current item skin before apply skin {currentSkinId.itemId}");
+
+                SkinEquipment currentSkin = uiSkin.dataManager.listEquipment.GetItem<SkinEquipment>(currentSkinId.itemId);
+                List<Item> currentItemsSkin = currentSkin.itemsOfSkin;
+
+                for (int i = 0; i < currentItemsSkin.Count; i++)
+                {
+                    if (uiSkin.player.characterEquipment.currentEquipments[(int)currentItemsSkin[i].equipmentSlot] == null)
+                    {
+                        continue;
+                    }
+
+                    uiSkin.player.characterEquipment.oldItemSkinEquip.Add(uiSkin.player.characterEquipment.currentEquipments[(int)currentItemsSkin[i].equipmentSlot].itemData);
+                }
+
+                for (int i = 0; i < uiSkin.player.characterEquipment.oldItemSkinEquip.Count; i++)
+                {
+                    Debug.Log($"Old item skin {uiSkin.player.characterEquipment.oldItemSkinEquip[i].itemId}");
+                }
+            }
+        }
+
         itemData.Use(uiSkin.player);
     }
 
     public void DeselectItem()
     {
-        if (uiSkin.currentItemSelect != null)
-        {
-            if (uiSkin.currentItemSelect.itemId != uiSkin.playerData.currentItems[(int)uiSkin.currentItemSelect.equipmentSlot].itemId)
-            {
-                uiSkin.currentItemSelect.UnUse(uiSkin.player);
-            }
-        }
-        uiSkin.currentItemSelect = null;
         isSelect = false;
         uiSkin.ShowButtonOnItemSelect();
     }

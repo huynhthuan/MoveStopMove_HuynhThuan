@@ -40,7 +40,7 @@ public class Skin : UICanvas
     internal Item currentItemSelect;
     internal List<Item> currentItemSkinSelect = new List<Item>();
     private TabName currentTabSelect;
-    private DataManager dataManager;
+    internal DataManager dataManager;
     private ListEquipment allItem;
     private List<ButtonSkinItem> listItemTab = new List<ButtonSkinItem>();
     internal PlayerInventory playerInventory;
@@ -58,6 +58,7 @@ public class Skin : UICanvas
         playerInventory = playerData.playerInventory;
         player = LevelManager.Ins.player;
         currentEquipments = player.characterEquipment.currentEquipments;
+        DisableAllTab();
         ActiveTab(TabName.TAB_HEAD);
     }
 
@@ -163,6 +164,14 @@ public class Skin : UICanvas
     public void DisableTab(TabName tabName)
     {
         tabBtns[(int)tabName].isActive = false;
+    }
+
+    public void DisableAllTab()
+    {
+        for (int i = 0; i < tabBtns.Count; i++)
+        {
+            DisableTab((TabName)i);
+        }
     }
 
     public void OnChangeTab(int tabName)
@@ -323,14 +332,25 @@ public class Skin : UICanvas
 
     public void OnClickSelectBtn()
     {
-        EnableEquipedBtn();
-        currentItemSelect.Use(player);
-
-        playerData.currentItems[(int)currentItemSelect.equipmentSlot] = new PlayerItem(currentItemSelect.itemId);
-
 
         if (currentItemSelect.equipmentSlot == EquipmentSlot.SKIN)
         {
+            // Un use old item skin before equip new skin
+            for (int i = 0; i < player.characterEquipment.oldItemSkinEquip.Count; i++)
+            {
+                Debug.Log($"Un use item be fore equip skin {player.characterEquipment.oldItemSkinEquip[i].itemId}");
+                player.characterEquipment.oldItemSkinEquip[i].UnUse(player);
+
+                if (player.characterEquipment.oldItemSkinEquip[i].equipmentSlot == EquipmentSlot.BODY)
+                {
+                    playerData.currentItems[(int)player.characterEquipment.oldItemSkinEquip[i].equipmentSlot] = new PlayerItem(ItemId.BODY_0);
+                }
+                else
+                {
+                    playerData.currentItems[(int)player.characterEquipment.oldItemSkinEquip[i].equipmentSlot] = new PlayerItem(ItemId.EMPTY);
+                }
+            }
+
             SkinEquipment skinEquipment = currentItemSelect as SkinEquipment;
             for (int i = 0; i < skinEquipment.itemsOfSkin.Count; i++)
             {
@@ -338,6 +358,11 @@ public class Skin : UICanvas
                 playerData.currentItems[(int)currentItemSkin.equipmentSlot] = new PlayerItem(currentItemSkin.itemId);
             }
         }
+
+
+        EnableEquipedBtn();
+        currentItemSelect.Use(player);
+        playerData.currentItems[(int)currentItemSelect.equipmentSlot] = new PlayerItem(currentItemSelect.itemId);
 
         playerData.SetClassData<List<PlayerItem>>(UserData.Key_Current_Items, playerData.currentItems);
     }

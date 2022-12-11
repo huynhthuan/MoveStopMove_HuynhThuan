@@ -15,6 +15,7 @@ public class CharacterEquipment : MonoBehaviour
     private DataManager dataManager;
     private ListEquipment allItem;
     private ListMaterial allMaterial;
+    internal List<Item> oldItemSkinEquip = new List<Item>();
 
     public void Oninit()
     {
@@ -121,11 +122,8 @@ public class CharacterEquipment : MonoBehaviour
     {
         for (int i = 0; i < items.Count; i++)
         {
-            PlayerItem currentItemOfSlot = dataManager.playerData.currentItems[(int)items[i].equipmentSlot];
-            if (currentItemOfSlot.itemId == ItemId.EMPTY || currentItemOfSlot.itemId == items[i].itemId)
-            {
-                items[i].Use(owner);
-            }
+            Debug.Log($"Applly skin - item {items[i].equipmentSlot}");
+            items[i].Use(owner);
         }
     }
 
@@ -139,8 +137,9 @@ public class CharacterEquipment : MonoBehaviour
 
     public void LoadAllEquipments(Character owner, List<ItemId> items)
     {
-        for (int i = 0; i < items.Count; i++)
+        for (int i = items.Count - 1; i >= 0; i--)
         {
+            Debug.Log($"Load item {items[i]}");
             if (items[i] == ItemId.EMPTY)
             {
                 continue;

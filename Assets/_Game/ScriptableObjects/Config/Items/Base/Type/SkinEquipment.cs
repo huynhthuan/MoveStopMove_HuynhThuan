@@ -12,12 +12,20 @@ public class SkinEquipment : Item
     public override void Use(Character owner)
     {
         base.Use(owner);
+        Debug.Log(message: $"Use Skin {(ItemId)itemId}");
         owner.characterEquipment.ApplySkin(itemsOfSkin, owner);
+
     }
 
     public override void UnUse(Character owner)
     {
         base.UnUse(owner);
-        owner.characterEquipment.RemoveSkin(itemsOfSkin, owner);
+        Debug.Log(message: $"Unuse Skin {(ItemId)itemId}");
+
+        for (int i = 0; i < itemsOfSkin.Count; i++)
+        {
+            itemsOfSkin[i].UnUse(owner);
+        }
+
     }
 }
