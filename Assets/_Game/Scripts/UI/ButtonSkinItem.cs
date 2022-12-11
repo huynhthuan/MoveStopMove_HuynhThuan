@@ -78,7 +78,10 @@ public class ButtonSkinItem : MonoBehaviour
     {
         if (uiSkin.currentItemSelect != null)
         {
-            uiSkin.currentItemSelect.UnUse(uiSkin.player);
+            if (uiSkin.currentItemSelect.itemId != uiSkin.playerData.currentItems[(int)uiSkin.currentItemSelect.equipmentSlot].itemId)
+            {
+                uiSkin.currentItemSelect.UnUse(uiSkin.player);
+            }
         }
         uiSkin.currentItemSelect = null;
         isSelect = false;

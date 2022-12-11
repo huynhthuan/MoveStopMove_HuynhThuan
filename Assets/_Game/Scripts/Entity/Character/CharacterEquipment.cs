@@ -121,7 +121,11 @@ public class CharacterEquipment : MonoBehaviour
     {
         for (int i = 0; i < items.Count; i++)
         {
-            items[i].Use(owner);
+            PlayerItem currentItemOfSlot = dataManager.playerData.currentItems[(int)items[i].equipmentSlot];
+            if (currentItemOfSlot.itemId == ItemId.EMPTY || currentItemOfSlot.itemId == items[i].itemId)
+            {
+                items[i].Use(owner);
+            }
         }
     }
 

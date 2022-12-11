@@ -18,6 +18,5 @@ public class WeaponEquipment : ItemEquipment
     public override void Use(Character owner)
     {
         base.Use(owner);
-        Debug.Log(message: $"Use item {itemName}");
     }
 }

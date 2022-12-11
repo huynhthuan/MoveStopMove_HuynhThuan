@@ -9,17 +9,18 @@ public class Item : ScriptableObject
     public EquipmentSlot equipmentSlot;
     public ItemId itemId;
     public bool isShowOnStore = true;
+    public bool isItemOfSkin = false;
     public Sprite thumbnail;
     public int price;
 
     public virtual void Use(Character owner)
     {
-        Debug.Log($"---- Use item {itemId}");
+        // Debug.Log($"---- Use item {itemId}");
     }
 
     public virtual void UnUse(Character owner)
     {
-        Debug.Log($"---- Un use item {itemId}");
+        // Debug.Log($"---- Un use item {itemId}");
     }
 }
 

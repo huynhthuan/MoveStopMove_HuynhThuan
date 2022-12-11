@@ -82,4 +82,9 @@ public class Lobby : UICanvas
         weaponBtn.Show();
         skinBtn.Show();
     }
+
+    public void TestNewGame()
+    {
+        GameManager.Ins.NewGame();
+    }
 }

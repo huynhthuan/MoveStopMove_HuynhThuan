@@ -36,6 +36,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadStage()
     {
+        navMeshSurface.RemoveData();
 
         Debug.Log("Load stage data...");
         // Check has stage

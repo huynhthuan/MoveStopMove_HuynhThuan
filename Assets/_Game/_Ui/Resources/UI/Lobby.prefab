@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewPosition: {x: 366, y: -700}
   hidePosition: {x: 1000, y: -700}
+  isEnableAnim: 1
 --- !u!1 &283418621430862895
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewPosition: {x: 545, y: 638.29956}
   hidePosition: {x: 852, y: 638.29956}
+  isEnableAnim: 1
 --- !u!1 &341171090980516364
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,6 +817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewPosition: {x: -296.18823, y: -618.1752}
   hidePosition: {x: -757, y: -618.1752}
+  isEnableAnim: 1
 --- !u!1 &2077994301037846755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,6 +1325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewPosition: {x: 545, y: 752.5}
   hidePosition: {x: 790, y: 752.5}
+  isEnableAnim: 1
 --- !u!1 &4554921646843160209
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,6 +1742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewPosition: {x: -296.18823, y: -786.7355}
   hidePosition: {x: -753, y: -786.7355}
+  isEnableAnim: 1
 --- !u!1 &6142457960393708625
 GameObject:
   m_ObjectHideFlags: 0

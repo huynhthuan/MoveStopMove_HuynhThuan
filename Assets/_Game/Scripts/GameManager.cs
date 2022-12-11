@@ -66,7 +66,6 @@ public class GameManager : Singleton<GameManager>
     public void NewGame()
     {
         SimplePool.CollectAll();
-
         // Load stage
         LevelManager.Ins.LoadStage();
         UIManager.Ins.OpenUI<Lobby>();

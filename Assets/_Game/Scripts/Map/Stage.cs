@@ -33,15 +33,13 @@ public class Stage : MonoBehaviour
 
     public void OnInit()
     {
-
-
-
         Debug.Log("Oninit stage...");
         characterColorAvaible.AddRange(botColors);
         // Set player alive
         playerAlive = levelConfig.numberOfPlayer;
         maxBot = levelConfig.maxBot;
         startPoint = levelConfig.startPoint;
+
         Debug.Log("Start point: " + startPoint);
 
         //Spawn player
@@ -52,7 +50,6 @@ public class Stage : MonoBehaviour
         characterInStage.Add(playerObj);
         playerObj.OnInit();
 
-        Debug.Log($"Check is in attack radius player {LevelManager.Ins.player.attackRange.TF.localPosition.x}");
         // Spawn bot of stage
         if (IsCanSpawnBot())
         {
@@ -67,7 +64,7 @@ public class Stage : MonoBehaviour
         {
             Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
-            Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, Vector3.zero, Quaternion.identity);
+            Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, pointToSpawn, Quaternion.identity);
             WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(LevelManager.Ins.wayPointIndicator, Vector3.zero, Quaternion.identity);
 
             // Init bot
@@ -75,7 +72,7 @@ public class Stage : MonoBehaviour
             botOjb.currentStage = this;
             characterInStage.Add(botOjb);
             botOjb.OnInit();
-            botOjb.navMeshAgent.Warp(pointToSpawn);
+            // botOjb.navMeshAgent.Warp(pointToSpawn);
             Color newColor = characterColorAvaible[0];
             characterColorAvaible.Remove(newColor);
             botOjb.ChangeColorBody(newColor);
@@ -106,20 +103,21 @@ public class Stage : MonoBehaviour
 
     public Vector3 GetPointToSpawn()
     {
-        Debug.Log("Get point to spawn.");
-
         bool isContinueSearch = true;
 
         while (isContinueSearch)
         {
-            NavMesh.SamplePosition(RandomPointInStage(), out hit, 1.0f, NavMesh.AllAreas);
-
-            if (!IsHasTargetInRange())
+            if (NavMesh.SamplePosition(RandomPointInStage(), out hit, 1.0f, NavMesh.AllAreas))
             {
-                isContinueSearch = false;
-                break;
+                if (!IsHasTargetInRange())
+                {
+                    isContinueSearch = false;
+                    break;
+                }
             }
         }
+
+        Debug.Log($"Point to spawn bot. {hit.position}");
 
         return hit.position;
     }
@@ -128,7 +126,7 @@ public class Stage : MonoBehaviour
     {
         // Get bounds current stage
         Bounds stageBounds = LevelManager.Ins.navMeshSurface.navMeshData.sourceBounds;
-        Debug.Log($"Bounds stage {stageBounds}");
+        // Debug.Log($"Bounds stage {stageBounds}");
         // Random x
         float rx = Random.Range(stageBounds.min.x, stageBounds.max.x);
         // Random z
@@ -153,7 +151,9 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < numberCharacterInStage; i++)
         {
-            if (Vector3.Distance(characterInStage[i].TF.position, hit.position) <= characterInStage[i].attackRange.GetAttackRadius())
+            Debug.Log($"Distance with {characterInStage[i].name} | {Vector3.Distance(characterInStage[i].TF.position, hit.position)}");
+
+            if (!(Vector3.Distance(characterInStage[i].TF.position, hit.position) > characterInStage[i].attackRange.GetAttackRadius() + 4f))
             {
                 isInTarget = true;
                 break;

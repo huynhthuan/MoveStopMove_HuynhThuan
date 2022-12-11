@@ -15,6 +15,7 @@ MonoBehaviour:
   equipmentSlot: 2
   itemId: 17
   isShowOnStore: 1
+  isItemOfSkin: 1
   thumbnail: {fileID: 21300000, guid: 6a0e5052d63c5784eb3e685123d16065, type: 3}
-  price: 450
+  price: 0
   prefab: {fileID: 6924745284783932899, guid: 3464ebbb8eb6824458ae64532dd05e22, type: 3}

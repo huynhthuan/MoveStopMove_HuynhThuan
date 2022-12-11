@@ -8,5 +8,8 @@ using UnityEditor;
 
 public class WingEquipment : ItemEquipment
 {
-
+    public override void Use(Character owner)
+    {
+        base.Use(owner);
+    }
 }

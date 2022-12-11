@@ -20,6 +20,8 @@ public class Skin : UICanvas
     [SerializeField]
     private Transform contentList;
     [SerializeField]
+    private ScrollRect contentListScroll;
+    [SerializeField]
     private List<UiTabSkin> tabBtns;
     [SerializeField]
     private ButtonSkinItem buttonSkinItemPrefab;
@@ -57,11 +59,6 @@ public class Skin : UICanvas
         player = LevelManager.Ins.player;
         currentEquipments = player.characterEquipment.currentEquipments;
         ActiveTab(TabName.TAB_HEAD);
-        DisableAllBtn();
-        DeSelectAllItem();
-
-        listItemTab[0].SelectItem();
-
     }
 
     public void CloseButton()
@@ -82,17 +79,32 @@ public class Skin : UICanvas
 
     private void LoadTabDataItem<T>(EquipmentSlot equipmentSlot) where T : Item
     {
+
         ClearItemOfTab();
         listItemTab.Clear();
         List<T> itemsOfTab = allItem.GetItemsBySlot<T>(equipmentSlot);
 
-        Debug.Log($"Init {equipmentSlot} - {itemsOfTab.Count}");
+        Debug.Log($"Init {equipmentSlot} - {itemsOfTab.Count} items");
+
+        GridLayoutGroup layoutGroup = contentList.GetComponent<GridLayoutGroup>();
+
+        if (itemsOfTab.Count < 7)
+        {
+            layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            layoutGroup.constraintCount = 3;
+        }
+        else
+        {
+            layoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+            layoutGroup.constraintCount = 2;
+        }
 
         for (int i = 0; i < itemsOfTab.Count; i++)
         {
+
             T itemConfig = itemsOfTab[i];
 
-            if (!itemConfig.isShowOnStore)
+            if (!itemConfig.isShowOnStore || (itemConfig.isItemOfSkin && !playerInventory.IsHasItem(itemConfig.itemId)))
             {
                 continue;
             }
@@ -102,6 +114,32 @@ public class Skin : UICanvas
             itemObj.OnInit(this, !playerInventory.IsHasItem(itemConfig.itemId), false, itemConfig);
             listItemTab.Add(itemObj);
         }
+
+        contentListScroll.normalizedPosition = new Vector2(0, 0.5f);
+
+        DisableAllBtn();
+        DeSelectAllItem();
+
+        player.EquipAllItems();
+
+        bool isEquipItemUnlock = false;
+
+        for (int i = 0; i < listItemTab.Count; i++)
+        {
+            if (playerData.currentItems[(int)equipmentSlot] != null && playerData.currentItems[(int)equipmentSlot].itemId == listItemTab[i].itemData.itemId)
+            {
+                isEquipItemUnlock = true;
+                listItemTab[i].SelectItem();
+                break;
+            }
+        }
+
+        if (!isEquipItemUnlock)
+        {
+            listItemTab[0].SelectItem();
+        }
+
+
     }
 
     public void ClearItemOfTab()
@@ -140,12 +178,8 @@ public class Skin : UICanvas
             currentItemSelect.UnUse(player);
         }
 
-        player.EquipAllItems();
-
         currentTabSelect = (TabName)tabName;
         ActiveTab(currentTabSelect);
-
-        listItemTab[0].SelectItem();
     }
 
     public void OnActiveTab(TabName tabName)
@@ -212,10 +246,12 @@ public class Skin : UICanvas
 
         if (playerInventory.IsHasItem(currentItemSelect.itemId))
         {
-            List<PlayerItem> currentWeaponData = playerData.GetClassData<List<PlayerItem>>(UserData.Key_Current_Items);
-            Debug.Log(JsonConvert.SerializeObject(currentWeaponData));
-            Debug.Log(JsonConvert.SerializeObject(new PlayerItem(currentItemSelect.itemId)));
-            if (currentWeaponData.Contains(new PlayerItem(currentItemSelect.itemId)))
+            List<PlayerItem> currentItems = playerData.currentItems;
+
+            Debug.Log($"currentItems {JsonConvert.SerializeObject(currentItems)}");
+            Debug.Log($"currentItemSelect {JsonConvert.SerializeObject(currentItemSelect.itemId)}");
+
+            if (currentItems.Contains(new PlayerItem(currentItemSelect.itemId)))
             {
                 EnableEquipedBtn();
             }
@@ -262,6 +298,18 @@ public class Skin : UICanvas
         if (playerData.gold >= currentItemSelect.price)
         {
             playerInventory.Add(new InventorySlot((ItemId)currentItemSelect.itemId));
+
+            if (currentItemSelect.equipmentSlot == EquipmentSlot.SKIN)
+            {
+                SkinEquipment skinEquipment = currentItemSelect as SkinEquipment;
+                for (int i = 0; i < skinEquipment.itemsOfSkin.Count; i++)
+                {
+                    Item currentItemSkin = skinEquipment.itemsOfSkin[i];
+                    playerInventory.Add(new InventorySlot((ItemId)currentItemSkin.itemId));
+                }
+            }
+
+
             playerData.gold -= currentItemSelect.price;
 
             UnlockItem(currentItemSelect.itemId);
@@ -276,9 +324,22 @@ public class Skin : UICanvas
     public void OnClickSelectBtn()
     {
         EnableEquipedBtn();
-        playerData.currentItems[(int)currentItemSelect.equipmentSlot] = new PlayerItem(currentItemSelect.itemId);
-        playerData.SetClassData<List<PlayerItem>>(UserData.Key_Current_Items, playerData.currentItems);
         currentItemSelect.Use(player);
+
+        playerData.currentItems[(int)currentItemSelect.equipmentSlot] = new PlayerItem(currentItemSelect.itemId);
+
+
+        if (currentItemSelect.equipmentSlot == EquipmentSlot.SKIN)
+        {
+            SkinEquipment skinEquipment = currentItemSelect as SkinEquipment;
+            for (int i = 0; i < skinEquipment.itemsOfSkin.Count; i++)
+            {
+                Item currentItemSkin = skinEquipment.itemsOfSkin[i];
+                playerData.currentItems[(int)currentItemSkin.equipmentSlot] = new PlayerItem(currentItemSkin.itemId);
+            }
+        }
+
+        playerData.SetClassData<List<PlayerItem>>(UserData.Key_Current_Items, playerData.currentItems);
     }
 
     public void UnlockItem(ItemId itemId)

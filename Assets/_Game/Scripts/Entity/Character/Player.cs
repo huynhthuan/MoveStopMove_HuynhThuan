@@ -22,6 +22,7 @@ public class Player : Character, IHit
         Debug.Log("Equip all item with data saved");
 
         List<PlayerItem> currentPlayerItem = dataManager.playerData.currentItems;
+        Debug.Log($"Current items {JsonConvert.SerializeObject(currentPlayerItem)}");
         List<ItemId> playerItems = new List<ItemId>();
 
         for (int i = 0; i < currentPlayerItem.Count; i++)

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSlot: 5
   itemId: 44
-  isShowOnStore: 1
+  isShowOnStore: 0
+  isItemOfSkin: 0
   thumbnail: {fileID: 0}
   price: 0
   materialId: 27

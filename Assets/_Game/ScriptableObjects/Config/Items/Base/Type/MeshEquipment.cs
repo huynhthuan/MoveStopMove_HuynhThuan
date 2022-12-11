@@ -7,7 +7,6 @@ public class MeshEquipment : Item
 {
     public MaterialId materialId;
 
-
     public override void Use(Character owner)
     {
         base.Use(owner);

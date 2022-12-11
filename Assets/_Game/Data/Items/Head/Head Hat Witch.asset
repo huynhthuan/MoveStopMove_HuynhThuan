@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentSlot: 0
   itemId: 36
-  isShowOnStore: 1
+  isShowOnStore: 0
+  isItemOfSkin: 0
   thumbnail: {fileID: 21300000, guid: 0e22886ade7d2734c82ab4d35db44a1f, type: 3}
   price: 500
   prefab: {fileID: 324605783711727764, guid: 73eb882f56e57e8469cc30cce2bdeaa7, type: 3}
