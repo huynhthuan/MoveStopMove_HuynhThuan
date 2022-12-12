@@ -812,7 +812,7 @@ MonoBehaviour:
   - audioType: 1
     audioClip: {fileID: 8300000, guid: bd8d998c0f9f63b4d98cf16d5a08d1a4, type: 3}
   - audioType: 2
-    audioClip: {fileID: 8300000, guid: e8fa65757f1fa9244b991c89e21a38c1, type: 3}
+    audioClip: {fileID: 8300000, guid: b064ef2440de6c44799c19af6a6b6232, type: 3}
   - audioType: 3
     audioClip: {fileID: 8300000, guid: e269d0f1215732843b81be1d34760e91, type: 3}
   - audioType: 5

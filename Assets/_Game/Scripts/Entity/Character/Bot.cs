@@ -105,8 +105,8 @@ public class Bot : Character, IHit, ISelectable
             return;
         }
 
-        // Debug.Log("Character on hit " + gameObject.name);
-        // Debug.Log("Attacker make hit " + attacker.name);
+        AudioManager.Ins.PlayAudio(AudioType.DIE);
+
         navMeshAgent.isStopped = true;
         isDead = true;
         int characterIndex = currentStage.characterInStage.IndexOf(this);
@@ -114,7 +114,15 @@ public class Bot : Character, IHit, ISelectable
         currentStage.characterColorAvaible.Add(currentColor);
         currentStage.OnCharacterDie(characterIndex);
         rb.detectCollisions = false;
-        // attacker.GetComponent<Character>().LevelUp();
+
+        attacker.GetComponent<Character>().ExpUp();
+
+        if (attacker.GetComponent<Character>().expLevelUp.Contains(attacker.GetComponent<Character>().exp))
+        {
+            attacker.GetComponent<Character>().LevelUp();
+            CameraFollow.Ins.LevelUp();
+        }
+
         ChangeState(new IStateBotDie());
         waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
               {

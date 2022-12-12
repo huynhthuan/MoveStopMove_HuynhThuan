@@ -13,7 +13,7 @@ public class Player : Character, IHit
         base.OnInit();
         dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
-
+        CameraFollow.Ins.player = this;
         EquipAllItems();
     }
 
@@ -116,7 +116,7 @@ public class Player : Character, IHit
             return;
         }
 
-        Debug.Log("End game");
+        UIManager.Ins.OpenUI<Lose>();
 
         // Debug.Log("Character on hit " + gameObject.name);
         // Debug.Log("Attacker make hit " + attacker.name);
@@ -136,6 +136,7 @@ public class Player : Character, IHit
 
     public override void LevelUp()
     {
+
         base.LevelUp();
         attackRange.transform.localScale += characterScaleRatio * 5f;
         anim.transform.localScale += characterScaleRatio;

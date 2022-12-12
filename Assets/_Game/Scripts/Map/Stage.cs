@@ -93,9 +93,23 @@ public class Stage : MonoBehaviour
 
     public void OnCharacterDie(int characterIndex)
     {
+
         characterInStage.RemoveAt(characterIndex);
         playerAlive--;
-        if (IsCanSpawnBot())
+
+        if (playerAlive == 1)
+        {
+            if (characterInStage[0] is Player)
+            {
+                UIManager.Ins.OpenUI<Win>();
+            }
+            else
+            {
+                UIManager.Ins.OpenUI<Lose>();
+            }
+
+        }
+        if (IsCanSpawnBot() && playerAlive - 1 > maxBot)
         {
             SpawnBot(1);
         }

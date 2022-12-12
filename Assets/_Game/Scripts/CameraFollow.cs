@@ -18,6 +18,7 @@ public class CameraFollow : Singleton<CameraFollow>
     private float time = 0;
     private float duration = 8f;
     internal Transform TF;
+    internal Player player;
     private void Start()
     {
         TF = transform;
@@ -73,5 +74,11 @@ public class CameraFollow : Singleton<CameraFollow>
         isMoveCameraToSkin = true;
         isMoveCameraToFollow = false;
         isMoveCameraToLobby = false;
+    }
+
+    public void LevelUp()
+    {
+        Debug.Log($"player level {player.level}");
+        offset += new Vector3(0, 2.5f, -2.5f) * player.level;
     }
 }

@@ -53,7 +53,7 @@ public class Weapon : ItemEquip
             }
 
             // Debug.Log("Run hit");
-            // colliderHit.OnHit(owner.TF);
+            colliderHit.OnHit(owner.TF);
             OnDespawn();
         }
     }

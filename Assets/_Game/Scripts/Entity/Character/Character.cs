@@ -26,6 +26,7 @@ public class Character : GameUnit
     internal bool isCoolDownAttack = false;
     private string currentAnimName;
     internal int level = 0;
+    internal int maxLevel = 5;
     internal bool isCanAtk = true;
     internal Coroutine waitAfterAtkCoroutine;
     internal bool isAttackAnimEnd = false;
@@ -39,6 +40,8 @@ public class Character : GameUnit
     internal Transform colliderTF;
     internal float cameraFollowScaleRatio;
     internal Vector3 characterScaleRatio;
+    internal int exp = 0;
+    internal List<int> expLevelUp = new List<int>(new int[] { 5, 10, 15, 25, 45, 65 });
 
     public override void OnInit()
     {
@@ -114,6 +117,7 @@ public class Character : GameUnit
 
     public void StartCoroutineAttack()
     {
+        AudioManager.Ins.PlayAudio(AudioType.WEAPON_FLY);
         ChangeAnim(ConstString.ANIM_ATTACK);
 
         float animLength = anim.GetCurrentAnimatorStateInfo(0).length;
@@ -156,6 +160,11 @@ public class Character : GameUnit
     {
         level++;
         AudioManager.Ins.PlayAudio(AudioType.LEVEL_UP);
+    }
+
+    public void ExpUp()
+    {
+        exp++;
     }
 
     public void OnSelect()
