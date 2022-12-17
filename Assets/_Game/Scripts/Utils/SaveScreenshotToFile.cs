@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 public class SaveScreenshotToFile
 {
     [MenuItem("Custom/Render Camera to file")]
@@ -8,7 +9,13 @@ public class SaveScreenshotToFile
     {
         Camera camera = Selection.activeGameObject.GetComponent<Camera>();
 
-        RenderTexture rt = new RenderTexture(320, 224, 24, RenderTextureFormat.BGRA32, RenderTextureReadWrite.sRGB);
+        RenderTexture rt = new RenderTexture(
+            320,
+            224,
+            24,
+            RenderTextureFormat.BGRA32,
+            RenderTextureReadWrite.sRGB
+        );
         RenderTexture oldRT = camera.targetTexture;
         camera.targetTexture = rt;
         camera.Render();
@@ -29,6 +36,8 @@ public class SaveScreenshotToFile
     [MenuItem("Custom/Render Camera to file", true)]
     public static bool RenderCameraToFileValidation()
     {
-        return Selection.activeGameObject != null && Selection.activeGameObject.GetComponent<Camera>() != null;
+        return Selection.activeGameObject != null
+            && Selection.activeGameObject.GetComponent<Camera>() != null;
     }
 }
+#endif

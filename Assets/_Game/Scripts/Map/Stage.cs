@@ -21,8 +21,10 @@ public class Stage : MonoBehaviour
 {
     [SerializeField]
     private StageConfig levelConfig;
+
     [SerializeField]
     internal List<Character> characterInStage = new List<Character>();
+
     [SerializeField]
     internal Color[] botColors;
     internal int playerAlive;
@@ -43,7 +45,11 @@ public class Stage : MonoBehaviour
         Debug.Log("Start point: " + startPoint);
 
         //Spawn player
-        Player playerObj = SimplePool.Spawn<Player>(LevelManager.Ins.playerPrefab, startPoint, new Quaternion(0f, 180f, 0f, 0f));
+        Player playerObj = SimplePool.Spawn<Player>(
+            LevelManager.Ins.playerPrefab,
+            startPoint,
+            new Quaternion(0f, 180f, 0f, 0f)
+        );
         LevelManager.Ins.player = playerObj;
 
         playerObj.currentStage = this;
@@ -64,8 +70,16 @@ public class Stage : MonoBehaviour
         {
             // Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
-            Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, pointToSpawn, Quaternion.identity);
-            WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(LevelManager.Ins.wayPointIndicator, Vector3.zero, Quaternion.identity);
+            Bot botOjb = SimplePool.Spawn<Bot>(
+                LevelManager.Ins.botPrefab,
+                pointToSpawn,
+                Quaternion.identity
+            );
+            WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(
+                LevelManager.Ins.wayPointIndicator,
+                Vector3.zero,
+                Quaternion.identity
+            );
 
             // Init bot
             botOjb.name = $"Bot {i}";
@@ -93,7 +107,6 @@ public class Stage : MonoBehaviour
 
     public void OnCharacterDie(int characterIndex)
     {
-
         characterInStage.RemoveAt(characterIndex);
         playerAlive--;
 
@@ -107,7 +120,6 @@ public class Stage : MonoBehaviour
             {
                 UIManager.Ins.OpenUI<Lose>();
             }
-
         }
         if (IsCanSpawnBot() && playerAlive - 1 > maxBot)
         {
@@ -142,9 +154,9 @@ public class Stage : MonoBehaviour
         Bounds stageBounds = LevelManager.Ins.navMeshSurface.navMeshData.sourceBounds;
         // Debug.Log($"Bounds stage {stageBounds}");
         // Random x
-        float rx = Random.Range(stageBounds.min.x, stageBounds.max.x);
+        float rx = Random.Range(stageBounds.min.x + 10f, stageBounds.max.x - 10f);
         // Random z
-        float rz = Random.Range(stageBounds.min.z, stageBounds.max.z);
+        float rz = Random.Range(stageBounds.min.z + 10f, stageBounds.max.z - 10f);
         // Return random poin in stage
         return new Vector3(rx, 0.9f, rz);
     }
@@ -167,7 +179,12 @@ public class Stage : MonoBehaviour
         {
             // Debug.Log($"Distance with {characterInStage[i].name} | {Vector3.Distance(characterInStage[i].TF.position, hit.position)}");
 
-            if (!(Vector3.Distance(characterInStage[i].TF.position, hit.position) > characterInStage[i].attackRange.GetAttackRadius() + 4f))
+            if (
+                !(
+                    Vector3.Distance(characterInStage[i].TF.position, hit.position)
+                    > characterInStage[i].attackRange.GetAttackRadius() + 4f
+                )
+            )
             {
                 isInTarget = true;
                 break;

@@ -24,9 +24,11 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField]
     private AudioSource audioSourceFX;
 
-
     [SerializeField]
     private AudioSource audioSourceBG;
+
+    [SerializeField]
+    private AudioSource audioSourceIngameFX;
 
     [SerializeField]
     private AudioMixer audioMixers;
@@ -37,16 +39,20 @@ public class AudioManager : Singleton<AudioManager>
         InitAudioSourcesOutPut();
     }
 
-    private void InitAudioSourcesOutPut()
-    {
+    private void InitAudioSourcesOutPut() { }
 
-    }
-
-    public void PlayAudio(AudioType audioType)
+    public void PlayAudioFX(AudioType audioType)
     {
         AudioClipItem audioTarget = audioClipItems.Find(audio => audio.audioType == audioType);
         audioSourceFX.clip = audioTarget.audioClip;
         audioSourceFX.Play();
+    }
+
+    public void PlayAudioInGameFX(AudioType audioType)
+    {
+        AudioClipItem audioTarget = audioClipItems.Find(audio => audio.audioType == audioType);
+        audioSourceIngameFX.clip = audioTarget.audioClip;
+        audioSourceIngameFX.Play();
     }
 
     public void PlayAudioBackground(AudioType audioType)
@@ -79,8 +85,8 @@ public class AudioClipItem : IEquatable<AudioClipItem>
 
     public bool Equals(AudioClipItem other)
     {
-        if (other == null) return false;
+        if (other == null)
+            return false;
         return (this.audioType.Equals(other.audioType));
     }
-
 }

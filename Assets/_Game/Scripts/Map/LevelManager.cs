@@ -10,6 +10,7 @@ public class LevelManager : Singleton<LevelManager>
 
     [SerializeField]
     internal Bot botPrefab;
+
     [SerializeField]
     internal WayPointIndicator wayPointIndicator;
 
@@ -49,7 +50,12 @@ public class LevelManager : Singleton<LevelManager>
         // Load new stage
         int currentPlayerStage = dataManager.playerData.currentStage;
         StageConfig currentStageConfig = stages[currentPlayerStage];
-        GameObject stageObj = Instantiate(currentStageConfig.stagePrefab, Vector3.zero, Quaternion.identity, TF);
+        GameObject stageObj = Instantiate(
+            currentStageConfig.stagePrefab,
+            Vector3.zero,
+            Quaternion.identity,
+            TF
+        );
         // Bake nav mesh
         Debug.Log("Build navmesh stage...");
         navMeshSurface.BuildNavMesh();
@@ -58,8 +64,4 @@ public class LevelManager : Singleton<LevelManager>
         // Init stage has loaded
         currentStage.OnInit();
     }
-
-
-
-
 }

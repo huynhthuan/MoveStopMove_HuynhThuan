@@ -33,7 +33,7 @@ public class UiButton : MonoBehaviour
 
     public void OnTap()
     {
-        AudioManager.Ins.PlayAudio(AudioType.TAP);
+        AudioManager.Ins.PlayAudioFX(AudioType.TAP);
     }
 
 

@@ -117,7 +117,7 @@ public class Character : GameUnit
 
     public void StartCoroutineAttack()
     {
-        AudioManager.Ins.PlayAudio(AudioType.WEAPON_FLY);
+        AudioManager.Ins.PlayAudioInGameFX(AudioType.WEAPON_FLY);
         ChangeAnim(ConstString.ANIM_ATTACK);
 
         float animLength = anim.GetCurrentAnimatorStateInfo(0).length;
@@ -159,7 +159,7 @@ public class Character : GameUnit
     public virtual void LevelUp()
     {
         level++;
-        AudioManager.Ins.PlayAudio(AudioType.LEVEL_UP);
+        AudioManager.Ins.PlayAudioFX(AudioType.LEVEL_UP);
     }
 
     public void ExpUp()

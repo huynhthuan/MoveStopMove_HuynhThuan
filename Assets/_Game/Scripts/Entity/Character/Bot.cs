@@ -105,7 +105,7 @@ public class Bot : Character, IHit, ISelectable
             return;
         }
 
-        AudioManager.Ins.PlayAudio(AudioType.DIE);
+        AudioManager.Ins.PlayAudioInGameFX(AudioType.DIE);
 
         navMeshAgent.isStopped = true;
         isDead = true;
