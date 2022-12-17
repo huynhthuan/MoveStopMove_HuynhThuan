@@ -15,8 +15,14 @@ MonoBehaviour:
   equipmentSlot: 6
   itemId: 61
   isShowOnStore: 1
+  isItemOfSkin: 0
   thumbnail: {fileID: 21300000, guid: afabcae20a132254ea24c209a9f900bd, type: 3}
   price: 5555
   itemsOfSkin:
   - {fileID: 11400000, guid: f166c79238c7afa49995c2e16bac05ef, type: 2}
   - {fileID: 11400000, guid: 6c745dd4da772b541a4cbe28951e3c05, type: 2}
+  - {fileID: 11400000, guid: 63a68304c6883964789def8bb78f1fbd, type: 2}
+  - {fileID: 11400000, guid: 5ec55ef92919be840b7699a8db47cb16, type: 2}
+  - {fileID: 11400000, guid: 66beb0e6037b60d498dabdef404f05dd, type: 2}
+  - {fileID: 11400000, guid: e1c3dfec392a2ed4783d5de2adf70c90, type: 2}
+  - {fileID: 11400000, guid: facc76e7cb7ff6446b58b624d0a69eea, type: 2}

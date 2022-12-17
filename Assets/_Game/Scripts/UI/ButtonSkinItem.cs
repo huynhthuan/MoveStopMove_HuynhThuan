@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+
 public class ButtonSkinItem : MonoBehaviour
 {
     [SerializeField]
     private Image thumbnail;
+
     [SerializeField]
     private Image selectBorder;
+
     [SerializeField]
     private Image lockIcon;
 
@@ -20,6 +23,7 @@ public class ButtonSkinItem : MonoBehaviour
     internal Transform TF;
 
     private Skin uiSkin;
+
     private void Start()
     {
         TF = transform;
@@ -68,45 +72,48 @@ public class ButtonSkinItem : MonoBehaviour
 
     public void SelectItem()
     {
+        uiSkin.player.EquipAllItems();
 
-        if (uiSkin.currentItemSelect != null)
-        {
-            Debug.Log($"currentItemSelect {uiSkin.currentItemSelect.itemId}");
-            uiSkin.currentItemSelect.UnUse(uiSkin.player);
-        }
+        // if (uiSkin.currentItemSelect != null)
+        // {
+        //     // Debug.Log($"currentItemSelect {uiSkin.currentItemSelect.itemId}");
+
+        //     if (uiSkin.currentEquipments[(int)uiSkin.currentItemSelect.equipmentSlot] != null)
+        //     {
+        //         if (
+        //             uiSkin.currentItemSelect.itemId
+        //             != uiSkin.currentEquipments[(int)uiSkin.currentItemSelect.equipmentSlot]
+        //                 .itemData
+        //                 .itemId
+        //         )
+        //         {
+        //             uiSkin.currentItemSelect.UnUse(uiSkin.player);
+        //         }
+        //     }
+        // }
 
         isSelect = true;
         uiSkin.currentItemSelect = itemData;
         uiSkin.ShowButtonOnItemSelect();
 
-        if (itemData.equipmentSlot == EquipmentSlot.SKIN)
-        {
-            uiSkin.player.characterEquipment.oldItemSkinEquip = new List<Item>();
-            PlayerItem currentSkinId = uiSkin.dataManager.playerData.currentItems[(int)EquipmentSlot.SKIN];
-
-            if (currentSkinId != null && currentSkinId.itemId != ItemId.EMPTY)
-            {
-                Debug.Log($"Current item skin before apply skin {currentSkinId.itemId}");
-
-                SkinEquipment currentSkin = uiSkin.dataManager.listEquipment.GetItem<SkinEquipment>(currentSkinId.itemId);
-                List<Item> currentItemsSkin = currentSkin.itemsOfSkin;
-
-                for (int i = 0; i < currentItemsSkin.Count; i++)
-                {
-                    if (uiSkin.player.characterEquipment.currentEquipments[(int)currentItemsSkin[i].equipmentSlot] == null)
-                    {
-                        continue;
-                    }
-
-                    uiSkin.player.characterEquipment.oldItemSkinEquip.Add(uiSkin.player.characterEquipment.currentEquipments[(int)currentItemsSkin[i].equipmentSlot].itemData);
-                }
-
-                for (int i = 0; i < uiSkin.player.characterEquipment.oldItemSkinEquip.Count; i++)
-                {
-                    Debug.Log($"Old item skin {uiSkin.player.characterEquipment.oldItemSkinEquip[i].itemId}");
-                }
-            }
-        }
+        // if (itemData.equipmentSlot == EquipmentSlot.SKIN)
+        // {
+        //     for (int i = 0; i < uiSkin.currentEquipments.Count; i++)
+        //     {
+        //         if (uiSkin.currentEquipments[i] != null)
+        //         {
+        //             if (
+        //                 !itemsOfSkin.Contains(uiSkin.currentEquipments[i].itemData)
+        //                 && uiSkin.currentEquipments[i].itemData.equipmentSlot
+        //                     != EquipmentSlot.WEAPON
+        //             )
+        //             {
+        //                 Debug.Log($"Un use item {uiSkin.currentEquipments[i].itemData.itemId}");
+        //                 uiSkin.currentEquipments[i].itemData.UnUse(uiSkin.player);
+        //             }
+        //         }
+        //     }
+        // }
 
         itemData.Use(uiSkin.player);
     }

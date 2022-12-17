@@ -4,12 +4,23 @@ using UnityEngine;
 using UnityEditor;
 using Newtonsoft.Json;
 
-public enum EquipmentSlot { HEAD, WEAPON, SHIELD, WING, TAIL, PANT, SKIN, BODY }
+public enum EquipmentSlot
+{
+    HEAD,
+    WEAPON,
+    SHIELD,
+    WING,
+    TAIL,
+    PANT,
+    SKIN,
+    BODY
+}
 
 public class CharacterEquipment : MonoBehaviour
 {
     [SerializeField]
     public List<Transform> equipmentSlots = new List<Transform>();
+
     [SerializeField]
     internal List<ItemEquip> currentEquipments = new List<ItemEquip>();
     private DataManager dataManager;
@@ -29,7 +40,10 @@ public class CharacterEquipment : MonoBehaviour
         UnEquipItem(equipmentSlot);
 
         ItemEquipment item = allItem.GetItem<ItemEquipment>(itemId);
-        GameObject newItemEquipmentObject = Instantiate(item.prefab, equipmentSlots[(int)equipmentSlot]);
+        GameObject newItemEquipmentObject = Instantiate(
+            item.prefab,
+            equipmentSlots[(int)equipmentSlot]
+        );
         ItemEquip newItem = newItemEquipmentObject.GetComponent<ItemEquip>();
         newItem.itemData = item;
         currentEquipments[(int)equipmentSlot] = newItem;
@@ -44,6 +58,19 @@ public class CharacterEquipment : MonoBehaviour
         }
     }
 
+    public void UnEquipAllItem()
+    {
+        Debug.Log("Unequip all item");
+        for (int i = 0; i < currentEquipments.Count; i++)
+        {
+            if (currentEquipments[i] == null)
+            {
+                continue;
+            }
+            UnEquipItem(currentEquipments[i].itemData.equipmentSlot);
+        }
+    }
+
     public void UnEquipItemMesh(EquipmentSlot equipmentSlot)
     {
         SetMaterialSlot(null, equipmentSlot, true);
@@ -52,7 +79,8 @@ public class CharacterEquipment : MonoBehaviour
 
     public Weapon GetCurrentWeaponBullet()
     {
-        WeaponEquipment weaponEquipment = (WeaponEquipment)currentEquipments[(int)EquipmentSlot.WEAPON].itemData;
+        WeaponEquipment weaponEquipment = (WeaponEquipment)
+            currentEquipments[(int)EquipmentSlot.WEAPON].itemData;
         return weaponEquipment.weaponBullet;
     }
 
@@ -66,7 +94,6 @@ public class CharacterEquipment : MonoBehaviour
         equipmentSlots[(int)EquipmentSlot.WEAPON].gameObject.SetActive(true);
     }
 
-
     public void WearItem(ItemId itemId, EquipmentSlot equipmentSlot)
     {
         MeshEquipment item = dataManager.listEquipment.GetItem<MeshEquipment>(itemId);
@@ -75,7 +102,9 @@ public class CharacterEquipment : MonoBehaviour
 
     public void SetMaterialSlot(MeshEquipment item, EquipmentSlot equipmentSlot)
     {
-        SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
+        SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[
+            (int)equipmentSlot
+        ].GetComponent<SkinnedMeshRenderer>();
         Material[] mats = new Material[] { allMaterial.GetMaterial(item.materialId).material };
         slotMeshRenderer.materials = mats;
     }
@@ -83,13 +112,25 @@ public class CharacterEquipment : MonoBehaviour
     public void SetMaterialSlot(MeshEquipment item, EquipmentSlot equipmentSlot, bool isRemoveMat)
     {
         Debug.Log($"Set mesh slot {equipmentSlot}");
-        SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[(int)equipmentSlot].GetComponent<SkinnedMeshRenderer>();
+        SkinnedMeshRenderer slotMeshRenderer = equipmentSlots[
+            (int)equipmentSlot
+        ].GetComponent<SkinnedMeshRenderer>();
 
         Material[] mats;
 
         if (isRemoveMat)
         {
-            mats = new Material[] { };
+            if (equipmentSlot == EquipmentSlot.BODY)
+            {
+                mats = new Material[]
+                {
+                    allMaterial.GetMaterial(MaterialId.MARERIAL_BODY_0).material
+                };
+            }
+            else
+            {
+                mats = new Material[] { };
+            }
         }
         else
         {
@@ -139,7 +180,10 @@ public class CharacterEquipment : MonoBehaviour
     {
         for (int i = items.Count - 1; i >= 0; i--)
         {
-            Debug.Log($"Load item {items[i]}");
+            if (owner is Player)
+            {
+                Debug.Log($"Load item {items[i]}");
+            }
             if (items[i] == ItemId.EMPTY)
             {
                 continue;

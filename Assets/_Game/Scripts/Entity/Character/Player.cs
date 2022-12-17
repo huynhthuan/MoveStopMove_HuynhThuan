@@ -19,6 +19,8 @@ public class Player : Character, IHit
 
     public void EquipAllItems()
     {
+        characterEquipment.UnEquipAllItem();
+
         Debug.Log("Equip all item with data saved");
 
         List<PlayerItem> currentPlayerItem = dataManager.playerData.currentItems;
@@ -33,26 +35,6 @@ public class Player : Character, IHit
         characterEquipment.LoadAllEquipments(this, playerItems);
     }
 
-
-
-    public void UnEquipAllItems()
-    {
-        List<PlayerItem> currentPlayerItems = dataManager.playerData.currentItems;
-
-        for (int i = 0; i < currentPlayerItems.Count; i++)
-        {
-            if (currentPlayerItems[i] != null || currentPlayerItems[i].itemId != ItemId.EMPTY)
-            {
-                Item currentItemEquip = dataManager.listEquipment.GetItem<Item>(currentPlayerItems[i].itemId);
-                if (currentItemEquip != null)
-                {
-                    Debug.Log($"Unequip Item {currentItemEquip.equipmentSlot} - {currentItemEquip.itemId}");
-                    currentItemEquip.UnUse(this);
-                }
-            }
-        }
-    }
-
     private void Move(Vector3 direction)
     {
         // Rotation when move
@@ -64,7 +46,6 @@ public class Player : Character, IHit
 
         rb.velocity = direction.normalized * speed * Time.fixedDeltaTime;
     }
-
 
     private void FixedUpdate()
     {
@@ -136,12 +117,19 @@ public class Player : Character, IHit
 
     public override void LevelUp()
     {
-
         base.LevelUp();
         attackRange.transform.localScale += characterScaleRatio * 5f;
         anim.transform.localScale += characterScaleRatio;
-        anim.transform.localPosition = new Vector3(anim.transform.localPosition.x, anim.transform.localPosition.y - characterScaleRatio.y, anim.transform.localPosition.z);
-        attackRange.transform.localPosition = new Vector3(attackRange.transform.localPosition.x, attackRange.transform.localPosition.y - characterScaleRatio.y, attackRange.transform.localPosition.z);
+        anim.transform.localPosition = new Vector3(
+            anim.transform.localPosition.x,
+            anim.transform.localPosition.y - characterScaleRatio.y,
+            anim.transform.localPosition.z
+        );
+        attackRange.transform.localPosition = new Vector3(
+            attackRange.transform.localPosition.x,
+            attackRange.transform.localPosition.y - characterScaleRatio.y,
+            attackRange.transform.localPosition.z
+        );
         capsuleCollider.transform.localScale += characterScaleRatio;
         Vector3 cameraFollowOffset = GameManager.Ins.cameraFollow.offset;
         GameManager.Ins.cameraFollow.offset = cameraFollowOffset * cameraFollowScaleRatio;

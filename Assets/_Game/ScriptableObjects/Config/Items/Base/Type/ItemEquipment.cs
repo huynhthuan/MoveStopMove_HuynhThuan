@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditor;
+
 public class ItemEquipment : Item
 {
     public GameObject prefab;
@@ -10,16 +11,20 @@ public class ItemEquipment : Item
     public override void Use(Character owner)
     {
         base.Use(owner);
-        Debug.Log(message: $"Use {(ItemId)itemId}");
+        if (owner is Player)
+        {
+            Debug.Log(message: $"Use {(ItemId)itemId}");
+        }
         owner.characterEquipment.EquipItem(itemId, equipmentSlot);
-
     }
 
     public override void UnUse(Character owner)
     {
-        Debug.Log(message: $"Unuse {(ItemId)itemId}");
+        if (owner is Player)
+        {
+            Debug.Log(message: $"Unuse {(ItemId)itemId}");
+        }
         owner.characterEquipment.UnEquipItem(equipmentSlot);
-
     }
 }
 

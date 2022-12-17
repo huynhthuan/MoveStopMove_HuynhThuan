@@ -6,10 +6,13 @@ public class CameraFollow : Singleton<CameraFollow>
 {
     [SerializeField]
     internal Transform target;
+
     [SerializeField]
     internal Vector3 offset;
+
     [SerializeField]
     private Vector3 cameraLobbyPos;
+
     [SerializeField]
     private Vector3 cameraSkinPos;
     internal bool isMoveCameraToLobby = false;
@@ -19,6 +22,7 @@ public class CameraFollow : Singleton<CameraFollow>
     private float duration = 8f;
     internal Transform TF;
     internal Player player;
+
     private void Start()
     {
         TF = transform;
@@ -30,17 +34,37 @@ public class CameraFollow : Singleton<CameraFollow>
         {
             if (isMoveCameraToFollow)
             {
-                TF.position = Vector3.Lerp(TF.position, LevelManager.Ins.player.TF.position + offset, time / duration);
+                TF.position = Vector3.Lerp(
+                    TF.position,
+                    LevelManager.Ins.player.TF.position + offset,
+                    time / duration
+                );
             }
 
             if (isMoveCameraToSkin)
             {
-                TF.position = Vector3.Lerp(TF.position, new Vector3(LevelManager.Ins.player.TF.position.x, cameraSkinPos.y, cameraSkinPos.z), time / duration);
+                TF.position = Vector3.Lerp(
+                    TF.position,
+                    new Vector3(
+                        LevelManager.Ins.player.TF.position.x,
+                        cameraSkinPos.y,
+                        cameraSkinPos.z
+                    ),
+                    time / duration
+                );
             }
 
             if (isMoveCameraToLobby)
             {
-                TF.position = Vector3.Lerp(TF.position, new Vector3(LevelManager.Ins.player.TF.position.x, cameraLobbyPos.y, cameraLobbyPos.z), time / duration);
+                TF.position = Vector3.Lerp(
+                    TF.position,
+                    new Vector3(
+                        LevelManager.Ins.player.TF.position.x,
+                        cameraLobbyPos.y,
+                        cameraLobbyPos.z
+                    ),
+                    time / duration
+                );
             }
             time += Time.fixedDeltaTime;
         }
@@ -49,7 +73,6 @@ public class CameraFollow : Singleton<CameraFollow>
         {
             TF.position = target.position + offset;
         }
-
     }
 
     public void SetCameraLobby()

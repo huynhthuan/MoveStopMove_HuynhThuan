@@ -16,8 +16,10 @@ public class DataManager : Singleton<DataManager>
 {
     [SerializeField]
     internal ListEquipment listEquipment;
+
     [SerializeField]
     internal ListMaterial listMaterial;
+
     [SerializeField]
     internal UserData playerData;
 }

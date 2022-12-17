@@ -15,6 +15,7 @@ MonoBehaviour:
   equipmentSlot: 6
   itemId: 62
   isShowOnStore: 1
+  isItemOfSkin: 0
   thumbnail: {fileID: 21300000, guid: 8a6e5039894b7ea43b8931c9f9d5b24f, type: 3}
   price: 9999
   itemsOfSkin:
@@ -22,3 +23,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 26c823cea6debbb4e9a2911060195a1f, type: 2}
   - {fileID: 11400000, guid: 068a8cb36dad5094dab1eb05ca59227e, type: 2}
   - {fileID: 11400000, guid: 37e0eb5cb50a82e43b186f256317b49f, type: 2}
+  - {fileID: 11400000, guid: 63a68304c6883964789def8bb78f1fbd, type: 2}

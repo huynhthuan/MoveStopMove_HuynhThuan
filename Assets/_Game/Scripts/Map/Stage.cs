@@ -59,10 +59,10 @@ public class Stage : MonoBehaviour
 
     public void SpawnBot(int numberBot)
     {
-        Debug.Log($"Start spawn {numberBot} bot...");
+        // Debug.Log($"Start spawn {numberBot} bot...");
         for (int i = 1; i <= numberBot; i++)
         {
-            Debug.Log("Start spawn bot index [" + i + "]...");
+            // Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
             Bot botOjb = SimplePool.Spawn<Bot>(LevelManager.Ins.botPrefab, pointToSpawn, Quaternion.identity);
             WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(LevelManager.Ins.wayPointIndicator, Vector3.zero, Quaternion.identity);
@@ -131,7 +131,7 @@ public class Stage : MonoBehaviour
             }
         }
 
-        Debug.Log($"Point to spawn bot. {hit.position}");
+        // Debug.Log($"Point to spawn bot. {hit.position}");
 
         return hit.position;
     }
@@ -165,7 +165,7 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < numberCharacterInStage; i++)
         {
-            Debug.Log($"Distance with {characterInStage[i].name} | {Vector3.Distance(characterInStage[i].TF.position, hit.position)}");
+            // Debug.Log($"Distance with {characterInStage[i].name} | {Vector3.Distance(characterInStage[i].TF.position, hit.position)}");
 
             if (!(Vector3.Distance(characterInStage[i].TF.position, hit.position) > characterInStage[i].attackRange.GetAttackRadius() + 4f))
             {

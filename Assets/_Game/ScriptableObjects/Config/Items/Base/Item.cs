@@ -89,4 +89,8 @@ public enum ItemId
     SKIN_CHARACTER_THOR,
     SKIN_CHARACTER_DEADPOOL,
     SKIN_CHARACTER_ANGLE,
+    WING_0,
+    TAIL_0,
+    HEAD_0,
+    SHIELD_0
 }
