@@ -15,6 +15,7 @@ MonoBehaviour:
   equipmentSlot: 1
   itemId: 13
   isShowOnStore: 1
+  isItemOfSkin: 0
   thumbnail: {fileID: 0}
   price: 5633
   prefab: {fileID: 8570058431476652751, guid: ea6f25af91b37de4e9651959202b0b58, type: 3}
@@ -29,5 +30,5 @@ MonoBehaviour:
     icon: {fileID: 0}
   - materialId: 3
     icon: {fileID: 0}
-  weaponBullet: {fileID: 0}
+  weaponBullet: {fileID: 8122001491547342647, guid: 11f5d52d597a1fd41b0ebb6dcee7b2fe, type: 3}
   itemSkins: []

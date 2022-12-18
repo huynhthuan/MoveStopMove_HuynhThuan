@@ -7,6 +7,11 @@ public enum WeaponType
     KNIFE,
     HAMMER,
     BOOMERANG,
+    AXE,
+    UZI,
+    CANDY,
+    THUNDER_Z,
+    ARROW
 }
 
 public class Weapon : ItemEquip

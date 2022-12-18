@@ -55,7 +55,7 @@ public class Bot : Character, IHit, ISelectable
         weaponRandom.Use(this);
         pantsRandom.Use(this);
 
-        // ChangeState(new IStateBotIdle());
+        ChangeState(new IStateBotIdle());
     }
 
     public void ChangeColorBody(Color newColor)
@@ -96,7 +96,7 @@ public class Bot : Character, IHit, ISelectable
     {
         if (isCoolDownAttack)
         {
-            delayAttack -= Time.fixedDeltaTime;
+            delayAttack -= Time.deltaTime;
         }
 
         if (isStartCheckView)
@@ -123,7 +123,7 @@ public class Bot : Character, IHit, ISelectable
         navMeshAgent.isStopped = true;
         isDead = true;
         int characterIndex = currentStage.characterInStage.IndexOf(this);
-        wayPoint.OnDespawn();
+        // wayPoint.OnDespawn();
         currentStage.characterColorAvaible.Add(currentColor);
         currentStage.OnCharacterDie(characterIndex);
         rb.detectCollisions = false;
@@ -149,12 +149,44 @@ public class Bot : Character, IHit, ISelectable
                 {
                     ParticlePool.Play(
                         LevelManager.Ins.deathParticle,
-                        new Vector3(TF.position.x, TF.localScale.y / 2, TF.position.z),
+                        new Vector3(TF.position.x, 1f, TF.position.z),
                         Quaternion.identity
                     );
                     StopCoroutine(waitAfterDeathCoroutine);
                     Debug.Log("Anim dead end");
                     OnDespawn();
+                }
+            )
+        );
+    }
+
+    public void StartCoroutineAttackBot()
+    {
+        RotationToTarget();
+
+        isAttackAnimEnd = false;
+
+        Vector3 direction = GetDirToFireWeapon();
+        characterEquipment.HiddenWeapon();
+
+        SpawnWeaponBullet(direction);
+
+        ChangeAnim(ConstString.ANIM_ATTACK);
+
+        AnimatorStateInfo animState = anim.GetCurrentAnimatorStateInfo(0);
+
+        isCoolDownAttack = true;
+
+        waitAfterAtkCoroutine = StartCoroutine(
+            WaitAnimEnd(
+                animState.length,
+                () =>
+                {
+                    delayAttack = 2f;
+                    Debug.Log($"{gameObject.name} Show weapon");
+                    StopCoroutine(waitAfterAtkCoroutine);
+                    isAttackAnimEnd = true;
+                    characterEquipment.ShowWeapon();
                 }
             )
         );

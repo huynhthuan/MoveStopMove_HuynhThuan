@@ -29,6 +29,9 @@ public class Player : Character, IHit
 
         attackRange.transform.localPosition = new Vector3(0f, -0.9f, 0f);
         capsuleCollider.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        level = 0;
+        exp = 0;
     }
 
     public void EquipAllItems()

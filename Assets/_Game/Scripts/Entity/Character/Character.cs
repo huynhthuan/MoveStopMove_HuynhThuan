@@ -6,20 +6,28 @@ public class Character : GameUnit
 {
     [SerializeField]
     internal Rigidbody rb;
+
     [SerializeField]
     internal Animator anim;
+
     [SerializeField]
     internal AttackRange attackRange;
+
     [SerializeField]
     public Character currentTarget;
+
     [SerializeField]
     internal TargetIndicator targetIndicator;
+
     [SerializeField]
     internal CharacterEquipment characterEquipment;
+
     [SerializeField]
     internal CapsuleCollider capsuleCollider;
+
     [SerializeField]
     public float speed;
+
     [SerializeField]
     internal DynamicJoystick joystick;
     internal float delayAttack = 0f;
@@ -68,7 +76,10 @@ public class Character : GameUnit
     public Vector3 GetDirToTarget()
     {
         Transform targetColliderTF = currentTarget.colliderTF;
-        return (new Vector3(targetColliderTF.position.x, TF.position.y, targetColliderTF.position.z) - TF.position).normalized;
+        return (
+            new Vector3(targetColliderTF.position.x, TF.position.y, targetColliderTF.position.z)
+            - TF.position
+        ).normalized;
     }
 
     public Vector3 GetDirToFireWeapon()
@@ -79,9 +90,12 @@ public class Character : GameUnit
 
     public void RotationToTarget()
     {
-        Vector3 direction = GetDirToTarget();
-        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-        rb.transform.rotation = rotation;
+        if (currentTarget != null)
+        {
+            Vector3 direction = GetDirToTarget();
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            rb.transform.rotation = rotation;
+        }
     }
 
     public void Attack()
@@ -122,13 +136,18 @@ public class Character : GameUnit
 
         float animLength = anim.GetCurrentAnimatorStateInfo(0).length;
 
-        waitAfterAtkCoroutine = StartCoroutine(WaitAnimEnd(animLength, () =>
-        {
-            StopCoroutine(waitAfterAtkCoroutine);
-            isAttackAnimEnd = true;
-            characterEquipment.ShowWeapon();
-            Debug.Log("Show weapon");
-        }));
+        waitAfterAtkCoroutine = StartCoroutine(
+            WaitAnimEnd(
+                animLength,
+                () =>
+                {
+                    StopCoroutine(waitAfterAtkCoroutine);
+                    isAttackAnimEnd = true;
+                    characterEquipment.ShowWeapon();
+                    Debug.Log("Show weapon");
+                }
+            )
+        );
     }
 
     public void SpawnWeaponBullet(Vector3 dir)
@@ -171,7 +190,6 @@ public class Character : GameUnit
     {
         targetIndicator.EnableIndicator();
     }
-
 
     public void OnDeSelect()
     {

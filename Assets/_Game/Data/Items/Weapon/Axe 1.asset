@@ -15,11 +15,12 @@ MonoBehaviour:
   equipmentSlot: 1
   itemId: 7
   isShowOnStore: 1
+  isItemOfSkin: 0
   thumbnail: {fileID: 0}
+  price: 150
   prefab: {fileID: 3904890378775312067, guid: b08bba29330496a4985bfc06ab765336, type: 3}
   itemName: "R\xECu 1"
   description: 
-  price: 150
   materialAvaibleItem:
   - materialId: 0
     icon: {fileID: 0}
@@ -29,5 +30,5 @@ MonoBehaviour:
     icon: {fileID: 0}
   - materialId: 3
     icon: {fileID: 0}
-  weaponBullet: {fileID: 0}
+  weaponBullet: {fileID: 8845880527063690948, guid: f488ab9f27da45d4fa2ab9eac250acb1, type: 3}
   itemSkins: []

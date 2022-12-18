@@ -9,7 +9,7 @@ public class IStateBotIdle : IStateBot
 
     public void OnEnter(Bot bot)
     {
-        bot.navMeshAgent.velocity = Vector3.zero;
+        bot.navMeshAgent.isStopped = true;
         randomTime = Random.Range(1f, 3f);
         bot.isStartCheckView = false;
     }
@@ -18,6 +18,11 @@ public class IStateBotIdle : IStateBot
     {
         if (bot.navMeshAgent.enabled)
         {
+            if (bot.currentTarget != null)
+            {
+                Debug.Log($"Idle and has target. change to attack");
+                bot.ChangeState(new IStateBotAttack());
+            }
 
             bot.ChangeAnim(ConstString.ANIM_IDLE);
 
@@ -28,7 +33,6 @@ public class IStateBotIdle : IStateBot
                 bot.ChangeState(new IStateBotFindEnemy());
             }
         }
-
     }
 
     public void OnExit(Bot bot) { }

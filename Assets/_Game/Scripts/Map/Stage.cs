@@ -59,7 +59,7 @@ public class Stage : MonoBehaviour
         // Spawn bot of stage
         if (IsCanSpawnBot())
         {
-            SpawnBot(9);
+            SpawnBot(maxBot);
         }
     }
 
@@ -77,11 +77,6 @@ public class Stage : MonoBehaviour
                 Quaternion.identity
             );
 
-            WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(
-                LevelManager.Ins.wayPointIndicator,
-                Vector3.zero,
-                Quaternion.identity
-            );
 
             // Init bot
             botOjb.name = $"Bot {i}";
@@ -93,7 +88,7 @@ public class Stage : MonoBehaviour
             characterColorAvaible.Remove(newColor);
             botOjb.ChangeColorBody(newColor);
 
-            Debug.Log($"pointToSpawn {pointToSpawn}");
+            // Debug.Log($"pointToSpawn {pointToSpawn}");
 
             ParticlePool.Play(
                 LevelManager.Ins.respawnParticle,
@@ -101,12 +96,19 @@ public class Stage : MonoBehaviour
                 Quaternion.Euler(90f, 0, 0)
             );
 
-            // Init waypoint indicator
-            waypointObj.targetFowllow = botOjb;
-            waypointObj.currentColor = botOjb.currentColor;
-            waypointObj.OnInit();
+            WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(
+                LevelManager.Ins.wayPointIndicator,
+                Vector3.zero,
+                Quaternion.identity
+            );
 
-            botOjb.wayPoint = waypointObj;
+
+            // Init waypoint indicator
+            // waypointObj.targetFowllow = botOjb;
+            // waypointObj.currentColor = botOjb.currentColor;
+            // waypointObj.OnInit();
+
+            // botOjb.wayPoint = waypointObj;
         }
     }
 

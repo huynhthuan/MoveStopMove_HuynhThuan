@@ -148,13 +148,13 @@ public class UIManager : Singleton<UIManager>
 
     private void FixedUpdate()
     {
-        if (isEnableWaypoint)
-        {
-            vfxGameobject.SetActive(true);
-        }
-        else
-        {
-            vfxGameobject.SetActive(false);
-        }
+        // if (isEnableWaypoint)
+        // {
+        //     vfxGameobject.SetActive(true);
+        // }
+        // else
+        // {
+        //     vfxGameobject.SetActive(false);
+        // }
     }
 }

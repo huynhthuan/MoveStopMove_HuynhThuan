@@ -362,5 +362,14 @@ public enum PoolType
     Bot,
     Player,
     Waypoint,
-    TargetRespawnFX
+    TargetRespawnFX,
+    Arrow_Bullet,
+    Axe_1_Bullet,
+    Axe_2_Bullet,
+    Boomerang_Bullet,
+    Candy_2_Bullet,
+    Candy_3_Bullet,
+    Gun_Uzi_Bullet,
+    Thunder_Z_Bullet,
+    Candy_1_Bullet
 }
