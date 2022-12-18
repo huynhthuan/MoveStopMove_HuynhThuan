@@ -9,12 +9,26 @@ public class Player : Character, IHit
 
     public override void OnInit()
     {
+        OnReset();
         Debug.Log("Oninit player manager...");
         base.OnInit();
         dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
         CameraFollow.Ins.player = this;
         EquipAllItems();
+    }
+
+    public void OnReset()
+    {
+        characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
+        cameraFollowScaleRatio = 2.5f;
+
+        attackRange.transform.localScale = new Vector3(3f, 3f, 3f);
+        anim.transform.localScale = new Vector3(1f, 1f, 1f);
+        anim.transform.localPosition = new Vector3(0f, -1f, 0f);
+
+        attackRange.transform.localPosition = new Vector3(0f, -0.9f, 0f);
+        capsuleCollider.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void EquipAllItems()

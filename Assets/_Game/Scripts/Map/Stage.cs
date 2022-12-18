@@ -101,9 +101,6 @@ public class Stage : MonoBehaviour
                 Quaternion.Euler(90f, 0, 0)
             );
 
-            // respawnPartical.TF.Rotate(90f, 0, 0);
-            // respawnPartical.TF.localScale = new Vector3(1f, 1f, 1f);
-
             // Init waypoint indicator
             waypointObj.targetFowllow = botOjb;
             waypointObj.currentColor = botOjb.currentColor;

@@ -15,6 +15,13 @@ public class CameraFollow : Singleton<CameraFollow>
 
     [SerializeField]
     private Vector3 cameraSkinPos;
+
+    [SerializeField]
+    public LayerMask maskObsctruction;
+
+    [SerializeField]
+    private Material materialTransparent;
+
     internal bool isMoveCameraToLobby = false;
     internal bool isMoveCameraToSkin = false;
     internal bool isMoveCameraToFollow = false;
@@ -22,6 +29,12 @@ public class CameraFollow : Singleton<CameraFollow>
     private float duration = 8f;
     internal Transform TF;
     internal Player player;
+    RaycastHit hit;
+
+    // public List<GameObject> obstructionInactive = new List<GameObject>();
+
+    public Dictionary<MeshRenderer, Material[]> oldMaterials =
+        new Dictionary<MeshRenderer, Material[]>();
 
     private void Start()
     {
@@ -30,6 +43,54 @@ public class CameraFollow : Singleton<CameraFollow>
 
     private void FixedUpdate()
     {
+        Ray rayToCameraPos = new Ray(TF.position, TF.position - player.TF.position);
+
+        if (
+            Physics.Raycast(
+                TF.position,
+                player.TF.position - TF.position,
+                out hit,
+                Vector3.Distance(TF.position, player.TF.position),
+                maskObsctruction
+            )
+        )
+        {
+            Debug.DrawRay(TF.position, player.TF.position - TF.position, Color.yellow);
+
+            Collider curentCollider = hit.collider;
+            MeshRenderer currentMesh = curentCollider.GetComponent<MeshRenderer>();
+
+            if (!oldMaterials.ContainsKey(currentMesh))
+            {
+                Material[] currentMaterials = new Material[currentMesh.materials.Length];
+
+                for (int i = 0; i < currentMaterials.Length; i++)
+                {
+                    currentMaterials[i] = currentMesh.materials[i];
+                }
+
+                oldMaterials.Add(currentMesh, currentMaterials);
+
+                Material[] listMaterialTransparent = new Material[currentMaterials.Length];
+
+                for (int i = 0; i < currentMaterials.Length; i++)
+                {
+                    listMaterialTransparent[i] = materialTransparent;
+                }
+
+                currentMesh.materials = listMaterialTransparent;
+            }
+        }
+        else
+        {
+            foreach (KeyValuePair<MeshRenderer, Material[]> mesh in oldMaterials)
+            {
+                mesh.Key.GetComponent<MeshRenderer>().materials = mesh.Value;
+            }
+
+            oldMaterials.Clear();
+        }
+
         if (time < duration)
         {
             if (isMoveCameraToFollow)

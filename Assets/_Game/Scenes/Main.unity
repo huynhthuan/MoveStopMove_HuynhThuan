@@ -1380,6 +1380,10 @@ MonoBehaviour:
   offset: {x: 0, y: 14, z: -18}
   cameraLobbyPos: {x: 0, y: 4.7, z: -8}
   cameraSkinPos: {x: 0, y: 3.23, z: -10.84}
+  maskObsctruction:
+    serializedVersion: 2
+    m_Bits: 128
+  materialTransparent: {fileID: 2100000, guid: 045a64a28f0a73e42afecda73d10f5f7, type: 2}
 --- !u!1 &1025963089
 GameObject:
   m_ObjectHideFlags: 0

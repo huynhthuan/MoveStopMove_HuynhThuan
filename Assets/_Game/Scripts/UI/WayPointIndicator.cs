@@ -8,14 +8,19 @@ public class WayPointIndicator : GameUnit
 {
     [SerializeField]
     internal TextMeshProUGUI text;
+
     [SerializeField]
     internal Image imageInfo;
+
     [SerializeField]
     internal Image imageArrow;
+
     [SerializeField]
     internal Transform arrowObj;
+
     [SerializeField]
     internal GameObject waypoint;
+
     [SerializeField]
     private RectTransform rectTransform;
     internal Camera cameraMain;
@@ -34,7 +39,6 @@ public class WayPointIndicator : GameUnit
     {
         ChangeColor(currentColor);
         cameraMain = GameManager.Ins.mainCamera;
-        // Debug.Log($"Target {targetFowllow.name}");
         isStartFollow = true;
     }
 
@@ -46,7 +50,6 @@ public class WayPointIndicator : GameUnit
 
     public Vector3 ConvertWPtoCP(Vector3 point)
     {
-
         Vector3 viewPos = cameraMain.WorldToViewportPoint(point);
 
         viewPos.x = Mathf.Clamp(viewPos.x, 0.06f, 0.9f);
@@ -73,11 +76,11 @@ public class WayPointIndicator : GameUnit
         return canvasPos;
     }
 
-
     private void FixedUpdate()
     {
         if (isStartFollow)
         {
+            text.text = (targetFowllow.level + 1).ToString();
             rectTransform.anchoredPosition = ConvertWPtoCP(targetFowllow.TF.position);
             RotationToTarget();
 
@@ -87,8 +90,13 @@ public class WayPointIndicator : GameUnit
 
     private void RotationToTarget()
     {
-        Vector3 directionToTarget = (targetFowllow.TF.position - LevelManager.Ins.player.TF.position).normalized;
-        float angleToTarget = TF.localPosition.x > 0 ? -Vector3.Angle(TF.forward, directionToTarget) : Vector3.Angle(TF.forward, directionToTarget);
+        Vector3 directionToTarget = (
+            targetFowllow.TF.position - LevelManager.Ins.player.TF.position
+        ).normalized;
+        float angleToTarget =
+            TF.localPosition.x > 0
+                ? -Vector3.Angle(TF.forward, directionToTarget)
+                : Vector3.Angle(TF.forward, directionToTarget);
         // Debug.Log($"{targetFowllow.name} angleToTarget = {angleToTarget}");
         arrowObj.localRotation = Quaternion.Euler(0f, 0f, angleToTarget);
     }

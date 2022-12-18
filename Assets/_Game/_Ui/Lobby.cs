@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Lobby : UICanvas
 {
     [SerializeField]
@@ -27,6 +28,7 @@ public class Lobby : UICanvas
     public override void Setup()
     {
         base.Setup();
+        UIManager.Ins.isEnableWaypoint = false;
     }
 
     public override void Open()
@@ -44,6 +46,7 @@ public class Lobby : UICanvas
     {
         UIManager.Ins.OpenUI<InGame>();
         Close();
+        UIManager.Ins.isEnableWaypoint = true;
     }
 
     public void WeaponButton()
