@@ -15,6 +15,15 @@ public class LevelManager : Singleton<LevelManager>
     internal WayPointIndicator wayPointIndicator;
 
     [SerializeField]
+    internal ParticleSystem respawnParticle;
+
+    [SerializeField]
+    internal ParticleSystem explodeParticle;
+
+    [SerializeField]
+    internal ParticleSystem deathParticle;
+
+    [SerializeField]
     private List<StageConfig> stages;
 
     private DataManager dataManager;

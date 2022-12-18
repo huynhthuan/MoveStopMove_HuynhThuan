@@ -70,11 +70,13 @@ public class Stage : MonoBehaviour
         {
             // Debug.Log("Start spawn bot index [" + i + "]...");
             Vector3 pointToSpawn = GetPointToSpawn();
+
             Bot botOjb = SimplePool.Spawn<Bot>(
                 LevelManager.Ins.botPrefab,
                 pointToSpawn,
                 Quaternion.identity
             );
+
             WayPointIndicator waypointObj = SimplePool.Spawn<WayPointIndicator>(
                 LevelManager.Ins.wayPointIndicator,
                 Vector3.zero,
@@ -90,6 +92,17 @@ public class Stage : MonoBehaviour
             Color newColor = characterColorAvaible[0];
             characterColorAvaible.Remove(newColor);
             botOjb.ChangeColorBody(newColor);
+
+            Debug.Log($"pointToSpawn {pointToSpawn}");
+
+            ParticlePool.Play(
+                LevelManager.Ins.respawnParticle,
+                pointToSpawn,
+                Quaternion.Euler(90f, 0, 0)
+            );
+
+            // respawnPartical.TF.Rotate(90f, 0, 0);
+            // respawnPartical.TF.localScale = new Vector3(1f, 1f, 1f);
 
             // Init waypoint indicator
             waypointObj.targetFowllow = botOjb;

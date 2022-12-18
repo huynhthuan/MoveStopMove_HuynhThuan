@@ -401,6 +401,9 @@ MonoBehaviour:
   playerPrefab: {fileID: 6136475394438716190, guid: b402ea0a9c41e44449902f25c563ce9d, type: 3}
   botPrefab: {fileID: 2771069936727214626, guid: 06d7e35a9b2605248826b83311f78caa, type: 3}
   wayPointIndicator: {fileID: 132356708792453058, guid: 1d83ac12fac885a48ada509606450f71, type: 3}
+  respawnParticle: {fileID: 198589646380475704, guid: 57f85c2a07581214eaaa865182322bf4, type: 3}
+  explodeParticle: {fileID: 198138027695693824, guid: 86caadc364352d84c88277ee5ba76b30, type: 3}
+  deathParticle: {fileID: 198394376198402232, guid: 0ca9c3417239f0948abd3829ba3c6fb5, type: 3}
   stages:
   - {fileID: 11400000, guid: 42af9fe69ab867d48adf6599f1d70ede, type: 2}
   - {fileID: 11400000, guid: 4819b6afc70b88e47ab2b32c2fb3c3c9, type: 2}
@@ -488,7 +491,16 @@ MonoBehaviour:
     amount: 20
     collect: 1
     clamp: 0
-  Particle: []
+  Particle:
+  - prefab: {fileID: 198589646380475704, guid: 57f85c2a07581214eaaa865182322bf4, type: 3}
+    amount: 20
+    root: {fileID: 584786066}
+  - prefab: {fileID: 198138027695693824, guid: 86caadc364352d84c88277ee5ba76b30, type: 3}
+    amount: 20
+    root: {fileID: 912595643}
+  - prefab: {fileID: 198394376198402232, guid: 0ca9c3417239f0948abd3829ba3c6fb5, type: 3}
+    amount: 20
+    root: {fileID: 1915385562}
 --- !u!4 &289126842
 Transform:
   m_ObjectHideFlags: 0
@@ -504,8 +516,41 @@ Transform:
   - {fileID: 1166346321}
   - {fileID: 1301499360}
   - {fileID: 1047194011}
+  - {fileID: 584786066}
+  - {fileID: 912595643}
+  - {fileID: 1915385562}
   m_Father: {fileID: 0}
   m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &584786065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584786066}
+  m_Layer: 0
+  m_Name: TargetRespawnFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &584786066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584786065}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 289126842}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &650689242
 GameObject:
@@ -1131,6 +1176,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &912595642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 912595643}
+  m_Layer: 0
+  m_Name: TargetExplosionFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &912595643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912595642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 289126842}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &962964166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,6 +1739,36 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1915385561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1915385562}
+  m_Layer: 0
+  m_Name: DeathFire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1915385562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915385561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 289126842}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2007123229

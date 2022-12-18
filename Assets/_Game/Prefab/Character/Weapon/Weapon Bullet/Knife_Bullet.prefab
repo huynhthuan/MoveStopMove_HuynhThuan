@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2813467912831258332, guid: 179b83d00d7f3394bacb6b1ba3701b89, type: 3}
+  - {fileID: 2100000, guid: 59e4faf24927edf4a82f463ad16f1c37, type: 2}
   - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -142,9 +142,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolType: 0
-  weaponType: 0
   rb: {fileID: 4949424069701539685}
   anim: {fileID: 6707899887436331079}
+  weaponType: 0
 --- !u!54 &4949424069701539685
 Rigidbody:
   m_ObjectHideFlags: 0

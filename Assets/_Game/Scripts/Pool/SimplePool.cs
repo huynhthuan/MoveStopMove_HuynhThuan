@@ -361,5 +361,6 @@ public enum PoolType
     Hammer_Bullet,
     Bot,
     Player,
-    Waypoint
+    Waypoint,
+    TargetRespawnFX
 }

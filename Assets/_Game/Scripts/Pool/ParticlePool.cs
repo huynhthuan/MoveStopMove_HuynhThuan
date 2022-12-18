@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public static class ParticlePool
@@ -63,8 +62,8 @@ public static class ParticlePool
                 //save prefab
                 UnityEditor.Undo.RegisterCompleteObjectUndo(prefab, "Fix To Stop Action None");
                 Debug.Log(prefab.name + " ~ Fix To  Stop Action None");
-            }   
-            
+            }
+
             if (prefab.main.duration > 1)
             {
                 var main = prefab.main;
@@ -88,8 +87,9 @@ public static class ParticlePool
             }
         }
 
-        public int Count {
-            get { return inactive.Count;}
+        public int Count
+        {
+            get { return inactive.Count; }
         }
 
         // Spawn an object from our pool
@@ -106,12 +106,14 @@ public static class ParticlePool
                 inactive.Insert(index, obj);
             }
 
-            obj.transform.SetPositionAndRotation( pos, rot);
+            obj.transform.SetPositionAndRotation(pos, rot);
             obj.Play();
         }
 
-        public void Release() {
-            while(inactive.Count > 0) {
+        public void Release()
+        {
+            while (inactive.Count > 0)
+            {
                 GameObject.DestroyImmediate(inactive[0]);
                 inactive.RemoveAt(0);
             }
@@ -127,7 +129,11 @@ public static class ParticlePool
     /// <summary>
     /// Init our dictionary.
     /// </summary>
-    static void Init(ParticleSystem prefab = null, int qty = DEFAULT_POOL_SIZE, Transform parent = null)
+    static void Init(
+        ParticleSystem prefab = null,
+        int qty = DEFAULT_POOL_SIZE,
+        Transform parent = null
+    )
     {
         if (prefab != null && !pools.ContainsKey(prefab.GetInstanceID()))
         {
@@ -148,7 +154,7 @@ public static class ParticlePool
             return;
         }
 
-        if ( !pools.ContainsKey(prefab.GetInstanceID()))
+        if (!pools.ContainsKey(prefab.GetInstanceID()))
         {
             Transform newRoot = new GameObject("VFX_" + prefab.name).transform;
             newRoot.SetParent(Root);

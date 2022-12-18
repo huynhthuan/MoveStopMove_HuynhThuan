@@ -7,10 +7,13 @@ public class Bot : Character, IHit, ISelectable
 {
     [SerializeField]
     private LayerMask layerMask;
+
     [SerializeField]
     private LayerMask targetMask;
+
     [SerializeField]
     private LayerMask obstructionMask;
+
     [SerializeField]
     internal SkinnedMeshRenderer bodyRenderer;
     internal NavMeshAgent navMeshAgent;
@@ -18,10 +21,12 @@ public class Bot : Character, IHit, ISelectable
     private IStateBot currentState;
     private List<Transform> enemyInVision = new List<Transform>();
     public float radius;
+
     [Range(0, 360)]
     public float angle;
     public List<Character> targetCanSee;
     public bool isStartCheckView = false;
+
     [SerializeField]
     internal Character attackTarget;
     internal Vector3 moveTarget;
@@ -41,14 +46,16 @@ public class Bot : Character, IHit, ISelectable
         navMeshAgent.enabled = true;
 
         // Equip random weapon
-        WeaponEquipment weaponRandom = (WeaponEquipment)characterEquipment.RandomItem<WeaponEquipment>(EquipmentSlot.WEAPON);
-        MeshEquipment pantsRandom = characterEquipment.RandomItem<MeshEquipment>(EquipmentSlot.PANT);
+        WeaponEquipment weaponRandom = (WeaponEquipment)
+            characterEquipment.RandomItem<WeaponEquipment>(EquipmentSlot.WEAPON);
+        MeshEquipment pantsRandom = characterEquipment.RandomItem<MeshEquipment>(
+            EquipmentSlot.PANT
+        );
 
         weaponRandom.Use(this);
         pantsRandom.Use(this);
 
         // ChangeState(new IStateBotIdle());
-
     }
 
     public void ChangeColorBody(Color newColor)
@@ -105,6 +112,12 @@ public class Bot : Character, IHit, ISelectable
             return;
         }
 
+        ParticlePool.Play(
+            LevelManager.Ins.explodeParticle,
+            new Vector3(TF.position.x, TF.localScale.y / 2, TF.position.z),
+            Quaternion.identity
+        );
+
         AudioManager.Ins.PlayAudioInGameFX(AudioType.DIE);
 
         navMeshAgent.isStopped = true;
@@ -117,24 +130,38 @@ public class Bot : Character, IHit, ISelectable
 
         attacker.GetComponent<Character>().ExpUp();
 
-        if (attacker.GetComponent<Character>().expLevelUp.Contains(attacker.GetComponent<Character>().exp))
+        if (
+            attacker
+                .GetComponent<Character>()
+                .expLevelUp.Contains(attacker.GetComponent<Character>().exp)
+        )
         {
             attacker.GetComponent<Character>().LevelUp();
             CameraFollow.Ins.LevelUp();
         }
 
         ChangeState(new IStateBotDie());
-        waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
-              {
-                  StopCoroutine(waitAfterDeathCoroutine);
-                  Debug.Log("Anim dead end");
-                  OnDespawn();
-              }));
+
+        waitAfterDeathCoroutine = StartCoroutine(
+            WaitAnimEnd(
+                anim.GetCurrentAnimatorStateInfo(0).length - 3f,
+                () =>
+                {
+                    ParticlePool.Play(
+                        LevelManager.Ins.deathParticle,
+                        new Vector3(TF.position.x, TF.localScale.y / 2, TF.position.z),
+                        Quaternion.identity
+                    );
+                    StopCoroutine(waitAfterDeathCoroutine);
+                    Debug.Log("Anim dead end");
+                    OnDespawn();
+                }
+            )
+        );
     }
 
     private void FieldOfViewCheck()
     {
-
         Collider[] targetInVision = Physics.OverlapSphere(TF.position, radius, targetMask);
 
         if (targetInVision.Length > 0)
@@ -143,7 +170,11 @@ public class Bot : Character, IHit, ISelectable
             {
                 Character targetCharacter = ColliderCache.GetCharacter(targetInVision[i]);
 
-                if (targetCharacter.isDead || targetCharacter == this || !CheckCanSeeTarget(targetCharacter))
+                if (
+                    targetCharacter.isDead
+                    || targetCharacter == this
+                    || !CheckCanSeeTarget(targetCharacter)
+                )
                 {
                     if (targetCanSee.Contains(targetCharacter))
                     {
@@ -195,5 +226,4 @@ public class Bot : Character, IHit, ISelectable
 
         return randomTarget;
     }
-
 }
