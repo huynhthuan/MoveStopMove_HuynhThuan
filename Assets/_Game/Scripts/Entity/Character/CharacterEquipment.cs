@@ -145,7 +145,7 @@ public class CharacterEquipment : MonoBehaviour
     {
         List<Item> itemsBySlot = allItem.GetItemsBySlot<Item>(slot);
         int itemIdRandom = Random.Range(0, maxExclusive: itemsBySlot.Count);
-        return allItem.GetItem<T>(itemsBySlot[itemIdRandom].itemId);
+        return allItem.GetItemOnStore<T>(itemsBySlot[itemIdRandom].itemId);
     }
 
     public List<ItemId> GetRandomAllItem()

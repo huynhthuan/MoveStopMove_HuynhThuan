@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db946dc56be8354da68ba4ea49e5c3c, type: 3}
   m_Name: Stage 2
   m_EditorClassIdentifier: 
-  numberOfPlayer: 10
+  numberOfPlayer: 100
   maxBot: 9
   stagePrefab: {fileID: 9909509020838520, guid: a0543a89410353d4baa367b0134e72dd, type: 3}
   startPoint: {x: 0, y: 0.9, z: 0}

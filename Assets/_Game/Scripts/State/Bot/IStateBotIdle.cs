@@ -20,11 +20,11 @@ public class IStateBotIdle : IStateBot
         {
             if (bot.navMeshAgent.enabled)
             {
-                if (bot.currentTarget != null)
-                {
-                    Debug.Log($"Idle and has target. change to attack");
-                    bot.ChangeState(new IStateBotAttack());
-                }
+                // if (bot.currentTarget != null)
+                // {
+                //     Debug.Log($"Idle and has target. change to attack");
+                //     bot.ChangeState(new IStateBotAttack());
+                // }
 
                 bot.ChangeAnim(ConstString.ANIM_IDLE);
 

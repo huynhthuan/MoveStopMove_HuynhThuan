@@ -10,30 +10,13 @@ public class Player : Character, IHit
 
     public override void OnInit()
     {
-        OnReset();
+        isWin = false;
         Debug.Log("Oninit player manager...");
         base.OnInit();
         dataManager = DataManager.Ins;
         CameraFollow.Ins.target = TF;
         CameraFollow.Ins.player = this;
         EquipAllItems();
-    }
-
-    public void OnReset()
-    {
-        isWin = false;
-        characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
-        cameraFollowScaleRatio = 2.5f;
-
-        attackRange.transform.localScale = new Vector3(3f, 3f, 3f);
-        anim.transform.localScale = new Vector3(1f, 1f, 1f);
-        anim.transform.localPosition = new Vector3(0f, -1f, 0f);
-
-        attackRange.transform.localPosition = new Vector3(0f, -0.9f, 0f);
-        capsuleCollider.transform.localScale = new Vector3(1f, 1f, 1f);
-
-        level = 0;
-        exp = 0;
     }
 
     public void EquipAllItems()
@@ -68,75 +51,72 @@ public class Player : Character, IHit
 
     private void FixedUpdate()
     {
-        if (isCoolDownAttack)
+        if (!isDead)
         {
-            delayAttack -= Time.fixedDeltaTime;
-        }
-
-        if (joystick != null)
-        {
-            Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
-        }
-
-        // Check character stop
-        if (isWin)
-        {
-            ChangeAnim(ConstString.ANIM_DANCE);
-        }
-        else
-        {
-            if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
+            if (isCoolDownAttack)
             {
-                // Check can attack
-                if (currentTarget != null)
+                delayAttack -= Time.fixedDeltaTime;
+            }
+
+            if (joystick != null)
+            {
+                Move(Vector3.forward * joystick.Vertical + Vector3.right * joystick.Horizontal);
+            }
+
+            // Check character stop
+            if (isWin)
+            {
+                ChangeAnim(ConstString.ANIM_DANCE);
+            }
+            else
+            {
+                if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
                 {
-                    if (!currentTarget.isDead && isCanAtk)
+                    // Check can attack
+                    if (currentTarget != null)
                     {
-                        // Disable can attack
-                        isCanAtk = false;
-                        RotationToTarget();
-                        Attack();
+                        if (!currentTarget.isDead && isCanAtk)
+                        {
+                            // Disable can attack
+                            isCanAtk = false;
+                            RotationToTarget();
+                            Attack();
+                        }
+                    }
+                    else
+                    {
+                        if (isAttackAnimEnd || isCanAtk)
+                        {
+                            // Not has tartget, change idle anim
+                            ChangeAnim(ConstString.ANIM_IDLE);
+                        }
                     }
                 }
                 else
                 {
-                    if (isAttackAnimEnd || isCanAtk)
-                    {
-                        // Not has tartget, change idle anim
-                        ChangeAnim(ConstString.ANIM_IDLE);
-                    }
+                    isCanAtk = true;
+                    characterEquipment.ShowWeapon();
+                    ChangeAnim(ConstString.ANIM_RUN);
                 }
-            }
-            else
-            {
-                isCanAtk = true;
-                characterEquipment.ShowWeapon();
-                ChangeAnim(ConstString.ANIM_RUN);
             }
         }
     }
 
     public void OnHit(Transform attacker)
     {
-        if (isDead)
-        {
-            return;
-        }
+        GameManager.Ins.TriggerVibrate();
+        rb.velocity = Vector3.zero;
 
-        UIManager.Ins.OpenUI<Lose>();
+        isDead = true;
+        currentStage.OnCharacterDie(this);
+
+        ChangeAnim(ConstString.ANIM_DEAD);
 
         ParticlePool.Play(
             LevelManager.Ins.explodeParticle,
             new Vector3(TF.position.x, TF.localScale.y / 2, TF.position.z),
             Quaternion.identity
         );
-
-        isDead = true;
-        currentStage.OnCharacterDie(this);
-        rb.detectCollisions = false;
-        attacker.GetComponent<Character>().LevelUp();
-
-        ChangeAnim(ConstString.ANIM_DEAD);
 
         waitAfterDeathCoroutine = StartCoroutine(
             WaitAnimEnd(
@@ -154,6 +134,19 @@ public class Player : Character, IHit
                 }
             )
         );
+
+        if (
+            attacker
+                .GetComponent<Character>()
+                .expLevelUp.Contains(attacker.GetComponent<Character>().exp)
+        )
+        {
+            attacker.GetComponent<Character>().LevelUp();
+            CameraFollow.Ins.LevelUp();
+        }
+
+        UIManager.Ins.CloseUI<InGame>();
+        UIManager.Ins.OpenUI<Lose>();
     }
 
     public override void LevelUp()

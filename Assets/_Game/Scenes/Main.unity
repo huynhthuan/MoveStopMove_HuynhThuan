@@ -985,7 +985,7 @@ MonoBehaviour:
   - audioType: 6
     audioClip: {fileID: 8300000, guid: 903b01ec49463e945a97015f8f29b96d, type: 3}
   - audioType: 7
-    audioClip: {fileID: 8300000, guid: 78a7f5889d4eafc4e82c1cbc1a6110c5, type: 3}
+    audioClip: {fileID: 8300000, guid: 2924a469cce81254eb5c7a46a798a6dd, type: 3}
   audioSourceFX: {fileID: 810948224}
   audioSourceBG: {fileID: 810948225}
   audioSourceIngameFX: {fileID: 810948226}

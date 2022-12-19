@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR_WIN
 [CustomEditor(typeof(Bot))]
 public class FieldOfViewEditor : Editor
 {

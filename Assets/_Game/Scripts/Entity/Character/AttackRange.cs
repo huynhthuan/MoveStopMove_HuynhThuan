@@ -6,12 +6,14 @@ public class AttackRange : MonoBehaviour
 {
     [SerializeField]
     private LayerMask layerMask;
+
     [SerializeField]
     internal Character character;
     private SpriteRenderer spriteRenderer;
     internal Transform TF;
     internal float radiusRatio = 1.23f;
     private float attackRadius;
+
     [SerializeField]
     internal List<Character> targetsInRange;
 
@@ -19,6 +21,7 @@ public class AttackRange : MonoBehaviour
     {
         TF = GetComponent<Transform>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        radiusRatio = 1.23f;
     }
 
     private void FixedUpdate()
@@ -26,7 +29,6 @@ public class AttackRange : MonoBehaviour
         if (character.currentStage.characterInStage.Count > 0)
         {
             GetTargetsInRange();
-
         }
 
         if (targetsInRange.Count > 0)
@@ -35,7 +37,6 @@ public class AttackRange : MonoBehaviour
             Character nearestEnemy = FindNearestEnemy();
             if (nearestEnemy != null)
             {
-
                 if (character is Player)
                 {
                     if (character.currentTarget != null)
@@ -43,13 +44,10 @@ public class AttackRange : MonoBehaviour
                         character.currentTarget.OnDeSelect();
                         character.currentTarget.OnSelect();
                     }
-
-
                 }
 
                 character.currentTarget = nearestEnemy;
             }
-
         }
         else
         {
@@ -79,13 +77,14 @@ public class AttackRange : MonoBehaviour
                     {
                         targetsInRange.Add(enemy);
                     }
-
                 }
                 else
                 {
-                    targetsInRange.Remove(enemy);
+                    if (targetsInRange.Contains(enemy))
+                    {
+                        targetsInRange.Remove(enemy);
+                    }
                 }
-
             }
         }
     }

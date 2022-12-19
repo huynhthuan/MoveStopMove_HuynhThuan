@@ -8,7 +8,7 @@ public class Win : UICanvas
     {
         base.Setup();
         LevelManager.Ins.player.isWin = true;
-        if (DataManager.Ins.playerData.currentStage + 1 > 1)
+        if (DataManager.Ins.playerData.currentStage + 1 <= 1)
         {
             DataManager.Ins.playerData.SetIntData(
                 UserData.Key_Current_Stage,
@@ -21,6 +21,7 @@ public class Win : UICanvas
     public override void Open()
     {
         base.Open();
+        GameManager.Ins.TriggerVibrate();
     }
 
     public override void Close()
@@ -32,12 +33,12 @@ public class Win : UICanvas
     {
         if (DataManager.Ins.playerData.currentStage > 1)
         {
-            Debug.Log("No new map");
             return;
         }
-
-        GameManager.Ins.NewGame();
-        UIManager.Ins.OpenUI<Lobby>();
-        Close();
+        else
+        {
+            Close();
+            GameManager.Ins.NewGame();
+        }
     }
 }

@@ -18,6 +18,7 @@ public class Weapon : ItemEquip
 {
     [SerializeField]
     internal Rigidbody rb;
+
     [SerializeField]
     internal Transform anim;
     internal Transform animTF;
@@ -36,7 +37,6 @@ public class Weapon : ItemEquip
         {
             animTF = anim.transform;
         }
-
     }
 
     public void SetDir(Vector3 dir)
@@ -46,9 +46,14 @@ public class Weapon : ItemEquip
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == 7)
+        {
+            OnDespawn();
+            return;
+        }
+
         if (other.CompareTag(ConstString.TAG_BOT) || other.CompareTag(ConstString.TAG_PLAYER))
         {
-
             IHit colliderHit = ColliderCache.GetHit(other);
             Character colliderCharacter = ColliderCache.GetCharacter(other);
 

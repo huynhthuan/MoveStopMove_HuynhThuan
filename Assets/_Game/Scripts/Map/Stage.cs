@@ -34,6 +34,45 @@ public class Stage : MonoBehaviour
     internal List<Color> characterColorAvaible = new List<Color>();
     public bool botCanPlay = false;
 
+    public string[] playerNames =
+    {
+        "Abby",
+        "Abbye",
+        "Abigael",
+        "Abigail",
+        "Cicely",
+        "Cicily",
+        "Ciel",
+        "Cilka",
+        "Cinda",
+        "Cindee",
+        "Dalila",
+        "Dallas",
+        "Daloris",
+        "Damara",
+        "Editha",
+        "Edithe",
+        "Ediva",
+        "Edna",
+        "Edwina",
+        "Edy",
+        "Edyth",
+        "Edythe",
+        "Effie",
+        "Eileen",
+        "Jodie",
+        "Jody",
+        "Joeann",
+        "Joela",
+        "Joelie",
+        "Joell",
+        "Joella",
+        "Joelle",
+        "Joellen",
+        "Joelly",
+        "Joellyn",
+    };
+
     public void OnInit()
     {
         Debug.Log("Oninit stage...");
@@ -79,7 +118,7 @@ public class Stage : MonoBehaviour
             );
 
             // Init bot
-            botOjb.name = $"Bot {i}";
+            botOjb.name = $"{playerNames[Random.Range(0, playerNames.Length)]}";
             botOjb.currentStage = this;
             characterInStage.Add(botOjb);
             botOjb.OnInit();
@@ -92,7 +131,7 @@ public class Stage : MonoBehaviour
 
             ParticlePool.Play(
                 LevelManager.Ins.respawnParticle,
-                pointToSpawn,
+                new Vector3(pointToSpawn.x, 0.2f, pointToSpawn.z),
                 Quaternion.Euler(90f, 0, 0)
             );
 
@@ -103,17 +142,17 @@ public class Stage : MonoBehaviour
             );
 
             // Init waypoint indicator
-            // waypointObj.targetFowllow = botOjb;
-            // waypointObj.currentColor = botOjb.currentColor;
-            // waypointObj.OnInit();
+            waypointObj.targetFowllow = botOjb;
+            waypointObj.currentColor = botOjb.currentColor;
+            waypointObj.OnInit();
 
-            // botOjb.wayPoint = waypointObj;
+            botOjb.wayPoint = waypointObj;
         }
     }
 
     public bool IsCanSpawnBot()
     {
-        return (playerAlive > 2 && characterInStage.Count - 1 < maxBot);
+        return playerAlive - 1 >= maxBot;
     }
 
     public void OnCharacterDie(Character characterDie)
@@ -121,23 +160,35 @@ public class Stage : MonoBehaviour
         characterInStage.Remove(characterDie);
         playerAlive--;
 
-        if (playerAlive == 1)
+        if (characterDie is Player)
         {
-            if (characterInStage[0] is Player)
-            {
-                UIManager.Ins.OpenUI<Win>();
-            }
-            else
-            {
-                UIManager.Ins.OpenUI<Lose>();
-            }
+            CheckWinStage();
         }
 
         if (characterDie is Bot)
         {
-            if (IsCanSpawnBot() && playerAlive - 1 > maxBot)
+            CheckWinStage();
+
+            if (IsCanSpawnBot())
             {
                 SpawnBot(1);
+            }
+        }
+    }
+
+    public void CheckWinStage()
+    {
+        if (characterInStage.Count == 1)
+        {
+            if (characterInStage[0] is Player)
+            {
+                UIManager.Ins.CloseUI<InGame>();
+                UIManager.Ins.OpenUI<Win>();
+            }
+            else
+            {
+                UIManager.Ins.CloseUI<InGame>();
+                UIManager.Ins.OpenUI<Lose>();
             }
         }
     }
@@ -169,9 +220,9 @@ public class Stage : MonoBehaviour
         Bounds stageBounds = LevelManager.Ins.navMeshSurface.navMeshData.sourceBounds;
         // Debug.Log($"Bounds stage {stageBounds}");
         // Random x
-        float rx = Random.Range(stageBounds.min.x + 10f, stageBounds.max.x - 10f);
+        float rx = Random.Range(stageBounds.min.x, stageBounds.max.x);
         // Random z
-        float rz = Random.Range(stageBounds.min.z + 10f, stageBounds.max.z - 10f);
+        float rz = Random.Range(stageBounds.min.z, stageBounds.max.z);
         // Return random poin in stage
         return new Vector3(rx, 0.9f, rz);
     }
@@ -197,7 +248,7 @@ public class Stage : MonoBehaviour
             if (
                 !(
                     Vector3.Distance(characterInStage[i].TF.position, hit.position)
-                    > characterInStage[i].attackRange.GetAttackRadius() + 4f
+                    > characterInStage[i].attackRange.GetAttackRadius() + 6f
                 )
             )
             {

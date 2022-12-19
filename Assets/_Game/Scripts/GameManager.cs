@@ -6,14 +6,19 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     internal DynamicJoystick joystick;
+
     [SerializeField]
     internal CameraFollow cameraFollow;
+
     [SerializeField]
     internal Camera mainCamera;
+
     [SerializeField]
     internal Vector3 characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
+
     [SerializeField]
     internal float cameraFollowScaleRatio = 2.5f;
+
     [SerializeField]
     internal Transform itemForCamera;
     internal Camera cameraItem;
@@ -51,7 +56,7 @@ public class GameManager : Singleton<GameManager>
 
         // Init audio
         AudioManager.Ins.OnInit();
-        // AudioManager.Ins.PlayAudioBackground(AudioType.BACKGROUND);
+        AudioManager.Ins.PlayAudioBackground(AudioType.BACKGROUND);
 
         // Init level manager
         LevelManager.Ins.OnInit();
@@ -73,4 +78,12 @@ public class GameManager : Singleton<GameManager>
 
     // Update is called once per frame
     void Update() { }
+
+    public void TriggerVibrate()
+    {
+        if (DataManager.Ins.playerData.isEnableVibration)
+        {
+            Handheld.Vibrate();
+        }
+    }
 }

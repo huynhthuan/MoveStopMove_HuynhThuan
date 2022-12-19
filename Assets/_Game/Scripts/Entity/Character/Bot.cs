@@ -17,6 +17,7 @@ public class Bot : Character, IHit, ISelectable
     [SerializeField]
     internal SkinnedMeshRenderer bodyRenderer;
     internal NavMeshAgent navMeshAgent;
+
     // private float rangeSearchPoint = 10.0f;
     private IStateBot currentState;
     private List<Transform> enemyInVision = new List<Transform>();
@@ -36,13 +37,14 @@ public class Bot : Character, IHit, ISelectable
     public override void OnDespawn()
     {
         base.OnDespawn();
-        isStartCheckView = false;
+        targetCanSee.Clear();
+        attackTarget = null;
     }
 
     public override void OnInit()
     {
         base.OnInit();
-        OnReset();
+        isStartCheckView = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.enabled = true;
 
@@ -53,26 +55,23 @@ public class Bot : Character, IHit, ISelectable
             EquipmentSlot.PANT
         );
 
+        HeadEquipment headRandom = characterEquipment.RandomItem<HeadEquipment>(EquipmentSlot.HEAD);
+
+        ShieldEquipment shieldEquipment = characterEquipment.RandomItem<ShieldEquipment>(
+            EquipmentSlot.SHIELD
+        );
+
         weaponRandom.Use(this);
         pantsRandom.Use(this);
+        headRandom.Use(this);
+        shieldEquipment.Use(this);
 
         ChangeState(new IStateBotIdle());
     }
 
-    public void OnReset()
+    public override void OnReset()
     {
-        characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
-        cameraFollowScaleRatio = 2.5f;
-
-        attackRange.transform.localScale = new Vector3(3f, 3f, 3f);
-        anim.transform.localScale = new Vector3(1f, 1f, 1f);
-        anim.transform.localPosition = new Vector3(0f, -1f, 0f);
-
-        attackRange.transform.localPosition = new Vector3(0f, -0.9f, 0f);
-        capsuleCollider.transform.localScale = new Vector3(1f, 1f, 1f);
-
-        level = 0;
-        exp = 0;
+        base.OnReset();
     }
 
     public void ChangeColorBody(Color newColor)
@@ -124,9 +123,15 @@ public class Bot : Character, IHit, ISelectable
 
     public void OnHit(Transform attacker)
     {
-        if (isDead)
+        if (attacker.GetComponent<Character>() is Player)
         {
-            return;
+            GameManager.Ins.TriggerVibrate();
+            UserData playerData = DataManager.Ins.playerData;
+            DataManager.Ins.playerData.SetIntData(
+                UserData.Key_Gold,
+                ref playerData.gold,
+                playerData.gold + Random.Range(50, 200)
+            );
         }
 
         ChangeState(new IStateBotDie());
@@ -142,7 +147,7 @@ public class Bot : Character, IHit, ISelectable
         navMeshAgent.isStopped = true;
         isDead = true;
 
-        // wayPoint.OnDespawn();
+        wayPoint.OnDespawn();
 
         currentStage.characterColorAvaible.Add(currentColor);
         currentStage.OnCharacterDie(this);
@@ -182,33 +187,56 @@ public class Bot : Character, IHit, ISelectable
 
     private void FieldOfViewCheck()
     {
-        Collider[] targetInVision = Physics.OverlapSphere(TF.position, radius, targetMask);
-
-        if (targetInVision.Length > 0)
+        for (int i = 0; i < currentStage.characterInStage.Count; i++)
         {
-            for (int i = 0; i < targetInVision.Length; i++)
-            {
-                Character targetCharacter = ColliderCache.GetCharacter(targetInVision[i]);
+            Character currentCharacter = currentStage.characterInStage[i];
 
-                if (
-                    targetCharacter.enabled == false
-                    || targetCharacter.isDead
-                    || targetCharacter == this
-                    || !CheckCanSeeTarget(targetCharacter)
-                )
+            if (currentCharacter != this)
+            {
+                if (Vector3.Distance(TF.position, currentCharacter.TF.position) <= radius)
                 {
-                    if (targetCanSee.Contains(targetCharacter))
+                    if (
+                        currentCharacter.enabled == false
+                        || currentCharacter.isDead
+                        || currentCharacter == this
+                        || !CheckCanSeeTarget(currentCharacter)
+                    )
                     {
-                        targetCanSee.Remove(targetCharacter);
+                        if (targetCanSee.Contains(currentCharacter))
+                        {
+                            targetCanSee.Remove(currentCharacter);
+                        }
+                    }
+                    else
+                    {
+                        if (!targetCanSee.Contains(currentCharacter))
+                        {
+                            targetCanSee.Add(currentCharacter);
+                        }
                     }
                 }
-                else
-                {
-                    if (!targetCanSee.Contains(targetCharacter))
-                    {
-                        targetCanSee.Add(targetCharacter);
-                    }
-                }
+            }
+        }
+
+        for (int i = 0; i < targetCanSee.Count; i++)
+        {
+            Character currentTarGetCanSee = targetCanSee[i];
+            if (currentTarGetCanSee.isDead || currentTarGetCanSee.enabled == false)
+            {
+                targetCanSee.Remove(currentTarGetCanSee);
+            }
+        }
+
+        if (attackTarget != null)
+        {
+            if (
+                attackTarget.isDead
+                || attackTarget.enabled == false
+                || Vector3.Distance(TF.position, attackTarget.TF.position)
+                    > attackRange.GetAttackRadius()
+            )
+            {
+                attackTarget = null;
             }
         }
     }

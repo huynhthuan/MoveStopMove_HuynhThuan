@@ -61,6 +61,31 @@ public class Character : GameUnit
         joystick = GameManager.Ins.joystick;
         targetIndicator.OnInit();
         attackRange.OnInit();
+        OnReset();
+    }
+
+    public virtual void OnReset()
+    {
+        rb.detectCollisions = true;
+        characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
+        cameraFollowScaleRatio = 2.5f;
+
+        attackRange.transform.localScale = new Vector3(3f, 3f, 3f);
+        anim.transform.localScale = new Vector3(1f, 1f, 1f);
+        anim.transform.localPosition = new Vector3(0f, -1f, 0f);
+
+        attackRange.transform.localPosition = new Vector3(0f, -0.9f, 0f);
+        capsuleCollider.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        level = 0;
+        exp = 0;
+
+        characterEquipment.ShowWeapon();
+
+        isCanAtk = true;
+        isDead = false;
+        currentTarget = null;
+        attackRange.targetsInRange.Clear();
     }
 
     public void ChangeAnim(string animName)

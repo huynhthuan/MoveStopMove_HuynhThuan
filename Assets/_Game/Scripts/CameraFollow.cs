@@ -85,7 +85,10 @@ public class CameraFollow : Singleton<CameraFollow>
         {
             foreach (KeyValuePair<MeshRenderer, Material[]> mesh in oldMaterials)
             {
-                mesh.Key.GetComponent<MeshRenderer>().materials = mesh.Value;
+                if (mesh.Key != null)
+                {
+                    mesh.Key.GetComponent<MeshRenderer>().materials = mesh.Value;
+                }
             }
 
             oldMaterials.Clear();
