@@ -25,7 +25,6 @@ public class InGame : UICanvas
         base.AnimationOpen();
         aliveBtn.Show();
         settingButton.Show();
-
     }
 
     public override void AnimationClose()

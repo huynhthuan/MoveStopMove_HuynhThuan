@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 public class Player : Character, IHit
 {
     private DataManager dataManager;
+    public bool isWin = false;
 
     public override void OnInit()
     {
@@ -20,6 +21,7 @@ public class Player : Character, IHit
 
     public void OnReset()
     {
+        isWin = false;
         characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
         cameraFollowScaleRatio = 2.5f;
 
@@ -77,33 +79,40 @@ public class Player : Character, IHit
         }
 
         // Check character stop
-        if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
+        if (isWin)
         {
-            // Check can attack
-            if (currentTarget != null)
+            ChangeAnim(ConstString.ANIM_DANCE);
+        }
+        else
+        {
+            if (Vector3.Distance(Vector3.zero, rb.velocity) <= 0)
             {
-                if (!currentTarget.isDead && isCanAtk)
+                // Check can attack
+                if (currentTarget != null)
                 {
-                    // Disable can attack
-                    isCanAtk = false;
-                    RotationToTarget();
-                    Attack();
+                    if (!currentTarget.isDead && isCanAtk)
+                    {
+                        // Disable can attack
+                        isCanAtk = false;
+                        RotationToTarget();
+                        Attack();
+                    }
+                }
+                else
+                {
+                    if (isAttackAnimEnd || isCanAtk)
+                    {
+                        // Not has tartget, change idle anim
+                        ChangeAnim(ConstString.ANIM_IDLE);
+                    }
                 }
             }
             else
             {
-                if (isAttackAnimEnd || isCanAtk)
-                {
-                    // Not has tartget, change idle anim
-                    ChangeAnim(ConstString.ANIM_IDLE);
-                }
+                isCanAtk = true;
+                characterEquipment.ShowWeapon();
+                ChangeAnim(ConstString.ANIM_RUN);
             }
-        }
-        else
-        {
-            isCanAtk = true;
-            characterEquipment.ShowWeapon();
-            ChangeAnim(ConstString.ANIM_RUN);
         }
     }
 
@@ -116,20 +125,35 @@ public class Player : Character, IHit
 
         UIManager.Ins.OpenUI<Lose>();
 
-        // Debug.Log("Character on hit " + gameObject.name);
-        // Debug.Log("Attacker make hit " + attacker.name);
-        // isDead = true;
-        // int characterIndex = currentStage.characterInStage.IndexOf(this);
-        // currentStage.OnCharacterDie(characterIndex);
-        // rb.detectCollisions = false;
-        // attacker.GetComponent<Character>().LevelUp();
-        // ChangeAnim(ConstString.ANIM_DEAD);
-        // waitAfterDeathCoroutine = StartCoroutine(WaitAnimEnd(anim.GetCurrentAnimatorStateInfo(0).length, () =>
-        //       {
-        //           StopCoroutine(waitAfterDeathCoroutine);
-        //           Debug.Log("Anim dead end");
-        //           OnDespawn();
-        //       }));
+        ParticlePool.Play(
+            LevelManager.Ins.explodeParticle,
+            new Vector3(TF.position.x, TF.localScale.y / 2, TF.position.z),
+            Quaternion.identity
+        );
+
+        isDead = true;
+        currentStage.OnCharacterDie(this);
+        rb.detectCollisions = false;
+        attacker.GetComponent<Character>().LevelUp();
+
+        ChangeAnim(ConstString.ANIM_DEAD);
+
+        waitAfterDeathCoroutine = StartCoroutine(
+            WaitAnimEnd(
+                anim.GetCurrentAnimatorStateInfo(0).length,
+                () =>
+                {
+                    ParticlePool.Play(
+                        LevelManager.Ins.deathParticle,
+                        new Vector3(TF.position.x, 2f, TF.position.z),
+                        Quaternion.Euler(0f, 180f, 0f)
+                    );
+                    StopCoroutine(waitAfterDeathCoroutine);
+                    Debug.Log("Anim dead end");
+                    OnDespawn();
+                }
+            )
+        );
     }
 
     public override void LevelUp()

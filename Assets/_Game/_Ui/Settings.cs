@@ -27,7 +27,6 @@ public class Settings : UICanvas
 
     public override void AnimationOpen()
     {
-
         base.AnimationOpen();
     }
 

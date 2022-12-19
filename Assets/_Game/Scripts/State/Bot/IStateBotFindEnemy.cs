@@ -35,29 +35,9 @@ public class IStateBotFindEnemy : IStateBot
 
     private void GoToNextTarget(Bot bot)
     {
-        NavMeshHit hit;
-
         if (bot.targetCanSee.Count == 0)
         {
-            // Debug.Log("Have bot and move next point nearest bot");
-            bool isContinueSearch = true;
-            while (isContinueSearch)
-            {
-                if (
-                    NavMesh.SamplePosition(
-                        bot.TF.position + Random.insideUnitSphere * 20F,
-                        out hit,
-                        4.0f,
-                        NavMesh.AllAreas
-                    )
-                )
-                {
-                    target = new Vector3(hit.position.x, 0f, hit.position.z);
-                    bot.moveTarget = target;
-                    isContinueSearch = false;
-                    break;
-                }
-            }
+            target = RandomPointInView(bot);
         }
         else
         {
@@ -66,36 +46,46 @@ public class IStateBotFindEnemy : IStateBot
                 // Get random target in view
                 bot.attackTarget = null;
                 bot.attackTarget = bot.GetRandomTargetInVision();
-                // Debug.Log(
-                //     $"{bot.name} Get next target in target in view - point: {bot.attackTarget.name}"
-                // );
-                bot.navMeshAgent.SetDestination(bot.attackTarget.TF.position);
+                target = new Vector3(
+                    bot.attackTarget.TF.position.x,
+                    0f,
+                    bot.attackTarget.TF.position.z
+                );
             }
             else
             {
-                bool isContinueSearch = true;
-                while (isContinueSearch)
-                {
-                    if (
-                        NavMesh.SamplePosition(
-                            bot.TF.position + Random.insideUnitSphere * 20F,
-                            out hit,
-                            4.0f,
-                            NavMesh.AllAreas
-                        )
-                    )
-                    {
-                        target = new Vector3(hit.position.x, 0f, hit.position.z);
-                        bot.moveTarget = target;
-                        isContinueSearch = false;
-                        break;
-                    }
-                }
+                target = RandomPointInView(bot);
             }
         }
 
-        // Debug.Log("Have bot and move next point nearest bot");
         bot.navMeshAgent.SetDestination(target);
         bot.isCanAtk = true;
+    }
+
+    public Vector3 RandomPointInView(Bot bot)
+    {
+        NavMeshHit hit;
+        Vector3 randomTarget = Vector3.zero;
+
+        bool isContinueSearch = true;
+
+        while (isContinueSearch)
+        {
+            if (
+                NavMesh.SamplePosition(
+                    bot.TF.position + Random.insideUnitSphere * 20F,
+                    out hit,
+                    4.0f,
+                    NavMesh.AllAreas
+                )
+            )
+            {
+                randomTarget = new Vector3(hit.position.x, 0f, hit.position.z);
+                isContinueSearch = false;
+                break;
+            }
+        }
+
+        return randomTarget;
     }
 }

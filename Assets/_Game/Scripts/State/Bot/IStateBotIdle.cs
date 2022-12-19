@@ -16,21 +16,24 @@ public class IStateBotIdle : IStateBot
 
     public void OnExecute(Bot bot)
     {
-        if (bot.navMeshAgent.enabled)
+        if (LevelManager.Ins.currentStage.botCanPlay)
         {
-            if (bot.currentTarget != null)
+            if (bot.navMeshAgent.enabled)
             {
-                Debug.Log($"Idle and has target. change to attack");
-                bot.ChangeState(new IStateBotAttack());
-            }
+                if (bot.currentTarget != null)
+                {
+                    Debug.Log($"Idle and has target. change to attack");
+                    bot.ChangeState(new IStateBotAttack());
+                }
 
-            bot.ChangeAnim(ConstString.ANIM_IDLE);
+                bot.ChangeAnim(ConstString.ANIM_IDLE);
 
-            timer += Time.deltaTime;
+                timer += Time.deltaTime;
 
-            if (timer >= randomTime)
-            {
-                bot.ChangeState(new IStateBotFindEnemy());
+                if (timer >= randomTime)
+                {
+                    bot.ChangeState(new IStateBotFindEnemy());
+                }
             }
         }
     }

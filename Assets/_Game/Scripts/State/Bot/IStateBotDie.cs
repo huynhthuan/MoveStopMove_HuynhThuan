@@ -9,10 +9,7 @@ public class IStateBotDie : IStateBot
         bot.navMeshAgent.isStopped = true;
     }
 
-    public void OnExecute(Bot bot)
-    {
-        bot.ChangeAnim(ConstString.ANIM_DEAD);
-    }
+    public void OnExecute(Bot bot) { }
 
     public void OnExit(Bot bot) { }
 }

@@ -76,6 +76,7 @@ public class Skin : UICanvas
     public void CloseButton()
     {
         UIManager.Ins.OpenUI<Lobby>();
+        Close();
         for (int i = 0; i < currentEquipments.Count; i++)
         {
             if (currentEquipments[i] != null)
@@ -85,7 +86,6 @@ public class Skin : UICanvas
             }
         }
         player.EquipAllItems();
-        Close();
     }
 
     private void LoadTabDataItem<T>(EquipmentSlot equipmentSlot) where T : Item

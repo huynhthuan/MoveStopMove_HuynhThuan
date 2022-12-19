@@ -17,7 +17,7 @@ public class Bot : Character, IHit, ISelectable
     [SerializeField]
     internal SkinnedMeshRenderer bodyRenderer;
     internal NavMeshAgent navMeshAgent;
-    private float rangeSearchPoint = 10.0f;
+    // private float rangeSearchPoint = 10.0f;
     private IStateBot currentState;
     private List<Transform> enemyInVision = new List<Transform>();
     public float radius;
@@ -42,6 +42,7 @@ public class Bot : Character, IHit, ISelectable
     public override void OnInit()
     {
         base.OnInit();
+        OnReset();
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.enabled = true;
 
@@ -56,6 +57,22 @@ public class Bot : Character, IHit, ISelectable
         pantsRandom.Use(this);
 
         ChangeState(new IStateBotIdle());
+    }
+
+    public void OnReset()
+    {
+        characterScaleRatio = new Vector3(0.5f, 0.5f, 0.5f);
+        cameraFollowScaleRatio = 2.5f;
+
+        attackRange.transform.localScale = new Vector3(3f, 3f, 3f);
+        anim.transform.localScale = new Vector3(1f, 1f, 1f);
+        anim.transform.localPosition = new Vector3(0f, -1f, 0f);
+
+        attackRange.transform.localPosition = new Vector3(0f, -0.9f, 0f);
+        capsuleCollider.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        level = 0;
+        exp = 0;
     }
 
     public void ChangeColorBody(Color newColor)
@@ -112,6 +129,8 @@ public class Bot : Character, IHit, ISelectable
             return;
         }
 
+        ChangeState(new IStateBotDie());
+
         ParticlePool.Play(
             LevelManager.Ins.explodeParticle,
             new Vector3(TF.position.x, TF.localScale.y / 2, TF.position.z),
@@ -122,10 +141,11 @@ public class Bot : Character, IHit, ISelectable
 
         navMeshAgent.isStopped = true;
         isDead = true;
-        int characterIndex = currentStage.characterInStage.IndexOf(this);
+
         // wayPoint.OnDespawn();
+
         currentStage.characterColorAvaible.Add(currentColor);
-        currentStage.OnCharacterDie(characterIndex);
+        currentStage.OnCharacterDie(this);
         rb.detectCollisions = false;
 
         attacker.GetComponent<Character>().ExpUp();
@@ -140,53 +160,21 @@ public class Bot : Character, IHit, ISelectable
             CameraFollow.Ins.LevelUp();
         }
 
-        ChangeState(new IStateBotDie());
-
+        ChangeAnim(ConstString.ANIM_DEAD);
+        Debug.Log($"Run die anim");
         waitAfterDeathCoroutine = StartCoroutine(
             WaitAnimEnd(
-                anim.GetCurrentAnimatorStateInfo(0).length - 3f,
+                anim.GetCurrentAnimatorStateInfo(0).length,
                 () =>
                 {
                     ParticlePool.Play(
                         LevelManager.Ins.deathParticle,
-                        new Vector3(TF.position.x, 1f, TF.position.z),
-                        Quaternion.identity
+                        new Vector3(TF.position.x, 2f, TF.position.z),
+                        Quaternion.Euler(0f, 180f, 0f)
                     );
                     StopCoroutine(waitAfterDeathCoroutine);
                     Debug.Log("Anim dead end");
                     OnDespawn();
-                }
-            )
-        );
-    }
-
-    public void StartCoroutineAttackBot()
-    {
-        RotationToTarget();
-
-        isAttackAnimEnd = false;
-
-        Vector3 direction = GetDirToFireWeapon();
-        characterEquipment.HiddenWeapon();
-
-        SpawnWeaponBullet(direction);
-
-        ChangeAnim(ConstString.ANIM_ATTACK);
-
-        AnimatorStateInfo animState = anim.GetCurrentAnimatorStateInfo(0);
-
-        isCoolDownAttack = true;
-
-        waitAfterAtkCoroutine = StartCoroutine(
-            WaitAnimEnd(
-                animState.length,
-                () =>
-                {
-                    delayAttack = 2f;
-                    Debug.Log($"{gameObject.name} Show weapon");
-                    StopCoroutine(waitAfterAtkCoroutine);
-                    isAttackAnimEnd = true;
-                    characterEquipment.ShowWeapon();
                 }
             )
         );
@@ -203,7 +191,8 @@ public class Bot : Character, IHit, ISelectable
                 Character targetCharacter = ColliderCache.GetCharacter(targetInVision[i]);
 
                 if (
-                    targetCharacter.isDead
+                    targetCharacter.enabled == false
+                    || targetCharacter.isDead
                     || targetCharacter == this
                     || !CheckCanSeeTarget(targetCharacter)
                 )

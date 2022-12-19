@@ -27,7 +27,7 @@ public class WayPointIndicator : GameUnit
     internal Bot targetFowllow;
     internal Color currentColor;
     internal bool isStartFollow = false;
-    private float padding = 60f;
+    // private float padding = 60f;
 
     public override void OnDespawn()
     {

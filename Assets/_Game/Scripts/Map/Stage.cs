@@ -32,6 +32,7 @@ public class Stage : MonoBehaviour
     private Vector3 startPoint;
     private NavMeshHit hit;
     internal List<Color> characterColorAvaible = new List<Color>();
+    public bool botCanPlay = false;
 
     public void OnInit()
     {
@@ -77,7 +78,6 @@ public class Stage : MonoBehaviour
                 Quaternion.identity
             );
 
-
             // Init bot
             botOjb.name = $"Bot {i}";
             botOjb.currentStage = this;
@@ -102,7 +102,6 @@ public class Stage : MonoBehaviour
                 Quaternion.identity
             );
 
-
             // Init waypoint indicator
             // waypointObj.targetFowllow = botOjb;
             // waypointObj.currentColor = botOjb.currentColor;
@@ -117,9 +116,9 @@ public class Stage : MonoBehaviour
         return (playerAlive > 2 && characterInStage.Count - 1 < maxBot);
     }
 
-    public void OnCharacterDie(int characterIndex)
+    public void OnCharacterDie(Character characterDie)
     {
-        characterInStage.RemoveAt(characterIndex);
+        characterInStage.Remove(characterDie);
         playerAlive--;
 
         if (playerAlive == 1)
@@ -133,9 +132,13 @@ public class Stage : MonoBehaviour
                 UIManager.Ins.OpenUI<Lose>();
             }
         }
-        if (IsCanSpawnBot() && playerAlive - 1 > maxBot)
+
+        if (characterDie is Bot)
         {
-            SpawnBot(1);
+            if (IsCanSpawnBot() && playerAlive - 1 > maxBot)
+            {
+                SpawnBot(1);
+            }
         }
     }
 

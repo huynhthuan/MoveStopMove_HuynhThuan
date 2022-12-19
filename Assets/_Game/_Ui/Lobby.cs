@@ -46,7 +46,8 @@ public class Lobby : UICanvas
     {
         UIManager.Ins.OpenUI<InGame>();
         Close();
-        UIManager.Ins.isEnableWaypoint = true;
+        LevelManager.Ins.currentStage.botCanPlay = true;
+        // UIManager.Ins.isEnableWaypoint = true;
     }
 
     public void WeaponButton()

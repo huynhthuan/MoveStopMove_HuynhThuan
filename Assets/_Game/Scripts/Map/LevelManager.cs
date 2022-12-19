@@ -65,6 +65,7 @@ public class LevelManager : Singleton<LevelManager>
             Quaternion.identity,
             TF
         );
+        Debug.Log($"Load stage level {currentPlayerStage}");
         // Bake nav mesh
         Debug.Log("Build navmesh stage...");
         navMeshSurface.BuildNavMesh();
