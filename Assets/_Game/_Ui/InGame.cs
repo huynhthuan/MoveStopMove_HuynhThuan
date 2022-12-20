@@ -14,6 +14,12 @@ public class InGame : UICanvas
     [SerializeField]
     private UiButton settingButton;
 
+    public override void Setup()
+    {
+        base.Setup();
+        UIManager.Ins.isEnableWaypoint = true;
+    }
+
     public override void Open()
     {
         base.Open();

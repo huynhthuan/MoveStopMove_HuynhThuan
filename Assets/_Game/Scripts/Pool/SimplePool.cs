@@ -371,5 +371,6 @@ public enum PoolType
     Candy_3_Bullet,
     Gun_Uzi_Bullet,
     Thunder_Z_Bullet,
-    Candy_1_Bullet
+    Candy_1_Bullet,
+    Vfx_waypoint
 }

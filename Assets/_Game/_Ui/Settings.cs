@@ -5,24 +5,13 @@ using UnityEngine;
 public class Settings : UICanvas
 {
     [SerializeField]
-    private Transform backButton;
-
-    [SerializeField]
-    private Transform homeButton;
-
-    [SerializeField]
-    private Transform continueButton;
-
-    [SerializeField]
-    private Transform listSetting;
-
-    [SerializeField]
     private UiSoundButton uiSoundButton;
 
     public override void Setup()
     {
         uiSoundButton.time = 0;
         base.Setup();
+        UIManager.Ins.isEnableWaypoint = false;
     }
 
     public override void AnimationOpen()

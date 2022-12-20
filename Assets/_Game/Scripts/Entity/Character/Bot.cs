@@ -123,6 +123,8 @@ public class Bot : Character, IHit, ISelectable
 
     public void OnHit(Transform attacker)
     {
+        wayPoint.OnDespawn();
+
         if (attacker.GetComponent<Character>() is Player)
         {
             GameManager.Ins.TriggerVibrate();
@@ -146,8 +148,6 @@ public class Bot : Character, IHit, ISelectable
 
         navMeshAgent.isStopped = true;
         isDead = true;
-
-        wayPoint.OnDespawn();
 
         currentStage.characterColorAvaible.Add(currentColor);
         currentStage.OnCharacterDie(this);

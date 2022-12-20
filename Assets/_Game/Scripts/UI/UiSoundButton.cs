@@ -13,7 +13,11 @@ public class UiSoundButton : UiSwitchButton
     public override void OnClick()
     {
         base.OnClick();
-        DataManager.Ins.playerData.SetBoolData(UserData.Key_IsEnableSound, ref DataManager.Ins.playerData.isEnableAudio, !DataManager.Ins.playerData.isEnableAudio);
+        DataManager.Ins.playerData.SetBoolData(
+            UserData.Key_IsEnableSound,
+            ref DataManager.Ins.playerData.isEnableAudio,
+            !DataManager.Ins.playerData.isEnableAudio
+        );
     }
 
     public override void BeforeUpdate()

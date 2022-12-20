@@ -24,9 +24,12 @@ public class WayPointIndicator : GameUnit
     [SerializeField]
     private RectTransform rectTransform;
     internal Camera cameraMain;
+
+    [SerializeField]
     internal Bot targetFowllow;
     internal Color currentColor;
     internal bool isStartFollow = false;
+
     // private float padding = 60f;
 
     public override void OnDespawn()
@@ -48,32 +51,34 @@ public class WayPointIndicator : GameUnit
         imageArrow.color = new Color(newColor.r, newColor.g, newColor.b, 1f);
     }
 
-    public Vector3 ConvertWPtoCP(Vector3 point)
+    public Vector3 ConvertWPtoCP()
     {
-        Vector3 viewPos = cameraMain.WorldToViewportPoint(point);
+        Vector3 viewPos = cameraMain.WorldToViewportPoint(targetFowllow.TF.position);
 
-        viewPos.x = Mathf.Clamp(viewPos.x, 0.06f, 0.9f);
-        viewPos.y = Mathf.Clamp(viewPos.y, 0.06f, 0.9f);
+        viewPos.x = Mathf.Clamp(viewPos.x, 0.05f, 0.95f);
+        viewPos.y = Mathf.Clamp(viewPos.y, 0.05f, 0.95f);
 
-        if ((viewPos.x > 0.06f && viewPos.x < 0.9f) && (viewPos.y > 0.06f && viewPos.y < 0.9f))
+        if (viewPos.z <= 0f)
         {
-            waypoint.SetActive(false);
-        }
-        else
-        {
-            waypoint.SetActive(true);
+            viewPos = new Vector3(viewPos.x * -1f, viewPos.y * -1f, viewPos.z);
         }
 
         Vector3 screenPos = cameraMain.ViewportToScreenPoint(viewPos);
 
-        if (screenPos.z < 0f)
+        // Debug.Log($"{screenPos} | {Screen.width} - {Screen.height}");
+
+        if (screenPos.z <= 0f)
         {
-            screenPos *= -1f;
+            Vector3 canvasPos = screenPos + new Vector3(Screen.width / 2, Screen.height / 2, 0);
+
+            return canvasPos;
         }
+        else
+        {
+            Vector3 canvasPos = screenPos - new Vector3(Screen.width / 2, Screen.height / 2, 0);
 
-        Vector3 canvasPos = screenPos - new Vector3(Screen.width / 2, Screen.height / 2, 0);
-
-        return canvasPos;
+            return canvasPos;
+        }
     }
 
     private void FixedUpdate()
@@ -81,10 +86,23 @@ public class WayPointIndicator : GameUnit
         if (isStartFollow)
         {
             text.text = (targetFowllow.level + 1).ToString();
-            rectTransform.anchoredPosition = ConvertWPtoCP(targetFowllow.TF.position);
+            rectTransform.anchoredPosition = ConvertWPtoCP();
             RotationToTarget();
 
             // Debug.Log($"check {targetFowllow.name} in view {TargetInView()}");
+
+            Vector3 viewPos = cameraMain.WorldToViewportPoint(targetFowllow.TF.position);
+
+            if (
+                (viewPos.x > 0.05f && viewPos.x < 0.95f) && (viewPos.y > 0.05f && viewPos.y < 0.95f)
+            )
+            {
+                waypoint.SetActive(false);
+            }
+            else
+            {
+                waypoint.SetActive(true);
+            }
         }
     }
 

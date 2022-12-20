@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 132356708792453059}
   - component: {fileID: 132356708792453058}
   m_Layer: 5
-  m_Name: Waypoint Indicator
+  m_Name: Vfx_waypoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,13 +256,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5febd1f340877b249a84c43b8cc01bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolType: 0
+  poolType: 15
   text: {fileID: 132356708106697472}
   imageInfo: {fileID: 132356710055649347}
   imageArrow: {fileID: 132356709626519607}
   arrowObj: {fileID: 132356708325800963}
   waypoint: {fileID: 3597551814302121633}
   rectTransform: {fileID: 132356708792453059}
+  targetFowllow: {fileID: 0}
 --- !u!1 &132356709626519601
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 40}
+  m_AnchoredPosition: {x: 0, y: -13.9}
+  m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &132356709626519606
 CanvasRenderer:
@@ -373,7 +374,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 60}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &132356710055649346
 CanvasRenderer:
